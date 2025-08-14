@@ -1,0 +1,38 @@
+=== Lista de Exercicios - Recursividade ===
+
+QUESTAO 01:
+Enunciado: Faca uma funcao recursiva que permita inverter um numero inteiro N.
+Exemplo de entrada: 123
+Exemplo de saida: Numero invertido: 321
+
+Logica utilizada:
+A logica que usei para isso foi a de dividir o numero por 10 a cada chamada recursiva, assim eu consigo pegar o ultimo digito do numero e construir o numero invertido.
+
+Pensei o problema da seguinte forma:
+- Para inverter um numero, preciso pegar os digitos da direita para a esquerda
+- O ultimo digito e obtido com 'n % 10'
+- O resto do numero e obtido com 'n / 10'
+- O caso base e quando 'n == 0', parando a recursao
+- A cada chamada recursiva, adiciono o digito atual no buffer de resultado
+
+Exemplo para inverter 123:
+1. 123 % 10 = 3 -> adiciona '3' ao buffer
+2. 123 / 10 = 12 -> chama recursivamente com 12
+3. 12 % 10 = 2 -> adiciona '2' ao buffer
+4. 12 / 10 = 1 -> chama recursivamente com 1
+5. 1 % 10 = 1 -> adiciona '1' ao buffer
+6. 1 / 10 = 0 -> para a recursao
+
+Resultado final: "321"
+
+---
+
+QUESTAO 02:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---

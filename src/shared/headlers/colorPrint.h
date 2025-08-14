@@ -1,0 +1,7 @@
+#ifndef COLORPRINT_H
+#define COLORPRINT_H
+
+void printMenuItem(int numero, const char* descricao);
+void printMenuItemFormatted(int numero, const char* formato, ...);
+
+#endif

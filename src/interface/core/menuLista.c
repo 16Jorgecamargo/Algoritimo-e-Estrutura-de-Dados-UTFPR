@@ -32,17 +32,16 @@ const char* obterNomeLista(int tipoLista) {
     }
 }
 
-// Função para contar quantas questões existem em uma lista
 int contarQuestoes(int tipoLista) {
     const char *caminhoLista = obterCaminhoLista(tipoLista);
     if (caminhoLista == NULL) return 0;
     
     int contador = 0;
-    for (int i = 1; i <= 15; i++) { // Verificar até 15 questões possíveis
+    for (int i = 1; i <= 15; i++) { 
         char caminhoArquivo[300];
         sprintf(caminhoArquivo, "%s/core/%d.c", caminhoLista, i);
         
-        if (ACCESS(caminhoArquivo, 0) == 0) { // Se arquivo existe
+        if (ACCESS(caminhoArquivo, 0) == 0) {
             contador = i;
         }
     }
@@ -96,22 +95,20 @@ int mostrarMenuLista(int tipoLista) {
         resetColor();
         int resultado = processarOpcaoLista(tipoLista, opcao, numQuestoes);
         
-        // Se resultado == 0, o usuário quer voltar ao menu principal
         if (resultado == 0) {
             return 0;
         }
         
     } while (opcao != 0);
     
-    return 1;  // Saída normal
+    return 1;  
 }
 
 int processarOpcaoLista(int tipoLista, int opcao, int numQuestoes) {
     if (opcao == 0) {
-        return 1;  // Saída normal do menu lista
+        return 1; 
     } else if (opcao >= 1 && opcao <= numQuestoes) {
         int resultado = mostrarMenuQuestao(tipoLista, opcao);
-        // Se resultado == 0, o usuário quer voltar ao menu principal
         return resultado;
     } else {
         setColor(RED);
@@ -124,6 +121,6 @@ int processarOpcaoLista(int tipoLista, int opcao, int numQuestoes) {
         printf("Pressione Enter para continuar...");
         while (getchar() != '\n');
         getchar();
-        return 1;  // Continuar no menu lista
+        return 1; 
     }
 }

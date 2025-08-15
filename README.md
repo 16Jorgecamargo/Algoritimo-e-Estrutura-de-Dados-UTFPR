@@ -23,14 +23,17 @@ Este sistema foi desenvolvido seguindo os principios de **arquitetura limpa** e 
 
 ### Compilacao e Execucao
 
+
+#### Compilar o projeto
 ```bash
-# Compilar o projeto
-./build.bat
-
-# Compilar e executar imediatamente
-./build.bat run
-
-# Executar manualmente
+build.bat
+```
+#### Compilar e executar imediatamente
+```bash
+build.bat run
+```
+#### Executar manualmente
+```bash
 bin/APP.exe
 ```
 

@@ -58,7 +58,6 @@ void mostrarInstrucoesImplementacao(int tipoLista, int numeroQuestao, const char
     resetColor();
 }
 
-// Função auxiliar para execução padrão de questões não implementadas
 void executarQuestaoNaoImplementada(int tipoLista, int numeroQuestao, const char* caminhoLista) {
     mostrarInstrucoesImplementacao(tipoLista, numeroQuestao, caminhoLista);
 }
@@ -76,7 +75,6 @@ int mostrarMenuQuestao(int tipoLista, int numeroQuestao)
         printf("=== Questao %02d ===\n\n", numeroQuestao);
         resetColor();
 
-        // Tentar mostrar o enunciado da questao do arquivo lista.txt
         const char *caminhoLista = obterCaminhoLista(tipoLista);
         if (caminhoLista != NULL)
         {
@@ -101,7 +99,6 @@ int mostrarMenuQuestao(int tipoLista, int numeroQuestao)
                             if (questaoAtual == numeroQuestao)
                             {
                                 encontrouQuestao = 1;
-                                // Ler e mostrar as proximas linhas ate encontrar "Logica utilizada" ou "---"
                                 while (fgets(linha, sizeof(linha), arquivo))
                                 {
                                     if (strncmp(linha, "Logica utilizada:", 17) == 0 || strncmp(linha, "---", 3) == 0)
@@ -168,7 +165,6 @@ int mostrarMenuQuestao(int tipoLista, int numeroQuestao)
 
     } while (opcao != 0 && opcao != 3);
     
-    // Retorna 0 se deve voltar ao menu principal, 1 se deve voltar ao menu da lista
     return (opcao == 0) ? 0 : 1;
 }
 
@@ -300,6 +296,46 @@ void mostrarLogicaQuestao(int tipoLista, int numeroQuestao)
     getchar();
 }
 
+typedef void (*FuncaoQuestao)(void);
+
+static int quantidadeQuestoes[] = {0, 12, 9, 9, 8, 9, 5, 5, 12, 9, 17};
+
+static FuncaoQuestao* todasFuncoes[11] = {NULL};
+static int inicializado = 0;
+
+void inicializarFuncoes() {
+    if (inicializado) return;
+    
+    todasFuncoes[1] = malloc(12 * sizeof(FuncaoQuestao)); 
+    todasFuncoes[1][0] = executarQuestaoRecursividade1;
+    for (int i = 1; i < 12; i++) todasFuncoes[1][i] = NULL;
+    
+    todasFuncoes[2] = malloc(9 * sizeof(FuncaoQuestao));  
+    todasFuncoes[2][0] = executarQuestaoPonteiros1;
+    for (int i = 1; i < 9; i++) todasFuncoes[2][i] = NULL;
+    
+    for (int lista = 3; lista <= 10; lista++) {
+        todasFuncoes[lista] = NULL;
+    }
+    
+    inicializado = 1;
+}
+
+void executarQuestaoEspecifica(int tipoLista, int numeroQuestao, const char* caminhoLista)
+{
+    inicializarFuncoes();
+    
+    if (tipoLista >= 1 && tipoLista <= 10 && 
+        todasFuncoes[tipoLista] != NULL &&
+        numeroQuestao >= 1 && numeroQuestao <= quantidadeQuestoes[tipoLista] &&
+        todasFuncoes[tipoLista][numeroQuestao-1] != NULL) {
+        
+        todasFuncoes[tipoLista][numeroQuestao-1]();
+    } else {
+        executarQuestaoNaoImplementada(tipoLista, numeroQuestao, caminhoLista);
+    }
+}
+
 void executarQuestao(int tipoLista, int numeroQuestao)
 {
     limparTela();
@@ -322,7 +358,6 @@ void executarQuestao(int tipoLista, int numeroQuestao)
         return;
     }
 
-    // Verifica se os arquivos .h e .c existem
     char caminhoHeader[300];
     char caminhoSource[300];
     sprintf(caminhoHeader, "%s/headlers/%d.h", caminhoLista, numeroQuestao);
@@ -353,62 +388,17 @@ void executarQuestao(int tipoLista, int numeroQuestao)
     {
         fclose(testeHeader);
         fclose(testeSource);
-        // Para cada lista/questao, chama a funcao executar correspondente
 
-        // Executar a funcao especifica da questao
         setColor(GREEN);
         printf("Executando questao implementada...\n\n");
         resetColor();
 
-        switch (tipoLista)
-        {
-        case 1: // Recursividade
-            switch (numeroQuestao)
-            {
-            case 1:
-                executarQuestaoRecursividade1();
-                break;
-            case 2:
-                executarQuestaoRecursividade2();
-                break;
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            default:
-                executarQuestaoNaoImplementada(tipoLista, numeroQuestao, caminhoLista);
-                break;
-            }
-            break;
-
-        case 2: // Ponteiros
-            switch (numeroQuestao)
-            {
-            case 1:
-                executarQuestaoPonteiros1();
-                break;
-            default:
-                executarQuestaoNaoImplementada(tipoLista, numeroQuestao, caminhoLista);
-                break;
-            }
-            break;
-
-        case 3:  // Pilha Dinamica
-        case 4:  // Filas
-        case 5:  // Listas
-        case 6:  // Listas Duplamente Encadeadas
-        case 7:  // Arvores I
-        case 8:  // Arvores Binarias
-        case 9:  // Arvores AVL
-        case 10: // Grafos
-        default:
-            // Para todas as outras listas, usar função padrão
+        if (tipoLista >= 1 && tipoLista <= 10 && 
+            numeroQuestao >= 1 && numeroQuestao <= quantidadeQuestoes[tipoLista]) {
+            
+            executarQuestaoEspecifica(tipoLista, numeroQuestao, caminhoLista);
+        } else {
             executarQuestaoNaoImplementada(tipoLista, numeroQuestao, caminhoLista);
-            break;
         }
     }
 

@@ -69,8 +69,6 @@ void processarOpcaoPrincipal(int opcao) {
         case 9:
         case 10:
             mostrarMenuLista(opcao);
-            // O retorno de mostrarMenuLista não precisa ser tratado aqui
-            // porque sempre retorna ao menu principal
             break;
         default:
             setColor(RED);

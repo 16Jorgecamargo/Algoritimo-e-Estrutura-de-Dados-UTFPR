@@ -6,11 +6,15 @@
 
 #include "headlers/1.h"
 #include "headlers/2.h"
-
-// Adicione aqui os includes das próximas questões conforme implementar:
-// #include "headlers/3.h"
-// #include "headlers/4.h"
-// #include "headlers/5.h"
-// ... até 10.h ou quantas questões houver
+#include "headlers/3.h"
+#include "headlers/4.h"
+#include "headlers/5.h"
+#include "headlers/6.h"
+#include "headlers/7.h"
+#include "headlers/8.h"
+#include "headlers/9.h"
+#include "headlers/10.h"
+#include "headlers/11.h"
+#include "headlers/12.h"
 
 #endif

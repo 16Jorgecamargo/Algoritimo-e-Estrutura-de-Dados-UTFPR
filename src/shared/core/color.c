@@ -8,7 +8,6 @@
 void setColor(Color color) {
     #ifdef _WIN32
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        // Mapeamento correto das cores para Windows Console API
         WORD windowsColor;
         switch(color) {
             case BLACK:   windowsColor = 0; break;
@@ -42,7 +41,6 @@ void setBackgroundColor(Color color) {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(hConsole, &csbi);
         
-        // Mapeamento correto das cores para o fundo no Windows Console API
         WORD windowsBackgroundColor;
         switch(color) {
             case BLACK:   windowsBackgroundColor = 0; break;

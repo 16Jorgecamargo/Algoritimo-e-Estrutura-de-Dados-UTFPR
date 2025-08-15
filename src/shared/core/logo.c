@@ -2,7 +2,6 @@
 #include "../headlers/logo.h"
 #include "../headlers/color.h"
 
-// Função auxiliar para imprimir uma linha colorida
 void imprimirLinha(const char* linha) {
     for (int i = 0; linha[i] != '\0'; i++) {
         char c = linha[i];

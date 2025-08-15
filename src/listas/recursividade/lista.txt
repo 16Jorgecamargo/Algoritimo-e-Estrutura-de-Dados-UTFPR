@@ -2,6 +2,7 @@
 
 QUESTAO 01:
 Enunciado: Faca uma funcao recursiva que permita inverter um numero inteiro N.
+
 Exemplo de entrada: 123
 Exemplo de saida: Numero invertido: 321
 
@@ -30,6 +31,7 @@ Resultado final: "321"
 QUESTAO 02:
 Enunciado: Faca uma funcao recursiva que permita somar os elementos de
 um vetor de inteiros.
+
 Exemplo de entrada: 1234
 Exemplo de saida: 4321
 
@@ -42,6 +44,7 @@ ou seja [1,2,3,4] -> 1+soma([2,3,4]) -> 1+(2+soma([3,4])) -> 1+ (2+(3+soma([4]))
 QUESTAO 03:
 Enunciado: Crie uma funcao recursiva que receba um numero inteiro positivo N
 e calcule o somatorio dos numeros de 1 a N
+
 Exemplo de entrada: 5
 Exemplo de saida: 15
 
@@ -53,12 +56,18 @@ atual (n) menos o numero que eu quero somar (n-1) ate chegar em 0
 ---
 
 QUESTAO 04:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: Crie um programa em C, que contenha uma funcao recursiva que
+receba dois inteiros positivos k e n e calcule k^n utilizando apenas multiplicacoes.
+O programa principal deve solicitar ao usuario os valores
+de k e n e imprimir o resultado da chamada da funcao
+
+Exemplo de entrada: 2 3
+Exemplo de saida: 8
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que eu usei para isso foi usar a multiplicacao
+do numero atual (k) pela potencia do numero atual (k) com o expoente (n-1)
+
 
 ---
 

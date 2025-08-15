@@ -2,15 +2,13 @@
 
 
 
-
-
-// a logica que eu usei para isso foi usar a multiplicacao
-//do numero atual (k) pela potencia do numero atual (k) com o expoente (n-1)
 int potencia(int k, int n)
 {
 	if (n == 0) return 1;
 	else return k * potencia(k, n - 1);
 }
+
+
 
 // essa funC'C#o C) so para criar um vetor de 100 numeros reais
 void criarVetor(double vetorReais[], int tamanho)
@@ -97,23 +95,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 3:
-			int Somatorio;
-			scanf("%d", &Somatorio);
-			if (Somatorio < 0)
-				printf("o numero precisa ser inteiro positivo!\n");
-			else
-				printf("A somatorio dos %d numeros C): %d\n", Somatorio, somatorio(Somatorio));
-			break;
-		case 4:
-			int k, n;
-			scanf("%d", &k);
-			scanf("%d", &n);
-			if (k < 0 || n < 0)
-				printf("os numeros precisa ser inteiro positivo!\n");
-			else
-				printf("o resultado de %d^%d: %d\n", k, n, potencia(k, n));
-			break;
 		case 5:
 			double vetorReais[100];
 			criarVetor(vetorReais, 100);

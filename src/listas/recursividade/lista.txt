@@ -40,12 +40,15 @@ ou seja [1,2,3,4] -> 1+soma([2,3,4]) -> 1+(2+soma([3,4])) -> 1+ (2+(3+soma([4]))
 ---
 
 QUESTAO 03:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: Crie uma funcao recursiva que receba um numero inteiro positivo N
+e calcule o somatorio dos numeros de 1 a N
+Exemplo de entrada: 5
+Exemplo de saida: 15
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que eu usei para isso foi usar o numero total
+atual (n) menos o numero que eu quero somar (n-1) ate chegar em 0
+
 
 ---
 

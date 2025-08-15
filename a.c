@@ -2,16 +2,7 @@
 
 
 
-// a logica que eu usei para isso foi usar o numero total
-//atual (n) menos o numero que eu quero somar (n-1) atC) chegar em 0
 
-int somatorio(int n)
-{
-	if (n == 0)
-		return 0;
-	else
-		return n + somatorio(n - 1);
-}
 
 // a logica que eu usei para isso foi usar a multiplicacao
 //do numero atual (k) pela potencia do numero atual (k) com o expoente (n-1)

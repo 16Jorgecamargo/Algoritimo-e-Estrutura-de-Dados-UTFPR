@@ -1,8 +1,9 @@
 #ifndef RECURSIVIDADE_3_H
 #define RECURSIVIDADE_3_H
 
-// Questao 3: Função recursiva que receba um número inteiro positivo N
-// e calcule o somatório dos números de 1 a N
+int somatorio(int n);
+int mostrarMenuQuestaoRecursividade3(void);
+void processarOpcaoQuestaoRecursividade3(int op);
 void executarQuestaoRecursividade3(void);
 
 #endif

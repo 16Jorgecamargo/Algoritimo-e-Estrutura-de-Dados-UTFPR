@@ -308,7 +308,17 @@ void inicializarFuncoes() {
     
     todasFuncoes[1] = malloc(12 * sizeof(FuncaoQuestao)); 
     todasFuncoes[1][0] = executarQuestaoRecursividade1;
-    for (int i = 1; i < 12; i++) todasFuncoes[1][i] = NULL;
+    todasFuncoes[1][1] = executarQuestaoRecursividade2;
+    todasFuncoes[1][2] = executarQuestaoRecursividade3;
+    todasFuncoes[1][3] = executarQuestaoRecursividade4;
+    todasFuncoes[1][4] = executarQuestaoRecursividade5;
+    todasFuncoes[1][5] = executarQuestaoRecursividade6;
+    todasFuncoes[1][6] = executarQuestaoRecursividade7;
+    todasFuncoes[1][7] = executarQuestaoRecursividade8;
+    todasFuncoes[1][8] = executarQuestaoRecursividade9;
+    todasFuncoes[1][9] = executarQuestaoRecursividade10;
+    todasFuncoes[1][10] = executarQuestaoRecursividade11;
+    todasFuncoes[1][11] = executarQuestaoRecursividade12;
     
     todasFuncoes[2] = malloc(9 * sizeof(FuncaoQuestao));  
     todasFuncoes[2][0] = executarQuestaoPonteiros1;
@@ -342,7 +352,7 @@ void executarQuestao(int tipoLista, int numeroQuestao)
 
     setColor(YELLOW);
     printf("=== %s ===\n", obterNomeLista(tipoLista));
-    printf("=== Executando a Questao %02d ===\n\n", numeroQuestao);
+    printf("=== Executando a Questao %02d ===\n\n", numeroQuestao); 
     resetColor();
 
     const char *caminhoLista = obterCaminhoLista(tipoLista);

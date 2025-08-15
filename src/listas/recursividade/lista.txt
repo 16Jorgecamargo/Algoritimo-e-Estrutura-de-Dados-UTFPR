@@ -28,6 +28,108 @@ Resultado final: "321"
 ---
 
 QUESTAO 02:
+Enunciado: Faca uma funcao recursiva que permita somar os elementos de
+um vetor de inteiros.
+Exemplo de entrada: 1234
+Exemplo de saida: 4321
+
+Logica utilizada: 
+A logica que eu usei para isso foi a de percorrer o vetor e ir somando os elementos um a um
+ou seja [1,2,3,4] -> 1+soma([2,3,4]) -> 1+(2+soma([3,4])) -> 1+ (2+(3+soma([4]))) -> 10
+
+---
+
+QUESTAO 03:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 04:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 05:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 06:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 07:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 08:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 09:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 10:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 11:
+Enunciado: [A ser implementada pelo professor]
+Exemplo de entrada: [A definir]
+Exemplo de saida: [A definir]
+
+Logica utilizada: 
+[A ser implementada pelo aluno]
+
+---
+
+QUESTAO 12:
 Enunciado: [A ser implementada pelo professor]
 Exemplo de entrada: [A definir]
 Exemplo de saida: [A definir]

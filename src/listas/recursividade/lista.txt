@@ -86,12 +86,26 @@ ou seja: inicio -> temp depois fim -> inicio depois temp -> fim
 ---
 
 QUESTAO 06:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: O maximo divisor comum dos inteiros x e y eh o maior inteiro que eh
+divisivel por x e y. Escreva uma funcao recursiva mdc em C, que retorna o
+maximo divisor comum de x e y. O mdc de x e y eh definido como:
+
+ se y == 0, entao mdc(x,y) = x; 
+ caso contrario, mdc(x,y) eh mdc (y,x%y);
+
+Exemplo de entrada: 48 e 18
+Exemplo de saida: 6
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que eu usei foi o algoritimo de Euclides recursivo.
+Exemplo: 
+
+    48, 18 | 
+    18, 12 | 
+    12, 6  |  
+    6 , 0  | <- fim 
+  ------------
+    MDC: 6
 
 ---
 

@@ -1,41 +1,5 @@
 #include <stdio.h>
 
-
-
-
-
-// essa funC'C#o C) so para criar um vetor de 100 numeros reais
-void criarVetor(double vetorReais[], int tamanho)
-{
-	for (int i = 0; i < tamanho; i++)
-	{
-		vetorReais[i] = i * 1.1;
-		printf("%.1f | ", vetorReais[i]);
-	}
-	printf("\n\n");
-}
-
-// a logica que eu usei para isso foi informar o inicio e o fim do vetor e conforme for passando
-// ele salva o inicio em uma variavel temporaria depois trocou o valor do final no inicio e trocou o valor da variavel temporaria no final
-// ou seja: inicio -> temp depois fim -> inicio depois temp -> fim
-void inverterReais(double vetorReais[], int inicio, int fim)
-{
-	if (inicio < fim)
-	{
-		double temp = vetorReais[inicio];
-		vetorReais[inicio] = vetorReais[fim];
-		vetorReais[fim] = temp;
-		inverterReais(vetorReais, inicio + 1, fim - 1);
-	}
-}
-
-
-//tenho que verificar se estC! funcionando
-int minimoMultiploComum(int x, int y) {
-	if(y == 0) return x;
-	minimoMultiploComum(y, x%y);
-}
-
 //tenho que verificar se estC! funcionando
 int ocorrencia(int n, const int *v, int tamanho) {
     if (tamanho == 0) return 0;
@@ -89,9 +53,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 6:
-			minimoMultiploComum(x,y);
-			break;
 		case 7:
 			int vetorOcorrencia[] = {1,3,2,1,4,5,1,1,5,6};
             int tamanho = sizeof(vetorOcorrencia) / sizeof(vetorOcorrencia[0]);

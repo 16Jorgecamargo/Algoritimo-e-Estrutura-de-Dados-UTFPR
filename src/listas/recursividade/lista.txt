@@ -72,12 +72,16 @@ do numero atual (k) pela potencia do numero atual (k) com o expoente (n-1)
 ---
 
 QUESTAO 05:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: Crie um programa em C que receba um vetor de numeros reais com
+100 elementos. Escreva uma funcao recursiva que inverta ordem dos
+elementos presentes no vetor.
+Exemplo de entrada: | 3.3 | 1.5 | 7.8 | 5.5 | 4.2 |
+Exemplo de saida:   | 4.2 | 5.5 | 7.8 | 1.5 | 3.3 |
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que eu usei para isso foi informar o inicio e o fim do vetor e conforme for passando
+ele salva o inicio em uma variavel temporaria depois trocou o valor do final no inicio e trocou o valor da variavel temporaria no final
+ou seja: inicio -> temp depois fim -> inicio depois temp -> fim
 
 ---
 

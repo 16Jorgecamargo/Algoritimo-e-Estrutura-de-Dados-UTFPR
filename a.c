@@ -2,12 +2,6 @@
 
 
 
-int potencia(int k, int n)
-{
-	if (n == 0) return 1;
-	else return k * potencia(k, n - 1);
-}
-
 
 
 // essa funC'C#o C) so para criar um vetor de 100 numeros reais
@@ -95,14 +89,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 5:
-			double vetorReais[100];
-			criarVetor(vetorReais, 100);
-			inverterReais(vetorReais, 0, 99);
-			for (int i = 0; i < 100; i++)
-				printf("%.1f | ", vetorReais[i]);
-			printf("\n");
-			break;
 		case 6:
 			minimoMultiploComum(x,y);
 			break;

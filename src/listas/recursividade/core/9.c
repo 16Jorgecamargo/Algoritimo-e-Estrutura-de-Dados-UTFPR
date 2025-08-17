@@ -61,7 +61,7 @@ void processarOpcaoQuestaoRecursividade9(int op)
         printf("Digite um numero inteiro: ");
         scanf("%d", &n);
         resetColor();
-        if (n < 0 ) printf("O numero deve ser um inteiro positivo!");
+        if (n < 0 || n % 2 != 0) printf("\nO numero deve ser um inteiro par positivo!");
         else { 
             printf("Numeros pares em ordem crescente: ");
             ocorrenciaParCrescente(n, 0);

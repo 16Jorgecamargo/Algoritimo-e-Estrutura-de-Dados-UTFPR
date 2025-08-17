@@ -7,7 +7,7 @@
 int MDC(int x, int y) {
 	if(y == 0) {
         printf("%2d, %2d |  <--\n", x, y);
-        printf("MDC: %d\n\n", x);
+        printf("MDC: %d\n", x);
         return x;
     } else {
         printf("%2d, %2d |\n", x, y);

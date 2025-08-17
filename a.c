@@ -1,16 +1,6 @@
 #include <stdio.h>
 
 
-void ocorrenciaParDecrescente(int n) {
-	if (n >= 0) {
-		if (n%n == 0) printf("%d |", n);
-		ocorrenciaParDecrescente(n--);
-	}
-}
-
-
-
-
 int main()
 {
 	int op;
@@ -21,8 +11,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 11:
-			break;
 		case 12:
 			break;
 		case 0:

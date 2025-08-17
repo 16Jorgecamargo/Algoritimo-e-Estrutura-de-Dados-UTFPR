@@ -163,12 +163,14 @@ ate o N e printando o valor dele.
 ---
 
 QUESTAO 11:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: Faca uma funcao recursiva que receba um numero inteiro positivo par
+N e imprima todos os numeros pares de 0 ate N em ordem decrescente.
+Exemplo de entrada: 10
+Exemplo de saida: 10 8 6 4 2 0
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que utilizei para resolver a questao foi fazer a variavel N deminuir 1 por recursao 
+e verificando se eh par fazendo divisao por 2 e nao resultando sobra. 
 
 ---
 

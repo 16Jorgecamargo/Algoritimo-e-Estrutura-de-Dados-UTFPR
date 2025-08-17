@@ -110,12 +110,15 @@ Exemplo:
 ---
 
 QUESTAO 07:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: Escreva uma funcao recursiva que determine quantas vezes um
+dígito K ocorre em um numero natural N.
+Exemplo de entrada: 2 762021192
+Exemplo de saida: 3
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que foi utilizada para resolver foi, pega o numero do indice do vetor atual
+e verificar se era o mesmo do numero desejada (caso for ele adiciona 1 na contagem),
+e inicia a recursao aumentando o indice do vetor e subtraindo o tamanho do vetor.
 
 ---
 

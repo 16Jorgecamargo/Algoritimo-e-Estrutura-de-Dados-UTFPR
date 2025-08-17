@@ -1,10 +1,6 @@
 #include <stdio.h>
 
-//tenho que verificar se estC! funcionando
-int ocorrencia(int n, const int *v, int tamanho) {
-    if (tamanho == 0) return 0;
-    return (v[0] == n) + ocorrencia(n, v + 1, tamanho - 1);
-}
+
 
 
 //tenho que verificar se esta funcionando
@@ -53,11 +49,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 7:
-			int vetorOcorrencia[] = {1,3,2,1,4,5,1,1,5,6};
-            int tamanho = sizeof(vetorOcorrencia) / sizeof(vetorOcorrencia[0]);
-            printf("%d\n", ocorrencia(5, vetorOcorrencia, tamanho));
-			break;
 		case 8:
 			somaInteiros(x, y);
 			break;

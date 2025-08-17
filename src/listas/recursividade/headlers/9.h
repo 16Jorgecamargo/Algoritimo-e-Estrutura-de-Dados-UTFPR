@@ -1,7 +1,9 @@
 #ifndef RECURSIVIDADE_9_H
 #define RECURSIVIDADE_9_H
 
-// Questao 9: [Descricao sera preenchida]
+void ocorrenciaParCrescente(int n, int aux);
+int mostrarMenuQuestaoRecursividade9(void);
+void processarOpcaoQuestaoRecursividade9(int op);
 void executarQuestaoRecursividade9(void);
 
 #endif

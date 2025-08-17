@@ -2,13 +2,7 @@
 
 
 //tenho que verificar se esta funcionando
-void ocorrenciaParCrescente(int n) {
-	int inicio = 0;
-	if (inicio <= n) {
-		if (inicio%inicio == 0) printf("%d |", inicio);
-		ocorrenciaParCrescente(inicio++);
-	}
-}
+
 
 //tenho que verificar se esta funcionando
 void numerosNaturais(int n)
@@ -41,12 +35,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 9:
-			int valorPar
-			scanf("%d", &valorPar)
-			if (valorPar % 2 != 0) printf("o valor precisa ser inteir par");
-			ocorrenciaPar(valorPar);
-			break;
 		case 10:
 			break;
 		case 11:

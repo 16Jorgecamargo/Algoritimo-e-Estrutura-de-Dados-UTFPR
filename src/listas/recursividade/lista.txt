@@ -137,12 +137,14 @@ ou seja Multip_Rec(7, 2) -> 7 + Multip_Rec(7, 1) -> 7 + (7 + Multip_Rec(7, 0)) -
 ---
 
 QUESTAO 09:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: Faca uma funcao recursiva que receba um numero inteiro positivo par
+N e imprima todos os numeros pares de 0 ate N em ordem crescente.
+Exemplo de entrada: 12
+Exemplo de saida: 0 2 4 5 6 8 10 12
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que utilizei para resolver a questao foi usar uma variavel auxiliar para percorrer
+ate o N e verificando se eh par, testando se aux tem sobra se dividir por 2. 
 
 ---
 

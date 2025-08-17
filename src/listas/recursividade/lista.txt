@@ -123,12 +123,16 @@ e inicia a recursao aumentando o indice do vetor e subtraindo o tamanho do vetor
 ---
 
 QUESTAO 08:
-Enunciado: [A ser implementada pelo professor]
-Exemplo de entrada: [A definir]
-Exemplo de saida: [A definir]
+Enunciado: A multiplicacao de dois numeros inteiros pode ser feita atraves de
+somas sucessivas. Proponha um algoritmo recursivo Multip_Rec(n1,n2)
+que calcule a multiplicacao de dois inteiros.
+
+Exemplo de entrada: 3 4
+Exemplo de saida: 12
 
 Logica utilizada: 
-[A ser implementada pelo aluno]
+A logica que eu usei para isso foi a de ir somando os n1 e diminuindo o n2 
+ou seja Multip_Rec(7, 2) -> 7 + Multip_Rec(7, 1) -> 7 + (7 + Multip_Rec(7, 0)) -> 14
 
 ---
 

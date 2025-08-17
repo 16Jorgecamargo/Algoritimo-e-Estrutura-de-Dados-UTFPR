@@ -1,14 +1,6 @@
 #include <stdio.h>
 
 
-
-
-//tenho que verificar se esta funcionando
-int somaInteiros(int x, int y) {
-	if (y == 0) return 0;
-	else return somaInteros(x );
-}
-
 //tenho que verificar se esta funcionando
 void ocorrenciaParCrescente(int n) {
 	int inicio = 0;
@@ -49,9 +41,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 8:
-			somaInteiros(x, y);
-			break;
 		case 9:
 			int valorPar
 			scanf("%d", &valorPar)

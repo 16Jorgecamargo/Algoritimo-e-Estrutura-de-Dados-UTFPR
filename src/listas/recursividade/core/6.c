@@ -10,7 +10,7 @@ int MDC(int x, int y) {
         printf("MDC: %d\n\n", x);
         return x;
     } else {
-        printf("\n%2d, %2d |\n", x, y);
+        printf("%2d, %2d |\n", x, y);
 	    return MDC(y, x%y);
     }
 }

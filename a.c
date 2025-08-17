@@ -1,19 +1,6 @@
 #include <stdio.h>
 
 
-//tenho que verificar se esta funcionando
-
-
-//tenho que verificar se esta funcionando
-void numerosNaturais(int n)
-{
-    if(n > 0) {
-        printf("%d", n);
-        numerosNaturais(n--);
-    }
-}
-
-//tenho que verificar se esta funcionando
 void ocorrenciaParDecrescente(int n) {
 	if (n >= 0) {
 		if (n%n == 0) printf("%d |", n);
@@ -21,7 +8,6 @@ void ocorrenciaParDecrescente(int n) {
 	}
 }
 
-//tenho que verificar se esta funcionando
 
 
 
@@ -35,8 +21,6 @@ int main()
 		scanf("%d", &op);
 		switch (op)
 		{
-		case 10:
-			break;
 		case 11:
 			break;
 		case 12:

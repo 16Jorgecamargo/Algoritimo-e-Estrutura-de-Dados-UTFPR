@@ -51,7 +51,7 @@ void processarOpcaoQuestaoRecursividade8(int op)
     switch (op)
     {
     case 1:
-        printf("Numero 1: %d\nNumero 2: %d\nResultado: %d\n\n", n1, n2, Multip_Rec(n1, n2));
+        printf("Numero 1: %d\nNumero 2: %d\nResultado: %d\n", n1, n2, Multip_Rec(n1, n2));
         pausar();
         break;
     case 2:
@@ -61,8 +61,8 @@ void processarOpcaoQuestaoRecursividade8(int op)
         printf("Digite o segundo numero: ");
         scanf("%d", &n2);
         resetColor();
-        if (n2 <= 0) printf("O segundo numero nao pode ser menor ou igual a zero!\n\n");
-        else printf("Resultado: %d\n\n", Multip_Rec(n1, n2));
+        if (n2 <= 0) printf("O segundo numero nao pode ser menor ou igual a zero!");
+        else printf("Resultado: %d\n", Multip_Rec(n1, n2));
         pausar();
         break;
     case 0:

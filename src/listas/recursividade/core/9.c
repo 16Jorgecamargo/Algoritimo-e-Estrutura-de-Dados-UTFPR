@@ -54,7 +54,6 @@ void processarOpcaoQuestaoRecursividade9(int op)
         printf("Numeros escolhido: 10\n");
         printf("Numeros pares em ordem crescente: ");
         ocorrenciaParCrescente(10, 0);
-        printf("\n\n\n");
         pausar();
         break;
     case 2:
@@ -62,11 +61,10 @@ void processarOpcaoQuestaoRecursividade9(int op)
         printf("Digite um numero inteiro: ");
         scanf("%d", &n);
         resetColor();
-        if (n < 0 ) printf("O numero deve ser um inteiro positivo!\n\n");
+        if (n < 0 ) printf("O numero deve ser um inteiro positivo!");
         else { 
             printf("Numeros pares em ordem crescente: ");
             ocorrenciaParCrescente(n, 0);
-            printf("\n\n");
         }
         pausar();
         break;

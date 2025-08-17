@@ -84,7 +84,7 @@ void processarOpcaoQuestaoRecursividade7(int op)
         printf("\nVetor original: [ ");
         for (int i = 0; i < tamanho; i++) printf("%d ", vetorOcorrencia[i]);
         printf("]\nNumero procurado: %d\n", ocorrenciaNumero);
-        printf("Total encontrado: %d\n\n", ocorrencia(ocorrenciaNumero, vetorOcorrencia, tamanho));
+        printf("Total encontrado: %d\n", ocorrencia(ocorrenciaNumero, vetorOcorrencia, tamanho));
         free(vetorOcorrencia);
         pausar();
         break;

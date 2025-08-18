@@ -1,13 +1,21 @@
 === Lista de Exercicios - Ponteiros ===
 
 QUESTAO 01:
-Enunciado: []
-
-Exemplo de entrada: []
-Exemplo de saida: []
+Enunciado: Sendo p um ponteiro, qual a diferenca entre:
+-> p++;
+-> (*p)++;
+-> *(p++);
+-> *(p+10);
 
 Logica utilizada:
-[]
+Pelo que eu entendo de ponteiros quando a gente tem um ponteiro exemplo: INT *P
+e manuseamos ele somente com o p estamos retratando o endereco que ele esta apontando e 
+quando fizemos isso com o asteristico estamos retratando ao conteudo.
+
+ou seja:
+
+p  => Endereco;
+*p => Conteudo;
 
 ---
 

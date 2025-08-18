@@ -322,8 +322,15 @@ void inicializarFuncoes() {
     
     todasFuncoes[2] = malloc(9 * sizeof(FuncaoQuestao));  
     todasFuncoes[2][0] = executarQuestaoPonteiros1;
-    for (int i = 1; i < 9; i++) todasFuncoes[2][i] = NULL;
-    
+    todasFuncoes[2][1] = executarQuestaoPonteiros2;
+    todasFuncoes[2][2] = executarQuestaoPonteiros3;
+    todasFuncoes[2][3] = executarQuestaoPonteiros4;
+    todasFuncoes[2][4] = executarQuestaoPonteiros5;
+    todasFuncoes[2][5] = executarQuestaoPonteiros6;
+    todasFuncoes[2][6] = executarQuestaoPonteiros7;
+    todasFuncoes[2][7] = executarQuestaoPonteiros8;
+    todasFuncoes[2][8] = executarQuestaoPonteiros9;
+
     for (int lista = 3; lista <= 10; lista++) {
         todasFuncoes[lista] = NULL;
     }

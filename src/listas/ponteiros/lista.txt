@@ -1,0 +1,100 @@
+=== Lista de Exercicios - Ponteiros ===
+
+QUESTAO 01:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 02:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 03:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 04:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 05:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 06:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 07:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 08:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---
+
+QUESTAO 09:
+Enunciado: []
+
+Exemplo de entrada: []
+Exemplo de saida: []
+
+Logica utilizada:
+[]
+
+---

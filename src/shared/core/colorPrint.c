@@ -30,3 +30,9 @@ void printMenuItemFormatted(int numero, const char* formato, ...) {
     
     printf("\n");
 }
+
+void printMensagemColorida(int cor, const char* mensagem) {
+    setColor(cor);
+    printf("%s\n", mensagem);
+    resetColor();
+}

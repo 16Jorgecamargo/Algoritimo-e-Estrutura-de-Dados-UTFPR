@@ -43,13 +43,23 @@ quando manipulamos o p, estamos manimulando o y.
 ---
 
 QUESTAO 03:
-Enunciado: []
-
-Exemplo de entrada: []
-Exemplo de saida: []
+Enunciado: Verifique o programa abaixo. Encontre o seu erro e corrija-o para que
+escreva o numero 10 na tela.
+#include <stdio.h>
+int main() {
+ int x, *p, **q;
+ p = &x;
+ q = &p;
+ x = 10;
+ printf("\n%d\n", &q);
+ return(0);
+}
 
 Logica utilizada:
-[]
+Primeiramente o &q esta tentando passar o endereco de q ao inves do conteudo de q,
+entao so corrigi o que ele estava passado para o %d.
+mas mesmo se ele quisesse mostrar o endereco do q no console nao seria dessa forma. 
+usaria printf("%p",(void *)&q);
 
 ---
 

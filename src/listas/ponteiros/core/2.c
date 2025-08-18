@@ -12,7 +12,7 @@ void executarQuestaoPonteiros2(void) {
     printf("=== Executando a Questao 02 ===\n\n");
     resetColor();
 
-printf("main()\n");
+printf("int main(void)\n");
 printf("{\n");
 printf("  int y, *p, x;\n");
 printf("  y = 0; ");

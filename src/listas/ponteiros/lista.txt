@@ -20,13 +20,25 @@ p  => Endereco;
 ---
 
 QUESTAO 02:
-Enunciado: []
-
-Exemplo de entrada: []
-Exemplo de saida: []
+Enunciado: Escreva um comentario em cada comando de atribuicao explicando o que
+ele faz e o valor da variavel a esquerda do '=' apos sua execucao.
+int main()
+{
+  int y, *p, x;
+  y = 0;
+  p = &y;
+  x = *p;
+  x = 4;
+  (*p)++;
+  x--;
+  (*p) += x;
+  printf ("y = %d\n", y);
+  return(0);
+} 
 
 Logica utilizada:
-[]
+A logica eh que tecnicamente y e p sao a mesma coisa pois quando atribuimos o endereco de y a p,
+quando manipulamos o p, estamos manimulando o y.
 
 ---
 

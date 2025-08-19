@@ -64,13 +64,16 @@ usaria printf("%p",(void *)&q);
 ---
 
 QUESTAO 04:
-Enunciado: []
+Enunciado: Crie um vetor V com n inteiros, onde n eh um valor inteiro fornecido pelo
+usuario. O vetor so deve ser alocado na memoria depois que o usuario
+fornecer o valor de n.
 
-Exemplo de entrada: []
-Exemplo de saida: []
+Exemplo de entrada: 9
+Exemplo de saida: v[9] = {1,2,3,4,5,6,7,8,9}
 
 Logica utilizada:
-[]
+A logica que eu usei foi so criar um vetor sem tamanho defino inicialmente, 
+e alocar ele com o malloc e com o tamanho passado pelo usuario.
 
 ---
 

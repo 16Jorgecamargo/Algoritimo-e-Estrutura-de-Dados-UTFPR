@@ -191,9 +191,10 @@ echo.
 echo === Compilacao concluida com sucesso! ===
 echo Executavel criado: bin\APP.exe
 echo.
-echo Para executar o programa, digite: bin\APP.exe
-echo Ou use: build.bat run
+echo === Executando o programa ===
 echo.
+cd /d "%~dp0"
+bin\APP.exe
 goto :end
 
 :error

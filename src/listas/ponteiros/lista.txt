@@ -91,7 +91,7 @@ Exemplo de entrada: v1 = {3,5,2,1,6,2,7}
 Exemplo de saida: v2 = {7,2,6,1,2,5,3}
 
 Logica utilizada:
-A ideia que eu usei foi de pegar um vetor e criar outro com os elementos na ordem inversa.
+A ideia que eu usei foi de pegar um vetor e povoar outro com os elementos na ordem inversa.
 se eu tenho {1,2,3,4,5}, 
 quero que o novo fique {5,4,3,2,1}
 
@@ -101,13 +101,17 @@ atribuindo a uma variavel quando era maior.
 ---
 
 QUESTAO 06:
-Enunciado: []
+Enunciado: Escreva um programa em linguagem C que imprimam na tela a string s na
+ordem inversa utilizando ponteiros.
+char s[10] = "abcde";
+char* cptr;
 
-Exemplo de entrada: []
-Exemplo de saida: []
+Exemplo de entrada: "abcde"
+Exemplo de saida: "edcba"
 
 Logica utilizada:
-[]
+A logica que usei foi de usar recursao pra imprimir a string de tras pra frente ate chegar no '\0',
+ela volta imprimindo cada caractere como se fosse um pilha.
 
 ---
 

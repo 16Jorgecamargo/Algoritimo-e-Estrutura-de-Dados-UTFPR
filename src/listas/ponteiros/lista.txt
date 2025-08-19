@@ -78,13 +78,25 @@ e alocar ele com o malloc e com o tamanho passado pelo usuario.
 ---
 
 QUESTAO 05:
-Enunciado: []
+Enunciado: Crie um programa para manipular vetores com ponteiros. O seu programa
+deve implementar uma funcao chamada inverte_vetor, que recebe como
+parametro dois vetores V1 e V2, ambos de tamanho N. A funcao deve copiar
+os elementos de V1 para V2 na ordem inversa. Ou seja, se a funcao receber
+V1 = {1,2,3,4,5}, a funcao deve copiar os elementos para V2 na seguinte
+ordem: V2 = {5,4,3,2,1}. Alem disso, a funcao tambem deve retornar o maior
+valor encontrado em V1. A funcao deve obedecer ao seguinte prototipo: 
+int inverte_vetor(int *v1, int *v2, int n).
 
-Exemplo de entrada: []
-Exemplo de saida: []
+Exemplo de entrada: v1 = {3,5,2,1,6,2,7}
+Exemplo de saida: v2 = {7,2,6,1,2,5,3}
 
 Logica utilizada:
-[]
+A ideia que eu usei foi de pegar um vetor e criar outro com os elementos na ordem inversa.
+se eu tenho {1,2,3,4,5}, 
+quero que o novo fique {5,4,3,2,1}
+
+e para pegar o maior so comparei os conteudos do vetor, 
+atribuindo a uma variavel quando era maior.
 
 ---
 

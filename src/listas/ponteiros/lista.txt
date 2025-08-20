@@ -137,13 +137,15 @@ para buscar o item bastou ele acessar o vetor de produtos e comparar se eh igual
 ---
 
 QUESTAO 08:
-Enunciado: []
-
-Exemplo de entrada: []
-Exemplo de saida: []
+Enunciado: Faca um programa que leia um valor n e crie dinamicamente um vetor de n
+elementos e passe esse vetor para uma funcao que vai ler os elementos
+desse vetor. Depois, no programa principal, o vetor preenchido deve ser
+impresso. Alem disso, antes de finalizar o programa, deve-se liberar a area
+de memoria alocada.
 
 Logica utilizada:
-[]
+A logica utilizada foi basicamente pedir ao usuario um numero para definir o tamanho do vetor,
+depois alocar o tamanho dele, assim podendo preencher o vetor depois imprimindo o conteudo do vetor.
 
 ---
 

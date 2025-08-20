@@ -191,10 +191,6 @@ echo.
 echo === Compilacao concluida com sucesso! ===
 echo Executavel criado: bin\APP.exe
 echo.
-echo === Executando o programa ===
-echo.
-cd /d "%~dp0"
-bin\APP.exe
 goto :end
 
 :error

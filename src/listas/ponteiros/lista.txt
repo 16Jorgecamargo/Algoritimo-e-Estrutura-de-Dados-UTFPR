@@ -116,13 +116,23 @@ ela volta imprimindo cada caractere como se fosse um pilha.
 ---
 
 QUESTAO 07:
-Enunciado: []
+Enunciado: Escrever um programa que cadastre varios produtos em uma
+estrutura/registro. Em seguida, imprima uma lista com o codigo e nome da
+cada produto. Por ultimo, consulte o preco de um produto atraves de seu
+codigo.
 
-Exemplo de entrada: []
-Exemplo de saida: []
+Exemplo de entrada: 15
+Exemplo de saida: 
+== produto encontrado ==
+produto: Feijao,
+preco: R$ 10,00
+codigo: 15                          
 
 Logica utilizada:
-[]
+A logica que usei foi definir uma struct como produto e nele ter o nome, preco e codigo do produto,
+entao depois bastou alocar ele uma quantidade x vezes para os produtos pre definidos,
+e para adiconar produtos preferi realocar mais um espaco para o novo item,
+para buscar o item bastou ele acessar o vetor de produtos e comparar se eh igual o codigo.
 
 ---
 

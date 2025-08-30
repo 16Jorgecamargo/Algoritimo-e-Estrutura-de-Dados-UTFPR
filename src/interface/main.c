@@ -19,7 +19,7 @@ int main() {
     for (int i = 0; i < 3; i++) {
         printf(". ");
         fflush(stdout);
-        SLEEP(500); 
+        SLEEP(345); 
     }
     resetColor();
 

@@ -17,6 +17,5 @@ void limparTela(void) {
 void pausar(void) {
     printf("\n\n\n");
     printf("Pressione Enter para continuar...");
-    while (getchar() != '\n');
     getchar();
 }

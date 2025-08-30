@@ -1,0 +1,106 @@
+=== Lista de Exercicios - Pilha Dinamica ===
+
+QUESTAO 01: 
+Enunciado: Faca um programa que tenha uma nova funcao chamada pop2() para
+desempilhar dois elementos da pilha e uma outra funcao chamada
+push2() para empilhar 2 elementos a partir do topo da pilha. Nao devem
+ser utilizadas as funcoes de push e pop ja existentes. 
+
+Logica utilizada:
+Em pop eu usei a logica de criar um novo elemento chamado "no" e nele armazenei o valor do topo da pilha,
+depois o topo da pilha armazenei o valor do "no->prox", ou seja o topo vira o outro elemento e assim posso liberar o "no".
+Ja em push criei e aloquei um novo elemento chamado "no" e nele atribui em no->dados o valor de "al[indice]" e em no->prox atribui o valor do topo,
+depois o topo eu atribui o valor de "no". nos dois fiz isso duas vezes. 
+
+---
+
+QUESTAO 02:
+Enunciado: Faca um programa que tenha uma nova funcao chamada popN() para
+desempilhar n elementos a partir do topo da pilha. Nao devem ser
+utilizadas as funcoes de push e pop ja existentes.
+
+Logica utilizada:
+
+---
+
+QUESTAO 03:
+Enunciado: Faca um programa que utilizando apenas as funcoes desenvolvidas
+para a pilha, implemente uma funcao que receba uma pilha como
+parametro e retorna como resultado uma cópia dessa pilha. Essa funcao
+deve obedecer ao prototipo:
+Pilha *pilha_copia (Pilha* p);
+Obs.: Ao final da funcao copia_pilha, a pilha p recebida como parametro
+deve estar no mesmo estado em que ela começou a funcao
+
+Logica utilizada:
+
+---
+
+QUESTAO 04:
+Enunciado: Dado uma pilha que armazene numeros, escreva uma funcao que
+forneca o maior, o menor e a media aritmetica dos elementos da pilha. 
+
+Logica utilizada:
+
+---
+
+QUESTAO 05:
+Enunciado: Faca um programa que utilizando apenas as funcoes desenvolvidas
+para a pilha, implemente uma funcao que teste se duas pilhas sao iguais
+ou Nao.
+
+Logica utilizada:
+
+---
+
+QUESTAO 06:
+Enunciado: Escreva um programa solicite ao usuario uma sequencia de caracteres
+sem limite de tamanho máximo e realize as seguintes operações usando
+uma pilha:
+a) Imprimir o texto na ordem inversa;
+b) Verificar se o texto eh um palindromo, ou seja, se o texto eh escrito da
+mesma maneira de frente para trás e de trás para frente. Ignore espaços
+e pontos.
+
+Logica utilizada:
+
+---
+
+QUESTAO 07:
+Enunciado: Faca uma funcao para retornar o numero de elementos da pilha que
+possuem valor par e o numero de elementos com valor impar
+
+Logica utilizada:
+
+---
+
+QUESTAO 08:
+Enunciado: Faca um programa para determinar se uma cadeia de caracteres (string)
+eh da forma:
+x C y
+onde x e y sao cadeias de caracteres compostas por letras ‘A’ e/ou ‘B’, e y eh
+o inverso de x. Isto eh, se x = “ABABBA”, y deve equivaler a “BABAAB”. Em
+cada ponto, você só poderá ler o próximo caractere da cadeia.
+
+Logica utilizada:
+
+---
+
+QUESTAO 09:
+Enunciado: Faca um programa que apresente um menu continuo com as seguintes
+opções e execute de acordo com a escolha do usuario.
+void menu()
+{
+ printf("1-Inicializa pilha.\n");
+ printf("2-Verifica se a pilha e vazia.\n");
+ printf("3-Verifica se a pilha e cheia.\n");
+ printf("4-Empilha o elemento na pilha.\n");
+ printf("5-Desempilha elemento da pilha.\n");
+ printf("6-Le topo de um pilha.\n");
+ printf("7-Converte um numero decimal em binario.\n");
+ printf("8-Sair.\n");
+}
+
+Logica utilizada:
+
+---

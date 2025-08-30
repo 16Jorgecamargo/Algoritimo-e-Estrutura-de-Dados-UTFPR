@@ -153,6 +153,14 @@ if %ERRORLEVEL% neq 0 (
     goto :error
 )
 
+:: Compilar pilhaDinamica
+echo Compilando pilhaDinamica.c...
+%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/shared/core/pilhaDinamica.c" -o "build/pilhaDinamica.o"
+if %ERRORLEVEL% neq 0 (
+    echo [ERRO] Falha ao compilar pilhaDinamica.c
+    goto :error
+)
+
 :: Compilar questoes automaticamente
 echo Compilando questoes encontradas...
 set QUESTAO_OBJECTS=
@@ -181,7 +189,7 @@ echo.
 echo === Linkando arquivos objeto ===
 
 :: Linkar todos os arquivos objeto
-%GCC_PATH% build/main.o build/menu_principal.o build/menu_lista.o build/menu_questao.o build/clean.o build/color.o build/logo.o build/colorPrint.o !QUESTAO_OBJECTS! -o "bin/APP.exe"
+%GCC_PATH% build/main.o build/menu_principal.o build/menu_lista.o build/menu_questao.o build/clean.o build/color.o build/logo.o build/colorPrint.o build/pilhaDinamica.o !QUESTAO_OBJECTS! -o "bin/APP.exe"
 if %ERRORLEVEL% neq 0 (
     echo [ERRO] Falha ao linkar o executavel
     goto :error

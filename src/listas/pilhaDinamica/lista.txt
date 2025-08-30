@@ -47,6 +47,8 @@ Enunciado: Dado uma pilha que armazene numeros, escreva uma funcao que
 forneca o maior, o menor e a media aritmetica dos elementos da pilha. 
 
 Logica utilizada:
+O que foi feito aqui foi recriar as funcoes basicas para funcionar o com um novo tipo de dado unico,
+depois disso foi apenas percorrer os elementos e verficar o maior, menor e a media deles.
 
 ---
 

@@ -1,7 +1,7 @@
 #ifndef PILHADINAMICA_5_H
 #define PILHADINAMICA_5_H
 
-// Questao 5: [Descricao sera preenchida conforme PDF]
+int pilha_check(Pilha* pi1, Pilha* pi2);
 void executarQuestaoPilhaDinamica5(void);
 
 #endif

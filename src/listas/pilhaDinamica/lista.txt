@@ -58,6 +58,8 @@ para a pilha, implemente uma funcao que teste se duas pilhas sao iguais
 ou Nao.
 
 Logica utilizada:
+Aqui bastou fazer uma funcao que primeiramente compara o tamanho da pilha,
+depois vai indo dado por dado de cada elemente e comparando.
 
 ---
 

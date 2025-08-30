@@ -35,8 +35,10 @@ Obs.: Ao final da funcao copia_pilha, a pilha p recebida como parametro
 deve estar no mesmo estado em que ela comecou a funcao
 
 Logica utilizada:
-Aqui o que fiz foi criar um pilha nova chamada copia e simplesmente adicionei os elementos da original,
-isso fez com que a pilha original (pilha p) nao mudasse no final da funcao
+Aqui o que fiz foi criar duas pilha novas chamada copia e aux;
+depois simplesmente adicionei os elementos da original -p/-> aux -p/-> copia
+isso fez com que a pilha original (pilha p) nao mudasse no final da funcao,
+e a pilha copiada ficasse na mesma ordem na original.
 
 ---
 

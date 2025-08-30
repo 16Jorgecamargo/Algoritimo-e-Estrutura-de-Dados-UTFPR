@@ -36,3 +36,15 @@ void printMensagemColorida(int cor, const char* mensagem) {
     printf("%s\n", mensagem);
     resetColor();
 }
+
+void printMensagemColoridaFormatted(int cor, const char* formato, ...) {
+    setColor(cor);
+    
+    va_list args;
+    va_start(args, formato);
+    vprintf(formato, args);
+    va_end(args);
+    
+    printf("\n");
+    resetColor();
+}

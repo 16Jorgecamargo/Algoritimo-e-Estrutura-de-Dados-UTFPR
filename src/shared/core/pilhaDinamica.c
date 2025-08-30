@@ -8,7 +8,6 @@ Pilha *cria_Pilha()
 {
     Pilha *pi = (Pilha *)malloc(sizeof(Pilha));
     if (pi != NULL) *pi = NULL;
-    printf("Pilha criada com sucesso!\n");
     return pi;
 }
 

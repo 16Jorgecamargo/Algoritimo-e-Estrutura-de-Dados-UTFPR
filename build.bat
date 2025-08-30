@@ -86,110 +86,83 @@ echo.
 if not exist "build" mkdir build
 if not exist "bin" mkdir bin
 
-echo === Compilando arquivos fonte ===
-echo.
+echo === Compilando arquivos fonte (paralelo) ===
 
-:: Compilar arquivo principal
-echo Compilando main.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/interface/main.c" -o "build/main.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar main.c
-    goto :error
+:: Compilar arquivos principais em paralelo
+echo Iniciando compilacao paralela...
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/interface/main.c" -o "build/main.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/interface/core/menuPrincipal.c" -o "build/menu_principal.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/interface/core/menuLista.c" -o "build/menu_lista.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/interface/core/menuQuestao.c" -o "build/menu_questao.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/shared/core/clean.c" -o "build/clean.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/shared/core/color.c" -o "build/color.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/shared/core/logo.c" -o "build/logo.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/shared/core/colorPrint.c" -o "build/colorPrint.o"
+start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "src/shared/core/pilhaDinamica.c" -o "build/pilhaDinamica.o"
+
+:: Aguardar conclusao da compilacao principal
+:wait_core
+tasklist /fi "imagename eq gcc.exe" | find "gcc.exe" >nul
+if %errorlevel% == 0 (
+    timeout /t 1 /nobreak >nul
+    goto wait_core
 )
 
-:: Compilar menu principal
-echo Compilando menuPrincipal.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/interface/core/menuPrincipal.c" -o "build/menu_principal.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar menuPrincipal.c
-    goto :error
+:: Verificar se houve erros na compilacao principal
+set CORE_FILES=main.o menu_principal.o menu_lista.o menu_questao.o clean.o color.o logo.o colorPrint.o pilhaDinamica.o
+for %%f in (%CORE_FILES%) do (
+    if not exist "build\%%f" (
+        echo [ERRO] Falha ao compilar %%f
+        goto :error
+    )
 )
 
-:: Compilar menu lista
-echo Compilando menuLista.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/interface/core/menuLista.c" -o "build/menu_lista.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar menuLista.c
-    goto :error
-)
-
-:: Compilar menu questao
-echo Compilando menuQuestao.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/interface/core/menuQuestao.c" -o "build/menu_questao.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar menuQuestao.c
-    goto :error
-)
-
-:: Compilar clean
-echo Compilando clean.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/shared/core/clean.c" -o "build/clean.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar clean.c
-    goto :error
-)
-
-:: Compilar color
-echo Compilando color.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/shared/core/color.c" -o "build/color.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar color.c
-    goto :error
-)
-
-:: Compilar logo
-echo Compilando logo.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/shared/core/logo.c" -o "build/logo.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar logo.c
-    goto :error
-)
-
-:: Compilar colorPrint
-echo Compilando colorPrint.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/shared/core/colorPrint.c" -o "build/colorPrint.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar colorPrint.c
-    goto :error
-)
-
-:: Compilar pilhaDinamica
-echo Compilando pilhaDinamica.c...
-%GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "src/shared/core/pilhaDinamica.c" -o "build/pilhaDinamica.o"
-if %ERRORLEVEL% neq 0 (
-    echo [ERRO] Falha ao compilar pilhaDinamica.c
-    goto :error
-)
-
-:: Compilar questoes automaticamente
-echo Compilando questoes encontradas...
+:: Compilar questoes (otimizado)
+echo Compilando questoes...
 set QUESTAO_OBJECTS=
 
-:: Buscar e compilar arquivos de questoes recursivamente
+:: Compilar questoes em lotes paralelos
 for /r "src\listas" %%f in (*.c) do (
-    :: Extrair o nome da lista do caminho
     set "caminho_completo=%%~dpf"
     set "caminho_completo=!caminho_completo:%CD%\src\listas\=!"
     for /f "tokens=1 delims=\" %%a in ("!caminho_completo!") do set "nome_lista=%%a"
     
-    echo Compilando questao: !nome_lista! - %%~nxf
     set "arquivo=%%f"
     set "arquivo=!arquivo:%CD%\=!"
-    :: Criar nome único do objeto usando lista + nome do arquivo
     set "nome_obj=build\questao_!nome_lista!_%%~nf.o"
-    %GCC_PATH% -Wall -Wextra -std=c99 -Isrc -c "!arquivo!" -o "!nome_obj!"
-    if !ERRORLEVEL! neq 0 (
-        echo [ERRO] Falha ao compilar !nome_lista! - %%~nxf
-        goto :error
-    )
+    
+    :: Compilar em background para paralelizar
+    start /b "" %GCC_PATH% -O1 -std=c99 -Isrc -c "!arquivo!" -o "!nome_obj!"
     set "QUESTAO_OBJECTS=!QUESTAO_OBJECTS! !nome_obj!"
 )
 
-echo.
-echo === Linkando arquivos objeto ===
+:: Aguardar conclusao das questoes
+:wait_questoes
+tasklist /fi "imagename eq gcc.exe" | find "gcc.exe" >nul
+if %errorlevel% == 0 (
+    timeout /t 1 /nobreak >nul
+    goto wait_questoes
+)
 
-:: Linkar todos os arquivos objeto
-%GCC_PATH% build/main.o build/menu_principal.o build/menu_lista.o build/menu_questao.o build/clean.o build/color.o build/logo.o build/colorPrint.o build/pilhaDinamica.o !QUESTAO_OBJECTS! -o "bin/APP.exe"
+:: Verificar se houve erros
+set ERROR_FOUND=0
+for /r "src\listas" %%f in (*.c) do (
+    set "caminho_completo=%%~dpf"
+    set "caminho_completo=!caminho_completo:%CD%\src\listas\=!"
+    for /f "tokens=1 delims=\" %%a in ("!caminho_completo!") do set "nome_lista=%%a"
+    set "nome_obj=build\questao_!nome_lista!_%%~nf.o"
+    if not exist "!nome_obj!" (
+        echo [ERRO] Falha ao compilar %%~nxf
+        set ERROR_FOUND=1
+    )
+)
+
+if %ERROR_FOUND% == 1 goto :error
+
+echo === Linkando (otimizado) ===
+
+:: Linkar com otimizacoes
+%GCC_PATH% -O1 build/main.o build/menu_principal.o build/menu_lista.o build/menu_questao.o build/clean.o build/color.o build/logo.o build/colorPrint.o build/pilhaDinamica.o !QUESTAO_OBJECTS! -o "bin/APP.exe"
 if %ERRORLEVEL% neq 0 (
     echo [ERRO] Falha ao linkar o executavel
     goto :error

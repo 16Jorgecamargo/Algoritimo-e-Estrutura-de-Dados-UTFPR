@@ -20,6 +20,8 @@ desempilhar n elementos a partir do topo da pilha. Nao devem ser
 utilizadas as funcoes de push e pop ja existentes.
 
 Logica utilizada:
+A logica que usei aqui foi basear-se na questao anterior,
+e ao inves do loop passar somente ate dois agora ele vai ate N.
 
 ---
 

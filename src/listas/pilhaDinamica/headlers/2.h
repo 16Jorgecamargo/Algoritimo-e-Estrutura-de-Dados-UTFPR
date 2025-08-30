@@ -1,7 +1,8 @@
 #ifndef PILHADINAMICA_2_H
 #define PILHADINAMICA_2_H
 
-// Questao 2: [Descricao sera preenchida conforme PDF]
+int popN(Pilha *pi, int n);
+void pushN(Pilha *pi, struct aluno al[]);
 void executarQuestaoPilhaDinamica2(void);
 
 #endif

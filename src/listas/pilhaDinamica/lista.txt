@@ -28,13 +28,15 @@ e ao inves do loop passar somente ate dois agora ele vai ate N.
 QUESTAO 03:
 Enunciado: Faca um programa que utilizando apenas as funcoes desenvolvidas
 para a pilha, implemente uma funcao que receba uma pilha como
-parametro e retorna como resultado uma cópia dessa pilha. Essa funcao
-deve obedecer ao prototipo:
+parametro e retorna como resultado uma copia dessa pilha. 
+Essa funcao deve obedecer ao prototipo:
 Pilha *pilha_copia (Pilha* p);
 Obs.: Ao final da funcao copia_pilha, a pilha p recebida como parametro
-deve estar no mesmo estado em que ela começou a funcao
+deve estar no mesmo estado em que ela comecou a funcao
 
 Logica utilizada:
+Aqui o que fiz foi criar um pilha nova chamada copia e simplesmente adicionei os elementos da original,
+isso fez com que a pilha original (pilha p) nao mudasse no final da funcao
 
 ---
 
@@ -57,11 +59,11 @@ Logica utilizada:
 
 QUESTAO 06:
 Enunciado: Escreva um programa solicite ao usuario uma sequencia de caracteres
-sem limite de tamanho máximo e realize as seguintes operações usando
+sem limite de tamanho máximo e realize as seguintes operacoes usando
 uma pilha:
 a) Imprimir o texto na ordem inversa;
 b) Verificar se o texto eh um palindromo, ou seja, se o texto eh escrito da
-mesma maneira de frente para trás e de trás para frente. Ignore espaços
+mesma maneira de frente para trás e de trás para frente. Ignore espacos
 e pontos.
 
 Logica utilizada:
@@ -90,7 +92,7 @@ Logica utilizada:
 
 QUESTAO 09:
 Enunciado: Faca um programa que apresente um menu continuo com as seguintes
-opções e execute de acordo com a escolha do usuario.
+opcoes e execute de acordo com a escolha do usuario.
 void menu()
 {
  printf("1-Inicializa pilha.\n");

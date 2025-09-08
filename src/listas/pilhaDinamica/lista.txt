@@ -84,6 +84,8 @@ Enunciado: Faca uma funcao para retornar o numero de elementos da pilha que
 possuem valor par e o numero de elementos com valor impar
 
 Logica utilizada:
+O que foi necessario para resolver essa questao foi basicamente fazer uma uma pilha com id, valor, e proximo elemento
+e uma funcao que percorre todos os elementos e verifica se o id do elemento eh impar e o valor no elemento eh par
 
 ---
 

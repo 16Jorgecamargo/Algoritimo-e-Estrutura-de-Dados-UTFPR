@@ -69,10 +69,13 @@ sem limite de tamanho máximo e realize as seguintes operacoes usando
 uma pilha:
 a) Imprimir o texto na ordem inversa;
 b) Verificar se o texto eh um palindromo, ou seja, se o texto eh escrito da
-mesma maneira de frente para trás e de trás para frente. Ignore espacos
+mesma maneira de frente para tras e de tras para frente. Ignore espacos
 e pontos.
 
 Logica utilizada:
+Para essa questao a logica que segui foi de salvar oque foi escrito em um vetor, 
+depois andar cada caractere e salvar ele em um elemento da pilha, 
+assim consigo fazer imprimir o texto invertido e com um auxiliar verificar se eh palindromo.
 
 ---
 

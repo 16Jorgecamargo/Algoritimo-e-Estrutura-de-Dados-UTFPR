@@ -93,11 +93,14 @@ QUESTAO 08:
 Enunciado: Faca um programa para determinar se uma cadeia de caracteres (string)
 eh da forma:
 x C y
-onde x e y sao cadeias de caracteres compostas por letras ‘A’ e/ou ‘B’, e y eh
-o inverso de x. Isto eh, se x = “ABABBA”, y deve equivaler a “BABAAB”. Em
-cada ponto, você só poderá ler o próximo caractere da cadeia.
+onde x e y sao cadeias de caracteres compostas por letras "A" e/ou "B", e y eh
+o inverso de x. Isto eh, se x = "ABABBA", y deve equivaler a "BABAAB". Em
+cada ponto, voce so podera ler o proximo caractere da cadeia.
 
 Logica utilizada:
+A logica que usei foi dividir a string ate a letra C,
+primeiro eu percorro ate encontrar o c depois disso vou empilhando todos os caracteres validos
+depois do c eu desempilho e comparo com os caracteres empilhados
 
 ---
 

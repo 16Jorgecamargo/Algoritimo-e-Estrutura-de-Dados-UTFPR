@@ -56,3 +56,6 @@ dkms.conf
 *.o*
 build/
 bin/
+.claude/
+claude.md
+agents.md

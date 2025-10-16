@@ -3,10 +3,24 @@
 
 // Declarações de todas as questões de Listas Duplamente Encadeadas
 
-void executarQuestaoListasDuplamenteEncadeadas1(void);  // Questão 1
-void executarQuestaoListasDuplamenteEncadeadas2(void);  // Questão 2
-void executarQuestaoListasDuplamenteEncadeadas3(void);  // Questão 3
-void executarQuestaoListasDuplamenteEncadeadas4(void);  // Questão 4
-void executarQuestaoListasDuplamenteEncadeadas5(void);  // Questão 5
+void executarQuestaoListasDuplamenteEncadeadas1(void);
+void executarQuestaoListasDuplamenteEncadeadas1Predefinido(void);
+void executarQuestaoListasDuplamenteEncadeadas1EntradaManual(void);
+
+void executarQuestaoListasDuplamenteEncadeadas2(void);
+void executarQuestaoListasDuplamenteEncadeadas2Predefinido(void);
+void executarQuestaoListasDuplamenteEncadeadas2EntradaManual(void);
+
+void executarQuestaoListasDuplamenteEncadeadas3(void);
+void executarQuestaoListasDuplamenteEncadeadas3Predefinido(void);
+void executarQuestaoListasDuplamenteEncadeadas3EntradaManual(void);
+
+void executarQuestaoListasDuplamenteEncadeadas4(void);
+void executarQuestaoListasDuplamenteEncadeadas4Predefinido(void);
+void executarQuestaoListasDuplamenteEncadeadas4EntradaManual(void);
+
+void executarQuestaoListasDuplamenteEncadeadas5(void);
+void executarQuestaoListasDuplamenteEncadeadas5Predefinido(void);
+void executarQuestaoListasDuplamenteEncadeadas5EntradaManual(void);
 
 #endif

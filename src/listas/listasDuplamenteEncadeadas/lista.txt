@@ -1,57 +1,126 @@
 === Lista de Exercicios - Listas Duplamente Encadeadas ===
 
 QUESTAO 01:
-Enunciado: [Adicione aqui o enunciado da questao 01]
+Enunciado: Faca uma funcao que remova um aluno dada a sua respectiva matricula. Sua funcao deve reajustar os ponteiros ant e prox assim que remover o elemento, verificando se o alvo esta na primeira celula, na ultima ou em alguma posicao intermediaria.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+4
+2023001
+Ana Lima
+75
+2023004
+Bruno Dias
+82
+2023008
+Carla Souza
+91
+2023010
+Diego Martins
+68
+2023008
+Exemplo de saida:
+Aluno removido: Carla Souza (matricula 2023008)
+Lista apos remocao: [ {mat:2023001, nome:Ana Lima, nota:75.0} <-> {mat:2023004, nome:Bruno Dias, nota:82.0} <-> {mat:2023010, nome:Diego Martins, nota:68.0} ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 01]
+Foi modelada uma lista duplamente encadeada com ponteiros para o inicio e fim. A remocao percorre ate localizar a matricula e entao atualiza cuidadosamente os ponteiros do predecessor e sucessor, tratando os casos de remocao na cabeca, no meio ou na cauda. Os dados do aluno removido sao devolvidos para exibicao e toda a memoria dos nos e liberada ao final.
 
 ---
 
 QUESTAO 02:
-Enunciado: [Adicione aqui o enunciado da questao 02]
+Enunciado: Faca uma funcao que insira um novo elemento na lista de forma ordenada. Utilize a funcao insere_lista_ordenada da lista encadeada como base para criar essa funcao.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+3
+2023004
+Bruno Dias
+82
+2023001
+Ana Lima
+75
+2023007
+Carla Souza
+91
+2023006
+Eduarda Silva
+88
+Exemplo de saida:
+Lista ordenada: [ {mat:2023001, nome:Ana Lima, nota:75.0} <-> {mat:2023004, nome:Bruno Dias, nota:82.0} <-> {mat:2023006, nome:Eduarda Silva, nota:88.0} <-> {mat:2023007, nome:Carla Souza, nota:91.0} ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 02]
+Mantivemos a lista duplamente encadeada com ponteiros de inicio e fim. Na insercao, percorremos a lista ate encontrar a primeira matricula maior que a inserida. Dependendo da posicao calculada, o novo no e encadeado no meio, no inicio ou no fim, sempre ajustando tanto o ponteiro anterior quanto o proximo. Dessa forma a ordem crescente por matricula e preservada automaticamente, sem necessidade de percursos extras.
 
 ---
 
 QUESTAO 03:
-Enunciado: [Adicione aqui o enunciado da questao 03]
+Enunciado: Faca um funcao que conte quantos alunos tem uma nota qualquer n1 igual, com o seguinte prototipo int conta_lista_nota(Lista* li, int n1). A funcao deve utilizar apenas o ponteiro li passado como parametro, nao pode ser criado nenhum outro ponteiro auxiliar. Ao final, alem de informar a quantidade, o ponteiro li deve estar apontado para a primeira celula “cabeca” da lista.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+4
+2023001
+Ana Lima
+80
+2023004
+Bruno Dias
+75
+2023007
+Carla Souza
+80
+2023010
+Diego Martins
+68
+80
+Exemplo de saida:
+Quantidade de alunos com nota 80: 2
+Verificacao: ponteiro li permanece na cabeca da lista.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 03]
+A contagem recebe o ponteiro principal da lista e o reutiliza ao longo de todo o percurso. Avancamos ate o fim somando as notas iguais ao alvo e, ao terminar, usamos os ponteiros ant da lista duplamente encadeada para voltar o proprio li a apontar para a cabeca original, satisfazendo a restricao do enunciado. Nenhum ponteiro auxiliar adicional e persistido fora da funcao.
 
 ---
 
 QUESTAO 04:
-Enunciado: [Adicione aqui o enunciado da questao 04]
+Enunciado: Re faca as funcoes de inserir e remover no inicio e fim para que a lista comporte-se de forma circular. No fim, faca uma funcao para percorrer a lista inteira utilizando o comportamento circular da mesma.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+3
+10
+20
+30
+5
+40
+1
+1
+Exemplo de saida:
+Percurso circular: [ 5 <-> 10 <-> 20 <-> 30 <-> 40 ]
+Removido do inicio: 5
+Removido do fim: 40
+Percurso circular: [ 10 <-> 20 <-> 30 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 04]
+Foi criada uma lista duplamente encadeada circular, mantendo um ponteiro para a cabeca e o tamanho. Insercoes no inicio e no fim conectam o novo no com o ultimo e o primeiro elemento, preservando a circularidade. As remocoes atualizam o cabeca e a ligacao do ultimo no. O percurso percorre exatamente “tamanho” passos iniciando da cabeca para evitar loops infinitos. Toda a memoria e desalocada em um laço que respeita o numero de nos.
 
 ---
 
 QUESTAO 05:
-Enunciado: [Adicione aqui o enunciado da questao 05]
+Enunciado: Faca uma estrutura do tipo Fila utilizando o conceito de lista duplamente ou simplesmente encadeada. As funcoes Enfileirar e Desenfileirar devem utilizar o conceito de no descritor, que controla onde estao a celula inicial e a final da lista, manipulando somente os nos armazenados nesse descritor.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+3
+10
+20
+30
+1
+40
+2
+Exemplo de saida:
+Fila (ini -> fim): [ 10 | 20 | 30 ]
+Elemento removido da frente: 10
+Fila (ini -> fim): [ 20 | 30 ]
+Elemento removido da frente: 20
+Fila (ini -> fim): [ 30 | 40 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 05]
+O descritor (nodesc) eh alocado dinamicamente e guarda ponteiros para o primeiro e o ultimo nos da fila. A operacao enfileirar insere no final atualizando apenas os ponteiros do descritor e dos nos adjacentes. A operacao desenfileirar remove o primeiro elemento e reajusta os ponteiros do descritor; quando o ultimo elemento e retirado ambos ponteiros ficam NULOS. Uma rotina de impressao percorre a partir do descritor e a liberacao final desaloca todos os nos restantes antes de liberar o proprio no descritor.
 
 ---
-

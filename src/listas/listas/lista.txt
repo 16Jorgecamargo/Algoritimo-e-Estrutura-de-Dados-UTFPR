@@ -1,101 +1,188 @@
 === Lista de Exercicios - Listas ===
 
 QUESTAO 01:
-Enunciado: [Adicione aqui o enunciado da questao 01]
+Enunciado: faca o que se pede: 
+a) crie uma nova funcao que consulta a lista e retorna um aluno pela sua matricula; 
+b) crie uma nova funcao que consulta a lista e retorna um aluno pela sua posicao na lista.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+3
+2023001
+Ana Lima
+2023005
+Bruno Jorge
+2023010
+Carla Dias
+2023005
+2
+Exemplo de saida:
+Aluno encontrado: Bruno Jorge (matricula 2023005)
+Aluno na posicao 2: Bruno Jorge (matricula 2023005)
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 01]
+Implementacao de lista simplesmente encadeada de alunos com campos de matricula e nome armazenados diretamente no no. Foram criadas rotinas para insercao no fim, busca por matricula e busca por posicao (1-based), alem de utilitarios para impressao e liberacao de memoria. O fluxo principal monta a lista, exibe os dados com cabecalho em amarelo e executa as duas consultas tanto em modo demonstrativo quanto manual, sempre desalocando os nos ao final.
 
 ---
 
 QUESTAO 02:
-Enunciado: [Adicione aqui o enunciado da questao 02]
+Enunciado: Faca duas funcoes recursivas. A primeira deve remover um no da lista encadeada a partir do seu valor armazenado (ex: int info). A segunda deve receber duas listas encadeadas e verificar se elas sao iguais.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+4
+5
+7
+9
+11
+9
+3
+5
+7
+11
+Exemplo de saida:
+Elemento 9 removido.
+As listas sao iguais.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 02]
+Foram definidos nos de inteiros com manipulacao dinamica. A remocao recursiva utiliza uma funcao auxiliar que retorna a nova cabeca apos excluir a primeira ocorrencia do valor solicitado, garantindo liberacao do no removido. A comparacao recursiva avanca simultaneamente nas duas listas e verifica igualdade de comprimento e de valores. Ha funcoes auxiliares para insercao, impressao e desalocacao; o fluxo manual valida entradas e demonstra as duas rotinas.
 
 ---
 
 QUESTAO 03:
-Enunciado: [Adicione aqui o enunciado da questao 03]
+Enunciado: Crie uma funcao que insere um valor em uma posicao qualquer da lista encadeada.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+4
+1
+2
+3
+4
+99
+3
+Exemplo de saida:
+Lista final: [ 1 -> 2 -> 99 -> 3 -> 4 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 03]
+Estrutura de lista com insercao no fim para montar os dados iniciais e funcao especifica de insercao posicional (posicao 1-based). Se a posicao for 1 o novo no torna-se cabeca; caso contrario percorre-se ate o elemento imediatamente anterior para relinkar ponteiros. Todas as entradas sao validadas, a lista e exibida antes e depois da operacao e a memoria alocada e liberada ao concluir o fluxo.
 
 ---
 
 QUESTAO 04:
-Enunciado: [Adicione aqui o enunciado da questao 04]
+Enunciado: Recebendo como parametro um vetor de float (por exemplo v[n] = 5.5, 8, 9.1, 25), crie uma funcao que construa lista encadeada com esses valores, seguindo a mesma ordem do vetor recebido.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+4
+5.5
+8.0
+9.1
+25.0
+Exemplo de saida:
+Lista encadeada resultante: [ 5.50 -> 8.00 -> 9.10 -> 25.00 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 04]
+Cada valor do vetor gera um novo no de ponto flutuante inserido no final, preservando a ordem original. A funcao de construcao percorre o vetor, trata falhas de alocacao desalocando os nos criados previamente e retorna a cabeca montada. Utilitarios exibem o vetor, imprimem a lista com duas casas decimais e liberam todos os nos ao final do fluxo predefinido e do fluxo manual.
 
 ---
 
 QUESTAO 05:
-Enunciado: [Adicione aqui o enunciado da questao 05]
+Enunciado: Receba um numero inteiro nao negativo e faca uma funcao que percorra a lista e remova todos os nos que contiverem esse numero inteiro armazenado. Faca todas as condicoes de controle necessarias para que as remocoes sejam corretas.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+7
+7
+3
+7
+7
+10
+7
+15
+7
+Exemplo de saida:
+4 ocorrencia(s) do valor 7 removida(s).
+Lista apos processamento: [ 3 -> 10 -> 15 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 05]
+O algoritmo percorre a lista eliminando repetidamente os nos cujo campo valor coincide com o numero nao negativo informado. Sao tratados separadamente os casos em que o alvo aparece na cabeca ou no meio da estrutura, sempre atualizando ponteiros e liberando memoria. O fluxo contabiliza quantos nos foram removidos, apresenta a lista antes e depois da limpeza e valida as entradas fornecidas pelo usuario.
 
 ---
 
 QUESTAO 06:
-Enunciado: [Adicione aqui o enunciado da questao 06]
+Enunciado: Escrever uma funcao para concatenar duas listas encadeadas L1 e L2.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+3
+1
+2
+3
+2
+40
+50
+Exemplo de saida:
+Lista resultante (L1): [ 1 -> 2 -> 3 -> 40 -> 50 ]
+Lista L2 (aponta para NULL)
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 06]
+As listas sao montadas com insercao no fim. A concatenacao percorre apenas a primeira lista ate o ultimo no e redireciona seu ponteiro proximo para a cabeca da segunda, sem criar nos adicionais. Caso L1 esteja vazia, a cabeca passa a ser a de L2. Depois da operacao o ponteiro de L2 e ajustado para NULL, indicando que todos os seus nos foram incorporados a L1. Rotinas extras exibem as listas, validam tamanhos e liberam memoria.
 
 ---
 
 QUESTAO 07:
-Enunciado: [Adicione aqui o enunciado da questao 07]
+Enunciado: Escrever uma funcao para remover elementos repetidos de uma lista encadeada.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+7
+5
+3
+5
+2
+3
+7
+2
+Exemplo de saida:
+Lista final: [ 5 -> 3 -> 2 -> 7 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 07]
+O procedimento de remocao percorre a lista com dois ponteiros: um ponteiro externo fixa cada elemento e um ponteiro interno elimina todas as ocorrencias posteriores com o mesmo valor, atualizando ligacoes e liberando memoria. Dessa forma, apenas a primeira aparicao de cada valor permanece. Funcoes auxiliares cuidam da construcao da lista, impressao, validacao de entrada e desalocacao final.
 
 ---
 
 QUESTAO 08:
-Enunciado: [Adicione aqui o enunciado da questao 08]
+Enunciado: Escrever um procedimento para fazer a fusao de duas listas encadeadas ordenadas, mantendo-a ordenada. Nao devem ser alocados nos extras; os nos serao religados para compor a nova lista ordenada.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+4
+1
+4
+7
+9
+5
+2
+3
+8
+10
+12
+Exemplo de saida:
+Lista resultante: [ 1 -> 2 -> 3 -> 4 -> 7 -> 8 -> 9 -> 10 -> 12 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 08]
+Foi utilizado o padrao de fusao com no sentinela (dummy). Enquanto ambas as listas possuem elementos, o menor deles e anexado ao resultado por relink de ponteiros. Quando uma das listas esvazia, os elementos restantes da outra sao conectados diretamente. Ao final os ponteiros originais de L1 e L2 sao setados para NULL, reafirmando que todos os nos foram reaproveitados sem novas alocacoes. Ha funcoes para montagem, leitura manual, exibicao e liberacao da lista final.
 
 ---
 
 QUESTAO 09:
-Enunciado: [Adicione aqui o enunciado da questao 09]
+Enunciado: Considere a implementacao de listas encadeadas. Escreva um procedimento Troca(TipoLista* pLista, TipoCelula* p) que, dado um apontador para uma celula qualquer (p), troca de posicao essa celula com a sua celula seguinte da lista. Nao vale trocar apenas o campo item: a manipulacao deve ser feita nos apontadores, tratando casos especiais.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+5
+10
+20
+30
+40
+50
+2
+Exemplo de saida:
+Lista apos a troca: [ 10 -> 30 -> 20 -> 40 -> 50 ]
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 09]
+Definiu-se uma estrutura TipoLista com ponteiro para a cabeca e celulas com valor inteiro. A funcao Troca localiza a celula apontada (checa se pertence a lista), guarda ponteiro para o elemento anterior e efetua a troca de forma segura realocando os apontadores de anterior, atual e proxima. Sao tratados os casos em que a celula e a primeira ou nao possui sucessora. O fluxo manual permite selecionar a posicao desejada, exibe o resultado e libera todos os nos ao final.
 
 ---
-

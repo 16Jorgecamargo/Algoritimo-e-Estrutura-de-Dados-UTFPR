@@ -3,10 +3,24 @@
 
 // Declarações de todas as questões de Árvores I
 
-void executarQuestaoArvoresI1(void);  // Questão 1
-void executarQuestaoArvoresI2(void);  // Questão 2
-void executarQuestaoArvoresI3(void);  // Questão 3
-void executarQuestaoArvoresI4(void);  // Questão 4
-void executarQuestaoArvoresI5(void);  // Questão 5
+void executarQuestaoArvoresI1(void);
+void executarQuestaoArvoresI1Predefinido(void);
+void executarQuestaoArvoresI1EntradaManual(void);
+
+void executarQuestaoArvoresI2(void);
+void executarQuestaoArvoresI2Predefinido(void);
+void executarQuestaoArvoresI2EntradaManual(void);
+
+void executarQuestaoArvoresI3(void);
+void executarQuestaoArvoresI3Predefinido(void);
+void executarQuestaoArvoresI3EntradaManual(void);
+
+void executarQuestaoArvoresI4(void);
+void executarQuestaoArvoresI4Predefinido(void);
+void executarQuestaoArvoresI4EntradaManual(void);
+
+void executarQuestaoArvoresI5(void);
+void executarQuestaoArvoresI5Predefinido(void);
+void executarQuestaoArvoresI5EntradaManual(void);
 
 #endif

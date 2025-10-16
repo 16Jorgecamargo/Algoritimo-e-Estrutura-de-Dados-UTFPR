@@ -1,90 +1,136 @@
 === Lista de Exercicios - Filas ===
 
 QUESTAO 01:
-Enunciado: [Adicione aqui o enunciado da questao 01]
+Enunciado: Considerando filas, implemente um metodo que receba a referencia de uma fila f e uma matricula n.
+O metodo deve dividir a fila em duas, de modo que a segunda comece logo apos a primeira ocorrencia de n na fila original.
+A assinatura esperada eh int separa(Fila f, Fila f2, matricula n). Depois da chamada, f aponta para o inicio da parte
+anterior e f2 aponta para o inicio da parte posterior.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Fila = [2023001, 2023002, 2023003, 2023004], matricula = 2023003.
+Exemplo de saida: Fila A = [2023001, 2023002, 2023003], Fila B = [2023004].
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 01]
+- Fila implementada como fila encadeada simples com ponteiros para inicio e fim.
+- Busca pela primeira ocorrencia da matricula informada.
+- Reajuste dos ponteiros para separar as duas porcoes sem copiar dados.
+- Calculo dos tamanhos das filas apos a divisao.
 
 ---
 
 QUESTAO 02:
-Enunciado: [Adicione aqui o enunciado da questao 02]
+Enunciado: Implemente as seguintes combinacoes de estruturas de dados utilizando filas:
+a) uma fila de filas;
+b) uma fila de pilhas;
+c) uma pilha de filas. 
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Demonstre como cada combinacao processa os dados.
+
+Exemplo de entrada: 
+Filas internas [10,20], [5,7,9] e [30]; 
+pilhas internas [1,2,3] e [7,8].
+Exemplo de saida: 
+Processamento FIFO das filas, 
+processamento FIFO das pilhas armazenadas, 
+processamento LIFO das filas empilhadas.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 02]
+- Reuso de estruturas auxiliares FilaInt e PilhaInt para armazenar valores inteiros.
+- Implementacao de filas e pilhas de ponteiros (FilaPtr e PilhaPtr) para compor estruturas maiores.
+- Demontracao iterativa do consumo dos elementos, preservando a ordem FIFO ou LIFO conforme o caso.
+- Desalocacao cuidadosa de cada estrutura apos o uso para evitar vazamentos.
 
 ---
 
 QUESTAO 03:
-Enunciado: [Adicione aqui o enunciado da questao 03]
+Enunciado: Considere uma pilha P vazia e uma fila F nao vazia. Utilizando apenas testes de fila/pilha vazias,
+as operacoes Enfileira, Desenfileira, Empilha, Desempilha e uma variavel auxiliar inteira, escreva um programa
+que inverta a ordem dos elementos da fila.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Fila = [5, 12, 19, 25, 33].
+Exemplo de saida: Fila invertida = [33, 25, 19, 12, 5].
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 03]
+- Desenfileira cada elemento de F e empilha em P (transferencia direta).
+- Desempilha todos os itens de P e enfileira de volta em F, obtendo a ordem reversa.
+- Nenhum acesso direto aos ponteiros internos, apenas operacoes abstratas permitidas.
+- Interface permite preenchimento manual ou uso de valores padrao.
 
 ---
 
 QUESTAO 04:
-Enunciado: [Adicione aqui o enunciado da questao 04]
+Enunciado: Utilize a implementacao de uma fila circular para criar a funcao FuraFila(Fila* f, float x),
+que insere um item diretamente na primeira posicao em tempo O(1) sem movimentar os demais elementos.
+Atualize tambem a rotina de percorrer a fila para aproveitar o comportamento circular.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Fila = [10.0, 20.0, 30.0, 40.0], valor = 99.9.
+Exemplo de saida: Fila apos FuraFila = [99.9, 10.0, 20.0, 30.0, 40.0].
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 04]
+- Estrutura de fila circular baseada em vetor com controles de inicio, tamanho e capacidade.
+- FuraFila decrementa o indice de inicio (com aritmetica modular) e grava o novo valor.
+- Nenhum deslocamento e necessario; apenas ajuste de indices.
+- Percurso usa iteracao modular para exibir a fila completa.
 
 ---
 
 QUESTAO 05:
-Enunciado: [Adicione aqui o enunciado da questao 05]
+Enunciado: Escreva um programa que simule o controle de uma pista de decolagem. O usuario deve poder:
+a) listar o numero de avioes aguardando; b) autorizar a decolagem do primeiro; c) adicionar um aviao;
+d) listar todos os avioes na fila; e) listar as caracteristicas do primeiro.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Adicionar aviao #404 Azul -> Porto Alegre; autorizar decolagem; listar fila.
+Exemplo de saida: Decolagem do #101 AZUL -> Curitiba; fila restante: #202 GOL -> Sao Paulo, #404 AZUL -> Porto Alegre.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 05]
+- Fila encadeada de estruturas Aviao contendo identificador, companhia e destino.
+- Menu interativo com leitura segura de inteiros e strings.
+- Operacoes enfileirar, desenfileirar e consulta do primeiro elemento.
+- Relatorios de tamanho e listagem completa para apoio ao usuario.
 
 ---
 
 QUESTAO 06:
-Enunciado: [Adicione aqui o enunciado da questao 06]
+Enunciado: Implemente um metodo que receba tres filas. Duas ja estao preenchidas em ordem crescente;
+a terceira deve receber os valores das duas primeiras preservando a ordenacao crescente.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Fila A = [2, 8, 15, 30], Fila B = [1, 10, 18, 41, 50].
+Exemplo de saida: Fila mesclada = [1, 2, 8, 10, 15, 18, 30, 41, 50].
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 06]
+- Copia das filas originais para nao alterar os dados de entrada.
+- Comparacao do primeiro elemento de cada fila utilizando apenas operacoes abstratas.
+- Desenfileirar do menor e enfileirar no resultado ate exaurir ambas as filas.
+- Interface com opcao para valores padrao ou preenchimento manual ordenado.
 
 ---
 
 QUESTAO 07:
-Enunciado: [Adicione aqui o enunciado da questao 07]
+Enunciado: Implemente a funcao reverso, que reposiciona os elementos da fila de forma que o inicio
+se torne o fim e o fim se torne o inicio.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Fila = [3, 6, 9, 12, 15].
+Exemplo de saida: Fila apos reverso = [15, 12, 9, 6, 3].
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 07]
+- Desenfileirar recursivamente ate esvaziar a fila.
+- Na volta da recursao, enfileirar cada elemento, reconstruindo a fila em ordem inversa.
+- Metodo utiliza apenas chamadas recursivas e as operacoes abstratas da fila.
 
 ---
 
 QUESTAO 08:
-Enunciado: [Adicione aqui o enunciado da questao 08]
+Enunciado: Faça um programa que apresente um menu continuo com as opcoes:
+1) inicializar fila; 2) verificar se esta vazia; 3) verificar se esta cheia; 4) enfileirar;
+5) desenfileirar; 6) ler o numero no inicio; 7) testar qual fila possui mais elementos;
+8) furar a fila; 9) sair.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada: Inicializar fila A com capacidade 5; enfileirar 1.5; enfileirar 2.0; furar com 99.0.
+Exemplo de saida: Fila A = [99.0, 1.5, 2.0]; status indica fila nao vazia e nao cheia.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 08]
+- Uso de duas filas circulares para ilustrar comparacao entre estruturas.
+- Menu interativo que delega cada operacao para funcoes especificas.
+- Conferencias de inicializacao, estado vazio/cheio e exibicao detalhada do conteudo.
+- Reaproveitamento da funcao FuraFila para insercao O(1) no inicio.
 
 ---
-

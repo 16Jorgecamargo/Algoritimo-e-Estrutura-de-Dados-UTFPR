@@ -1,57 +1,112 @@
 === Lista de Exercicios - Arvores I ===
 
 QUESTAO 01:
-Enunciado: [Adicione aqui o enunciado da questao 01]
+Enunciado: Observe as funcoes insere_Arvore e remove_Arvore, realize testes com ambas e descreva como cada funcao opera na arvore binaria.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+7
+50
+30
+70
+20
+40
+60
+80
+30
+Exemplo de saida:
+Arvore apos insercoes: estrutura exibida por niveis.
+Remocao (caso folha) de 20 concluida.
+Remocao (caso um filho) de 30 concluida.
+Remocao (caso dois filhos) de 50 concluida.
+Resumo textual explicando cada caso de insercao e remocao.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 01]
+Implementamos uma arvore binaria de busca (BST) com insercao recursiva, remocao em tres casos e impressao hierarquica. O fluxo predefinido monta exemplos para cada situacao e imprime um resumo conceitual. O fluxo manual reutiliza as mesmas rotinas, valida a entrada, aplica a remocao solicitada e libera todos os nos ao final.
 
 ---
 
 QUESTAO 02:
-Enunciado: [Adicione aqui o enunciado da questao 02]
+Enunciado: Observe a funcao PREOrdem_Arvore e faca testes com ela. Com base na funcao escreva as varreduras EMOrdem_Arvore e POSOrdem_ArvBin.
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+7
+50
+30
+20
+40
+70
+60
+80
+Exemplo de saida:
+PRE-ORDEM: 50 30 20 40 70 60 80
+EM-ORDEM: 20 30 40 50 60 70 80
+POS-ORDEM: 20 40 30 60 80 70 50
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 02]
+Reaproveitamos a mesma estrutura de BST e implementamos funcoes recursivas para as tres varreduras. A pre-ordem visita a raiz antes dos filhos, a em-ordem ordena os elementos e a pos-ordem visita a raiz por ultimo. O fluxo manual constroi a arvore a partir dos valores informados, executa cada travessia e evidencia as diferencas conceituais.
 
 ---
 
 QUESTAO 03:
-Enunciado: [Adicione aqui o enunciado da questao 03]
+Enunciado: Faca uma funcao recursiva que conte a quantidade de nos que existem na arvore: int TotalNO_Arvore(ArvBin *raiz).
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+9
+42
+21
+63
+10
+30
+55
+70
+5
+15
+Exemplo de saida:
+A arvore possui 9 no(s) ao todo.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 03]
+Utilizamos uma BST para armazenar os valores e aplicamos uma funcao recursiva que retorna 0 quando o ponteiro e nulo e soma 1 ao total obtido das subarvores esquerda e direita. O fluxo manual valida a quantidade informada, popula a arvore, apresenta o resultado e libera cada no alocado.
 
 ---
 
 QUESTAO 04:
-Enunciado: [Adicione aqui o enunciado da questao 04]
+Enunciado: Faca uma funcao que consulta se um determinado valor existe na arvore: int Consulta_Arvore(ArvBin *raiz, int valor).
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+7
+35
+15
+50
+10
+25
+40
+60
+25
+Exemplo de saida:
+Valor 25 encontrado na arvore.
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 04]
+Implementamos uma busca recursiva em BST comparando o valor desejado a cada passo: se for menor avançamos para a esquerda, se maior para a direita. O fluxo predefinido mostra consultas de sucesso e fracasso; o fluxo manual constroi a arvore, consulta o valor informado e exibe o resultado, liberando a memoria utilizada ao final.
 
 ---
 
 QUESTAO 05:
-Enunciado: [Adicione aqui o enunciado da questao 05]
+Enunciado: Faca uma funcao que recebe um determinado no da arvore e o remove: struct NO* Remove_ArvoreAtual(struct NO* atual).
 
-Exemplo de entrada: [Exemplo]
-Exemplo de saida: [Exemplo]
+Exemplo de entrada:
+7
+45
+30
+60
+20
+35
+50
+70
+60
+Exemplo de saida:
+Estrutura apos remocao do no 60 exibida por niveis, com ajustes de ponteiros conforme o caso (substituicao pelo sucessor ou ligacao direta com o filho remanescente).
 
 Logica utilizada:
-[Adicione aqui a explicacao da logica utilizada para resolver a questao 05]
+Modelamos a remocao recebendo o ponteiro exato do no. O algoritmo trata tr es casos: nenhuma crianca (retorna NULL), uma crianca (retorna o filho remanescente) ou duas criancas (substitui pelo sucessor em ordem na subarvore direita). O fluxo ajusta o ponteiro do pai para o novo subraiz e atualiza a raiz quando necessario. Todo o ciclo usa a mesma BST, aceita dados manuais, imprime a arvore antes/depois e libera memoria.
 
 ---
-

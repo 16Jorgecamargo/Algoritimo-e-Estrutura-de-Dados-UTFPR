@@ -452,6 +452,41 @@ void inicializarFuncoes() {
     todasFuncoes[4][6] = executarQuestaoFilas7;
     todasFuncoes[4][7] = executarQuestaoFilas8;
 
+    funcoesEntrada[4] = malloc(8 * sizeof(FuncaoQuestao));
+    funcoesEntrada[4][0] = executarQuestaoFilas1EntradaManual;
+    funcoesEntrada[4][1] = executarQuestaoFilas2EntradaManual;
+    funcoesEntrada[4][2] = executarQuestaoFilas3EntradaManual;
+    funcoesEntrada[4][3] = executarQuestaoFilas4EntradaManual;
+    funcoesEntrada[4][4] = executarQuestaoFilas5EntradaManual;
+    funcoesEntrada[4][5] = executarQuestaoFilas6EntradaManual;
+    funcoesEntrada[4][6] = executarQuestaoFilas7EntradaManual;
+    funcoesEntrada[4][7] = executarQuestaoFilas8EntradaManual;
+
+    funcoesEntrada[5] = malloc(9 * sizeof(FuncaoQuestao));
+    funcoesEntrada[5][0] = executarQuestaoListas1EntradaManual;
+    funcoesEntrada[5][1] = executarQuestaoListas2EntradaManual;
+    funcoesEntrada[5][2] = executarQuestaoListas3EntradaManual;
+    funcoesEntrada[5][3] = executarQuestaoListas4EntradaManual;
+    funcoesEntrada[5][4] = executarQuestaoListas5EntradaManual;
+    funcoesEntrada[5][5] = executarQuestaoListas6EntradaManual;
+    funcoesEntrada[5][6] = executarQuestaoListas7EntradaManual;
+    funcoesEntrada[5][7] = executarQuestaoListas8EntradaManual;
+    funcoesEntrada[5][8] = executarQuestaoListas9EntradaManual;
+
+    funcoesEntrada[6] = malloc(5 * sizeof(FuncaoQuestao));
+    funcoesEntrada[6][0] = executarQuestaoListasDuplamenteEncadeadas1EntradaManual;
+    funcoesEntrada[6][1] = executarQuestaoListasDuplamenteEncadeadas2EntradaManual;
+    funcoesEntrada[6][2] = executarQuestaoListasDuplamenteEncadeadas3EntradaManual;
+    funcoesEntrada[6][3] = executarQuestaoListasDuplamenteEncadeadas4EntradaManual;
+    funcoesEntrada[6][4] = executarQuestaoListasDuplamenteEncadeadas5EntradaManual;
+
+    funcoesEntrada[7] = malloc(5 * sizeof(FuncaoQuestao));
+    funcoesEntrada[7][0] = executarQuestaoArvoresI1EntradaManual;
+    funcoesEntrada[7][1] = executarQuestaoArvoresI2EntradaManual;
+    funcoesEntrada[7][2] = executarQuestaoArvoresI3EntradaManual;
+    funcoesEntrada[7][3] = executarQuestaoArvoresI4EntradaManual;
+    funcoesEntrada[7][4] = executarQuestaoArvoresI5EntradaManual;
+
     // Lista 5: Listas (9 questões)
     todasFuncoes[5] = malloc(9 * sizeof(FuncaoQuestao));
     todasFuncoes[5][0] = executarQuestaoListas1;

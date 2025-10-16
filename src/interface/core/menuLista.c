@@ -5,7 +5,7 @@
 #include "../headlers/menuQuestao.h"
 #include "../../shared/headlers/clean.h"
 #include "../../shared/headlers/color.h"
-#include "../../shared/headlers/colorPrint.h"
+#include "../../shared/headlers/menuGenerico.h"
 
 #ifdef _WIN32
     #include <io.h>
@@ -15,6 +15,9 @@
     #include <unistd.h>
     #define ACCESS access
 #endif
+
+// Variável global para passar contexto aos callbacks
+static int g_tipoLista = 0;
 
 const char* obterNomeLista(int tipoLista) {
     switch(tipoLista) {
@@ -35,92 +38,89 @@ const char* obterNomeLista(int tipoLista) {
 int contarQuestoes(int tipoLista) {
     const char *caminhoLista = obterCaminhoLista(tipoLista);
     if (caminhoLista == NULL) return 0;
-    
+
     int contador = 0;
-    for (int i = 1; i <= 15; i++) { 
+    for (int i = 1; i <= 15; i++) {
         char caminhoArquivo[300];
         sprintf(caminhoArquivo, "%s/core/%d.c", caminhoLista, i);
-        
+
         if (ACCESS(caminhoArquivo, 0) == 0) {
             contador = i;
         }
     }
-    
+
     return contador;
 }
 
+// Callbacks para cada questão (até 15 questões)
+static int abrirQuestao1(void) { return mostrarMenuQuestao(g_tipoLista, 1); }
+static int abrirQuestao2(void) { return mostrarMenuQuestao(g_tipoLista, 2); }
+static int abrirQuestao3(void) { return mostrarMenuQuestao(g_tipoLista, 3); }
+static int abrirQuestao4(void) { return mostrarMenuQuestao(g_tipoLista, 4); }
+static int abrirQuestao5(void) { return mostrarMenuQuestao(g_tipoLista, 5); }
+static int abrirQuestao6(void) { return mostrarMenuQuestao(g_tipoLista, 6); }
+static int abrirQuestao7(void) { return mostrarMenuQuestao(g_tipoLista, 7); }
+static int abrirQuestao8(void) { return mostrarMenuQuestao(g_tipoLista, 8); }
+static int abrirQuestao9(void) { return mostrarMenuQuestao(g_tipoLista, 9); }
+static int abrirQuestao10(void) { return mostrarMenuQuestao(g_tipoLista, 10); }
+static int abrirQuestao11(void) { return mostrarMenuQuestao(g_tipoLista, 11); }
+static int abrirQuestao12(void) { return mostrarMenuQuestao(g_tipoLista, 12); }
+static int abrirQuestao13(void) { return mostrarMenuQuestao(g_tipoLista, 13); }
+static int abrirQuestao14(void) { return mostrarMenuQuestao(g_tipoLista, 14); }
+static int abrirQuestao15(void) { return mostrarMenuQuestao(g_tipoLista, 15); }
+
+// Array de callbacks
+static FuncaoCallback callbacks[15] = {
+    abrirQuestao1, abrirQuestao2, abrirQuestao3, abrirQuestao4, abrirQuestao5,
+    abrirQuestao6, abrirQuestao7, abrirQuestao8, abrirQuestao9, abrirQuestao10,
+    abrirQuestao11, abrirQuestao12, abrirQuestao13, abrirQuestao14, abrirQuestao15
+};
+
 int mostrarMenuLista(int tipoLista) {
-    int opcao;
+    g_tipoLista = tipoLista;
     int numQuestoes = contarQuestoes(tipoLista);
-    
-    do {
+
+    if (numQuestoes == 0) {
         limparTela();
-        
         setColor(YELLOW);
         printf("=== %s ===\n", obterNomeLista(tipoLista));
         resetColor();
-        
-        if (numQuestoes > 0) {
-            printf("Exercicios disponiveis (%d questoes):\n", numQuestoes);
-            for(int i = 1; i <= numQuestoes; i++) {
-                char questaoDesc[50];
-                sprintf(questaoDesc, "Questao %02d", i);
-                printMenuItem(i, questaoDesc);
-            }
-        } else {
-            setColor(RED);
-            printf("Nenhuma questao encontrada para esta lista.\n");
-            resetColor();
-            printf("Crie arquivos .c na pasta core/ para adicionar questoes.\n");
-        }
-        
-        printf("\n");
-        setColor(CYAN);
-        printf("=== Sistema de Listas de Exercicios ===\n");
-        resetColor();
-        printf("Digite o numero do exercicio que deseja ou 0 para voltar\n");
-        setColor(YELLOW);
-        printf("> ");
-        
-        if (scanf("%d", &opcao) != 1) {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n');
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        
-        resetColor();
-        int resultado = processarOpcaoLista(tipoLista, opcao, numQuestoes);
-        
-        if (resultado == 0) {
-            return 0;
-        }
-        
-    } while (opcao != 0);
-    
-    return 1;  
-}
-
-int processarOpcaoLista(int tipoLista, int opcao, int numQuestoes) {
-    if (opcao == 0) {
-        return 1; 
-    } else if (opcao >= 1 && opcao <= numQuestoes) {
-        int resultado = mostrarMenuQuestao(tipoLista, opcao);
-        return resultado;
-    } else {
         setColor(RED);
-        if (numQuestoes > 0) {
-            printf("Opcao invalida! Digite um numero entre 0 e %d.\n", numQuestoes);
-        } else {
-            printf("Nenhuma questao disponivel! Digite 0 para voltar.\n");
-        }
+        printf("\nNenhuma questao encontrada para esta lista.\n");
         resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        return 1; 
+        printf("Crie arquivos .c na pasta core/ para adicionar questoes.\n");
+        pausar();
+        return 1;
     }
+
+    // Criar opções dinamicamente
+    OpcaoMenu* opcoes = (OpcaoMenu*)malloc(sizeof(OpcaoMenu) * numQuestoes);
+
+    for (int i = 0; i < numQuestoes; i++) {
+        char* texto = (char*)malloc(50);
+        sprintf(texto, "Questao %02d", i + 1);
+        opcoes[i].texto = texto;
+        opcoes[i].tipo = ACAO_EXECUTAR_FUNCAO;
+        opcoes[i].funcao = callbacks[i];
+    }
+
+    // Criar título do menu
+    char titulo[100];
+    sprintf(titulo, "%s - %d questoes disponiveis", obterNomeLista(tipoLista), numQuestoes);
+
+    // Criar e executar o menu
+    MenuGenerico* menu = criarMenu(titulo, opcoes, numQuestoes);
+    int resultado = 1;
+    if (menu) {
+        resultado = executarMenu(menu);
+        destruirMenu(menu);
+    }
+
+    // Liberar memória das strings de texto alocadas
+    for (int i = 0; i < numQuestoes; i++) {
+        free(opcoes[i].texto);
+    }
+    free(opcoes);
+
+    return resultado;
 }

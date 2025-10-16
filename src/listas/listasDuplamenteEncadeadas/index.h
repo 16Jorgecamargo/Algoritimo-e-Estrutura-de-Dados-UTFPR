@@ -1,15 +1,12 @@
 #ifndef LISTAS_DUPLAMENTE_ENCADEADAS_INDEX_H
 #define LISTAS_DUPLAMENTE_ENCADEADAS_INDEX_H
 
-// Index header para todas as questões de Listas Duplamente Encadeadas
-// Este arquivo agrega todos os headers individuais da lista
+// Declarações de todas as questões de Listas Duplamente Encadeadas
 
-// Adicione aqui os includes das questões conforme implementar:
-// #include "headlers/1.h"
-// #include "headlers/2.h"
-// #include "headlers/3.h"
-// #include "headlers/4.h"
-// #include "headlers/5.h"
-// ... até 10.h ou quantas questões houver
+void executarQuestaoListasDuplamenteEncadeadas1(void);  // Questão 1
+void executarQuestaoListasDuplamenteEncadeadas2(void);  // Questão 2
+void executarQuestaoListasDuplamenteEncadeadas3(void);  // Questão 3
+void executarQuestaoListasDuplamenteEncadeadas4(void);  // Questão 4
+void executarQuestaoListasDuplamenteEncadeadas5(void);  // Questão 5
 
 #endif

@@ -1,86 +1,94 @@
 #include <stdio.h>
-#include "../headlers/4.h"
+#include <stdlib.h>
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
 
-int potencia(int k, int n)
-{
-	if (n == 0) return 1;
-	else return k * potencia(k, n - 1);
+// Questao 4: Calcular k^n usando apenas multiplicacoes recursivas
+
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 04 ===");
+    printf("\n");
 }
 
-int mostrarMenuQuestaoRecursividade4(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Recursividade ===\n");
-        printf("=== Executando a Questao 04 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com um numero pre definido");
-        printMenuItem(2, "Escolher o numero");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
-
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        resetColor();
-        processarOpcaoQuestaoRecursividade4(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
-}
-
-void processarOpcaoQuestaoRecursividade4(int op)
-{
-    int k, n;
-    switch (op)
-    {
-    case 1:
-        printf("Numero original: 5 e 3\n");
-        printf("Potencia: %d\n", potencia(5, 3));
-        pausar();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite um numero inteiro positivo: ");
-        scanf("%d", &k);
-        printf("Digite um numero inteiro positivo: ");
-        scanf("%d", &n);
-        resetColor();
-        printf("Numero original: %d e %d\n", k, n);
-        printf("Potencia: %d\n", potencia(k, n));
-        pausar();
-        break;
-    case 0:
-        return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
+static long long potenciaRecursiva(long long base, int expoente) {
+    if (expoente == 0) {
+        return 1;
     }
+    return base * potenciaRecursiva(base, expoente - 1);
 }
 
-void executarQuestaoRecursividade4(void)
-{
-    mostrarMenuQuestaoRecursividade4();
-    ungetc('\n', stdin);
+static long long rastrearPotencia(long long base, int expoente, int nivel) {
+    printMensagemColoridaFormatted(YELLOW, "Nivel %d -> potencia(%lld, %d)\n", nivel, base, expoente);
+
+    if (expoente == 0) {
+        printMensagemColoridaFormatted(GREEN, "Caso base: retorna 1\n");
+        return 1;
+    }
+
+    printMensagemColoridaFormatted(CYAN, "Multiplica base (%lld) pela chamada potencia(%lld, %d)\n", base, base, expoente - 1);
+
+    long long parcial = rastrearPotencia(base, expoente - 1, nivel + 1);
+    long long resultado = base * parcial;
+
+    printMensagemColoridaFormatted(GREEN, "Retorno ao nivel %d: %lld * %lld = %lld\n", nivel, base, parcial, resultado);
+
+    return resultado;
+}
+
+void executarQuestaoRecursividade4(void) {
+    executarQuestaoRecursividade4Predefinido();
+}
+
+void executarQuestaoRecursividade4Predefinido(void) {
+    imprimirCabecalho();
+
+    long long base = 3;
+    int expoente = 4;
+
+    printMensagemColoridaFormatted(CYAN, "Exemplo: %lld^%d\n", base, expoente);
+
+    long long resultado = rastrearPotencia(base, expoente, 0);
+
+    printMensagemColoridaFormatted(GREEN, "Resultado final: %lld", resultado);
+
+    pausar();
+}
+
+void executarQuestaoRecursividade4EntradaManual(void) {
+    imprimirCabecalho();
+
+    long long base;
+    int expoente;
+
+    printf("Digite o valor de k (base): ");
+    if (scanf("%lld", &base) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+
+    printf("Digite o valor de n (expoente >= 0): ");
+    if (scanf("%d", &expoente) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (expoente < 0) {
+        printMensagemColoridaFormatted(RED, "\nInforme um expoente inteiro nao negativo.");
+        pausar();
+        return;
+    }
+
+    long long resultado = potenciaRecursiva(base, expoente);
+
+    printMensagemColoridaFormatted(CYAN, "\n%lld^%d = %lld", base, expoente, resultado);
+
+    pausar();
 }

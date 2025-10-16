@@ -1,131 +1,123 @@
+#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include "../../../shared/headlers/pilhaDinamica.h"
-#include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
+#include "../index.h"
+#include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/clean.h"
-#include "../headlers/6.h"
+#include "../../../shared/headlers/animacao.h"
+#include "pilha_char_utils.h"
 
-PilhaQuestao6 *cria_PilhaQuestao6()
-{
-    PilhaQuestao6 *pi = (PilhaQuestao6 *)malloc(sizeof(PilhaQuestao6));
-    if (pi != NULL) *pi = NULL;
-    return pi;
-}
+static void inverterTexto(const char *texto, char *saida) {
+    PilhaChar pilha;
+    pilhaCharInit(&pilha);
 
-void libera_PilhaQuestao6(PilhaQuestao6 *pi)
-{
-    if (pi != NULL)
-    {
-        ElemQuestao6 *no;
-        while ((*pi) != NULL) { no = *pi; *pi = (*pi)->prox; free(no); }
-        free(pi);
+    for (const char *p = texto; *p != '\0'; ++p) {
+        pilhaCharPush(&pilha, *p);
     }
-}
 
-int insere_PilhaQuestao6(PilhaQuestao6 *pi, char caractere)
-{
-    if (pi == NULL) return 0;
-    ElemQuestao6 *no;
-    no = (ElemQuestao6 *)malloc(sizeof(ElemQuestao6));
-    if (no == NULL) return 0;
-    no->caracter = caractere;
-    no->prox = (*pi);
-    *pi = no;
-    return 1;
-}
-
-int tamanho_PilhaQuestao6(PilhaQuestao6 *pi)
-{
-    if (pi == NULL) return 0;
-    int cont = 0;
-    ElemQuestao6 *no = *pi;
-    while (no != NULL) { cont++; no = no->prox;}
-    return cont;
-}
-
-void imprime_PilhaQuestao6(PilhaQuestao6 *pi)
-{
-    if (pi == NULL) return;
-    ElemQuestao6 *no = *pi;
-    while (no != NULL)
-    {
-        printf("%c", no->caracter);
-        no = no->prox;
+    size_t i = 0;
+    char c;
+    while (pilhaCharPop(&pilha, &c)) {
+        saida[i++] = c;
     }
+    saida[i] = '\0';
+
+    pilhaCharFree(&pilha);
 }
 
-void pilha_CheckQuestao6(PilhaQuestao6* p) {
-    if (p == NULL) return;
-    
-    char *stringOriginal = (char*)malloc(1000 * sizeof(char));
-    if (stringOriginal == NULL) return;
-    
-    int indice = 0;
-    ElemQuestao6* atual = *p;
-    
-    int tamanhoTotal = tamanho_PilhaQuestao6(p);
-    char *temp = (char*)malloc(tamanhoTotal * sizeof(char));
-    if (temp == NULL) {
-        free(stringOriginal);
+static void sanitizarTexto(const char *origem, char *destino) {
+    size_t i = 0;
+    for (const char *p = origem; *p != '\0'; ++p) {
+        if (*p == ' ' || *p == '.') {
+            continue;
+        }
+        destino[i++] = (char)toupper((unsigned char)*p);
+    }
+    destino[i] = '\0';
+}
+
+static int verificarPalindromo(const char *texto) {
+    char filtrado[1024];
+    sanitizarTexto(texto, filtrado);
+
+    PilhaChar pilha;
+    pilhaCharInit(&pilha);
+
+    for (size_t i = 0; filtrado[i] != '\0'; ++i) {
+        pilhaCharPush(&pilha, filtrado[i]);
+    }
+
+    size_t i = 0;
+    char c;
+    int palindromo = 1;
+    while (palindromo && pilhaCharPop(&pilha, &c)) {
+        if (c != filtrado[i++]) {
+            palindromo = 0;
+        }
+    }
+
+    pilhaCharFree(&pilha);
+    return palindromo;
+}
+
+static void demonstrarTexto(const char *texto) {
+    char invertido[1024];
+
+    printMensagemColoridaInline(CYAN, "Texto original: ");
+    printf("%s\n\n", texto);
+
+    printComAnimacao("Invertendo texto usando pilha");
+    inverterTexto(texto, invertido);
+
+    printMensagemColoridaInline(CYAN, "Texto invertido: ");
+    printf("%s\n\n", invertido);
+
+    printComAnimacao("Verificando se e palindromo");
+    int resultado = verificarPalindromo(texto);
+    printMensagemColoridaFormatted(GREEN, "Resultado: %s\n", resultado ? "SIM, e palindromo!" : "NAO e palindromo");
+}
+
+static void cabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Pilha Dinamica - Questao 06 ===");
+    printf("\n");
+}
+
+static void demonstracaoPredefinida(void) {
+    const char *texto = "Socorram-me subi no onibus em Marrocos";
+    demonstrarTexto(texto);
+    pausar();
+}
+
+static void fluxoManual(void) {
+    char texto[1024];
+    printf("Digite um texto (ate 1023 caracteres):\n");
+    if (!fgets(texto, sizeof(texto), stdin)) {
+        printMensagemColoridaFormatted(RED, "Erro ao ler a string!\n");
+        pausar();
         return;
     }
-    
-    atual = *p;
-    int i = 0;
-    while (atual != NULL) {
-        temp[i] = atual->caracter;
-        atual = atual->prox;
-        i++;
+
+    size_t len = strlen(texto);
+    if (len > 0 && texto[len - 1] == '\n') {
+        texto[len - 1] = '\0';
     }
-    
-    for (int j = tamanhoTotal - 1; j >= 0; j--) {
-        char c = temp[j];
-        if (c != ' ' && c != '.') {
-            stringOriginal[indice] = c;
-            indice++;
-        }
-    }
-    stringOriginal[indice] = '\0';
-    
-    int palindromo = 1;
-    int inicio = 0;
-    int fim = indice - 1;
-    
-    while (inicio < fim) {
-        if (stringOriginal[inicio] != stringOriginal[fim]) {
-            palindromo = 0;
-            break;
-        }
-        inicio++;
-        fim--;
-    }
-    
-    free(temp);
-    free(stringOriginal);
-    palindromo ? printMensagemColorida(2, "um palindromo!") : printMensagemColorida(1, "nao palindromo!");
+
+    demonstrarTexto(texto);
+    pausar();
 }
 
 void executarQuestaoPilhaDinamica6(void) {
-    PilhaQuestao6* pi = cria_PilhaQuestao6();
-    printMensagemColorida(6,"Pilha criada com sucesso!");
-    printMensagemColoridaFormatted(5,"Tamanho atual: %d\n",tamanho_PilhaQuestao6(pi));
-    
-    printMensagemColorida(3, "Digite uma mensagem ou palavra: ");
-    
-    char c;
-    while ((c = getchar()) != '\n' && c != EOF);
-    while ((c = getchar()) != '\n' && c != EOF) {
-        insere_PilhaQuestao6(pi, c);
-    }
-    
-    printMensagemColorida(6,"Mensagem invertida: ");
-    imprime_PilhaQuestao6(pi);
-    printf("\n");
-    printMensagemColorida(6,"Testando se eh palindromo: \n");
-    pilha_CheckQuestao6(pi);
-    printMensagemColoridaFormatted(5,"Tamanho atual: %d\n",tamanho_PilhaQuestao6(pi));
-    libera_PilhaQuestao6(pi);
-    ungetc('\n', stdin);
+    executarQuestaoPilhaDinamica6Predefinido();
+}
+
+void executarQuestaoPilhaDinamica6Predefinido(void) {
+    cabecalho();
+    demonstracaoPredefinida();
+}
+
+void executarQuestaoPilhaDinamica6EntradaManual(void) {
+    cabecalho();
+    fluxoManual();
 }

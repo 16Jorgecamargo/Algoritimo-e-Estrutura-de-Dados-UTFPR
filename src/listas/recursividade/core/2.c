@@ -1,103 +1,116 @@
 #include <stdio.h>
-#include "../headlers/2.h"
+#include <stdlib.h>
+#include "../index.h"
+#include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
-#include "../../../shared/headlers/color.h"
 
-int somarVetorInteiro(int *n, int tamanho)
-{
-    if (tamanho == 0) return 0;
-    else return n[0] + somarVetorInteiro(&n[1], tamanho - 1);
+// Questao 2: Somatorio de elementos de um vetor usando recursao
+
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 02 ===");
+    printf("\n");
 }
 
-int mostrarMenuQuestaoRecursividade2(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Recursividade ===\n");
-        printf("=== Executando a Questao 02 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com vetor pre definido");
-        printMenuItem(2, "Escolher vetor");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
-
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        resetColor();
-        processarOpcaoQuestaoRecursividade2(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
-}
-
-void processarOpcaoQuestaoRecursividade2(int op)
-{
-    int vetorInt[] = {1, 2, 3, 4, 7, 9, 10};
-    int tamanho = sizeof(vetorInt) / sizeof(vetorInt[0]);
-    int vetorIntCase2[100];
-    int tamanhoCase2;
-
-    switch (op)
-    {
-    case 1:
-        printf("Vetor original: {1, 2, 3, 4, 7, 9, 10}\n");
-        printf("Resultado: %d\n", somarVetorInteiro(&vetorInt[0], tamanho));
-        pausar();
-        limparTela();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite o tamanho do vetor: ");
-        scanf("%d", &tamanhoCase2);
-        printf("Digite os elementos do vetor:\n");
-        resetColor();
-        for (int i = 0; i < tamanhoCase2; i++)
-        {
-            scanf("%d", &vetorIntCase2[i]);
-        }
-        printf("Vetor original: {");
-        for (int i = 0; i < tamanhoCase2; i++)
-        {
-            printf("%d", vetorIntCase2[i]);
-            if (i < tamanhoCase2 - 1)
-            {
-                printf(", ");
-            }
-        }
-        printf("}\n");
-        printf("Resultado: %d\n", somarVetorInteiro(&vetorIntCase2[0], tamanhoCase2));
-        pausar();
-        limparTela();
-        break;
-    case 0:
-        return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
+static int somarVetorRecursivo(const int *vetor, int tamanho) {
+    if (tamanho == 0) {
+        return 0;
     }
+    return vetor[0] + somarVetorRecursivo(vetor + 1, tamanho - 1);
 }
-void executarQuestaoRecursividade2(void)
-{
-    mostrarMenuQuestaoRecursividade2();
-    ungetc('\n', stdin);
+
+static int rastrearSomatorio(const int *vetor, int tamanho, int profundidade, int indice) {
+    printMensagemColoridaFormatted(YELLOW, "Nivel %d -> soma(%d elementos)", profundidade, tamanho);
+
+    if (tamanho == 0) {
+        printMensagemColoridaFormatted(GREEN, "Caso base atingido: retorno 0\n");
+        return 0;
+    }
+
+    printMensagemColoridaFormatted(CYAN, "Elemento atual: vetor[%d] = %d", indice, vetor[0]);
+
+    int parcial = rastrearSomatorio(vetor + 1, tamanho - 1, profundidade + 1, indice + 1);
+    int resultado = vetor[0] + parcial;
+
+    printMensagemColoridaFormatted(GREEN, "Retornando ao nivel %d: %d + %d = %d\n", profundidade, vetor[0], parcial, resultado);
+
+    return resultado;
+}
+
+static void imprimirVetor(const int *vetor, int tamanho) {
+    printf("{");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d", vetor[i]);
+        if (i < tamanho - 1) {
+            printf(", ");
+        }
+    }
+    printf("}");
+}
+
+void executarQuestaoRecursividade2(void) {
+    executarQuestaoRecursividade2Predefinido();
+}
+
+void executarQuestaoRecursividade2Predefinido(void) {
+    imprimirCabecalho();
+
+    int vetor[] = {1, 2, 3, 4, 7, 9, 10};
+    int tamanho = (int)(sizeof(vetor) / sizeof(vetor[0]));
+
+    printMensagemColoridaInline(CYAN, "Vetor de exemplo: ");
+    imprimirVetor(vetor, tamanho);
+    printf("\n\n");
+
+    int soma = rastrearSomatorio(vetor, tamanho, 0, 0);
+
+    printMensagemColoridaFormatted(GREEN, "Resultado final: %d\n", soma);
+
+    pausar();
+}
+
+void executarQuestaoRecursividade2EntradaManual(void) {
+    imprimirCabecalho();
+
+    const int MAX_ELEMENTOS = 50;
+    int vetor[MAX_ELEMENTOS];
+    int tamanho;
+
+    printf("Informe o tamanho do vetor (1 a %d): ", MAX_ELEMENTOS);
+    if (scanf("%d", &tamanho) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!\n");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (tamanho <= 0 || tamanho > MAX_ELEMENTOS) {
+        printMensagemColoridaFormatted(RED, "\nTamanho fora do intervalo permitido!\n");
+        pausar();
+        return;
+    }
+
+    printMensagemColoridaFormatted(CYAN, "\nDigite os %d elementos:\n", tamanho);
+    for (int i = 0; i < tamanho; i++) {
+        printf("Elemento %d: ", i + 1);
+        if (scanf("%d", &vetor[i]) != 1) {
+            limparBufferTeclado();
+            printMensagemColoridaFormatted(RED, "\nEntrada invalida! Encerrando operacao.\n");
+            pausar();
+            return;
+        }
+        limparBufferTeclado();
+    }
+
+    int soma = somarVetorRecursivo(vetor, tamanho);
+
+    printMensagemColoridaInline(CYAN, "\nVetor informado: ");
+    imprimirVetor(vetor, tamanho);
+    printf("\n");
+
+    printMensagemColoridaFormatted(GREEN, "Somatorio recursivo: %d\n", soma);
+
+    pausar();
 }

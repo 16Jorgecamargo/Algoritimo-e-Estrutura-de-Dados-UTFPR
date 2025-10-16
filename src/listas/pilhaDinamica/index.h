@@ -1,18 +1,42 @@
-#ifndef PILHA_DINAMICA_INDEX_H
-#define PILHA_DINAMICA_INDEX_H
+#ifndef PILHADINAMICA_INDEX_H
+#define PILHADINAMICA_INDEX_H
 
-// Index header para todas as questões de Pilha Dinâmica
-// Este arquivo agrega todos os headers individuais da lista
+// Declarações de todas as questões de Pilha Dinâmica
 
-#include "../../shared/headlers/pilhaDinamica.h"
-#include "headlers/1.h"
-#include "headlers/2.h"
-#include "headlers/3.h"
-#include "headlers/4.h"
-#include "headlers/5.h"
-#include "headlers/6.h"
-#include "headlers/7.h"
-#include "headlers/8.h"
-#include "headlers/9.h"
+void executarQuestaoPilhaDinamica1(void);
+void executarQuestaoPilhaDinamica1Predefinido(void);
+void executarQuestaoPilhaDinamica1EntradaManual(void);
+
+void executarQuestaoPilhaDinamica2(void);
+void executarQuestaoPilhaDinamica2Predefinido(void);
+void executarQuestaoPilhaDinamica2EntradaManual(void);
+
+void executarQuestaoPilhaDinamica3(void);
+void executarQuestaoPilhaDinamica3Predefinido(void);
+void executarQuestaoPilhaDinamica3EntradaManual(void);
+
+void executarQuestaoPilhaDinamica4(void);
+void executarQuestaoPilhaDinamica4Predefinido(void);
+void executarQuestaoPilhaDinamica4EntradaManual(void);
+
+void executarQuestaoPilhaDinamica5(void);
+void executarQuestaoPilhaDinamica5Predefinido(void);
+void executarQuestaoPilhaDinamica5EntradaManual(void);
+
+void executarQuestaoPilhaDinamica6(void);
+void executarQuestaoPilhaDinamica6Predefinido(void);
+void executarQuestaoPilhaDinamica6EntradaManual(void);
+
+void executarQuestaoPilhaDinamica7(void);
+void executarQuestaoPilhaDinamica7Predefinido(void);
+void executarQuestaoPilhaDinamica7EntradaManual(void);
+
+void executarQuestaoPilhaDinamica8(void);
+void executarQuestaoPilhaDinamica8Predefinido(void);
+void executarQuestaoPilhaDinamica8EntradaManual(void);
+
+void executarQuestaoPilhaDinamica9(void);
+void executarQuestaoPilhaDinamica9Predefinido(void);
+void executarQuestaoPilhaDinamica9EntradaManual(void);
 
 #endif

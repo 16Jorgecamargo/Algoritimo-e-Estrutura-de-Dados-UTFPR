@@ -37,6 +37,12 @@ void printMensagemColorida(int cor, const char* mensagem) {
     resetColor();
 }
 
+void printMensagemColoridaInline(int cor, const char* mensagem) {
+    setColor(cor);
+    printf("%s", mensagem);
+    resetColor();
+}
+
 void printMensagemColoridaFormatted(int cor, const char* formato, ...) {
     setColor(cor);
     

@@ -7,186 +7,163 @@ Exemplo de entrada: 123
 Exemplo de saida: Numero invertido: 321
 
 Logica utilizada:
-A logica que usei para isso foi a de dividir o numero por 10 a cada chamada recursiva, assim eu consigo pegar o ultimo digito do numero e construir o numero invertido.
-
-Pensei o problema da seguinte forma:
-- Para inverter um numero, preciso pegar os digitos da direita para a esquerda
-- O ultimo digito e obtido com 'n % 10'
-- O resto do numero e obtido com 'n / 10'
-- O caso base e quando 'n == 0', parando a recursao
-- A cada chamada recursiva, adiciono o digito atual no buffer de resultado
-
-Exemplo para inverter 123:
-1. 123 % 10 = 3 -> adiciona '3' ao buffer
-2. 123 / 10 = 12 -> chama recursivamente com 12
-3. 12 % 10 = 2 -> adiciona '2' ao buffer
-4. 12 / 10 = 1 -> chama recursivamente com 1
-5. 1 % 10 = 1 -> adiciona '1' ao buffer
-6. 1 / 10 = 0 -> para a recursao
-
-Resultado final: "321"
+- Converto o numero para valor absoluto e trato o sinal ao final.
+- Cada chamada multiplica o acumulado por 10 e adiciona o ultimo digito (n % 10).
+- O caso base ocorre quando n == 0; nesse ponto devolvemos o acumulado.
+- Estrutura recursiva: inverterRec(n, acumulado) chama inverterRec(n/10, acumulado*10 + ultimoDigito) ate esgotar os digitos.
 
 ---
 
 QUESTAO 02:
-Enunciado: Faca uma funcao recursiva que permita somar os elementos de
-um vetor de inteiros.
+Enunciado: Faca uma funcao recursiva que permita somar os elementos de um vetor de inteiros.
 
-Exemplo de entrada: 1234
-Exemplo de saida: 4321
+Exemplo de entrada: {1,2,3,4}
+Exemplo de saida: 10
 
-Logica utilizada: 
-A logica que eu usei para isso foi a de percorrer o vetor e ir somando os elementos um a um
-ou seja [1,2,3,4] -> 1+soma([2,3,4]) -> 1+(2+soma([3,4])) -> 1+ (2+(3+soma([4]))) -> 10
+Logica utilizada:
+- Caso base: vetor vazio (tamanho == 0) retorna 0.
+- Passo recursivo: soma(vetor, n) = vetor[0] + soma(vetor+1, n-1).
+- A pilha devolve os resultados parciais ate reconstruir o total.
+- Complexidade linear: uma chamada por elemento, ideal para provas por inducao.
 
 ---
 
 QUESTAO 03:
-Enunciado: Crie uma funcao recursiva que receba um numero inteiro positivo N
-e calcule o somatorio dos numeros de 1 a N
+Enunciado: Crie uma funcao recursiva que receba um numero inteiro positivo N e calcule o somatorio de 1 a N.
 
 Exemplo de entrada: 5
 Exemplo de saida: 15
 
-Logica utilizada: 
-A logica que eu usei para isso foi usar o numero total
-atual (n) menos o numero que eu quero somar (n-1) ate chegar em 0
-
+Logica utilizada:
+- Caso base: N <= 0 retorna 0.
+- Passo recursivo: somatorio(N) = N + somatorio(N-1).
+- A pilha acumula os valores conforme retorna do caso base.
+- Complexidade O(N) e profundidade igual ao valor de entrada.
 
 ---
 
 QUESTAO 04:
-Enunciado: Crie um programa em C, que contenha uma funcao recursiva que
-receba dois inteiros positivos k e n e calcule k^n utilizando apenas multiplicacoes.
-O programa principal deve solicitar ao usuario os valores
-de k e n e imprimir o resultado da chamada da funcao
+Enunciado: Escreva uma funcao recursiva que receba k e n e calcule k^n usando apenas multiplicacoes.
 
-Exemplo de entrada: 2 3
-Exemplo de saida: 8
+Exemplo de entrada: 3 4
+Exemplo de saida: 81
 
-Logica utilizada: 
-A logica que eu usei para isso foi usar a multiplicacao
-do numero atual (k) pela potencia do numero atual (k) com o expoente (n-1)
-
+Logica utilizada:
+- Caso base: qualquer numero elevado a 0 vale 1.
+- Passo recursivo: potencia(k, n) = k * potencia(k, n-1).
+- O expoente diminui a cada chamada ate chegar ao caso base.
+- Complexidade linear no expoente; cada chamada remove uma unidade de n.
 
 ---
 
 QUESTAO 05:
-Enunciado: Crie um programa em C que receba um vetor de numeros reais com
-100 elementos. Escreva uma funcao recursiva que inverta ordem dos
-elementos presentes no vetor.
-Exemplo de entrada: | 3.3 | 1.5 | 7.8 | 5.5 | 4.2 |
-Exemplo de saida:   | 4.2 | 5.5 | 7.8 | 1.5 | 3.3 |
+Enunciado: Dado um vetor de numeros reais, escreva uma funcao recursiva que inverta sua ordem.
 
-Logica utilizada: 
-A logica que eu usei para isso foi informar o inicio e o fim do vetor e conforme for passando
-ele salva o inicio em uma variavel temporaria depois trocou o valor do final no inicio e trocou o valor da variavel temporaria no final
-ou seja: inicio -> temp depois fim -> inicio depois temp -> fim
+Exemplo de entrada: {3.3, 1.5, 7.8, 5.5, 4.2}
+Exemplo de saida: {4.2, 5.5, 7.8, 1.5, 3.3}
+
+Logica utilizada:
+- Troca os elementos nas extremidades (inicio e fim) e avanca uma posicao para dentro.
+- Caso base: inicio >= fim indica que o vetor ja esta invertido.
+- Nenhum laco explicito e necessario; a pilha garante que todos os pares sejam permutados.
+- Complexidade O(n) trocas e profundidade ~ n/2.
 
 ---
 
 QUESTAO 06:
-Enunciado: O maximo divisor comum dos inteiros x e y eh o maior inteiro que eh
-divisivel por x e y. Escreva uma funcao recursiva mdc em C, que retorna o
-maximo divisor comum de x e y. O mdc de x e y eh definido como:
+Enunciado: Implemente o algoritmo de Euclides recursivo para calcular o maximo divisor comum de x e y.
 
- se y == 0, entao mdc(x,y) = x; 
- caso contrario, mdc(x,y) eh mdc (y,x%y);
-
-Exemplo de entrada: 48 e 18
+Exemplo de entrada: 48 18
 Exemplo de saida: 6
 
-Logica utilizada: 
-A logica que eu usei foi o algoritimo de Euclides recursivo.
-Exemplo: 
-
-    48, 18 | 
-    18, 12 | 
-    12, 6  |  
-    6 , 0  | <- fim 
-  ------------
-    MDC: 6
+Logica utilizada:
+- Caso base: mdc(x, 0) = x.
+- Passo recursivo: mdc(x, y) = mdc(y, x % y).
+- A cada chamada o segundo argumento diminui, garantindo terminacao.
+- Complexidade O(log(min(x, y))) como no algoritmo de Euclides iterativo.
 
 ---
 
 QUESTAO 07:
-Enunciado: Escreva uma funcao recursiva que determine quantas vezes um
-dígito K ocorre em um numero natural N.
-Exemplo de entrada: 2 762021192
+Enunciado: Escreva uma funcao recursiva que determine quantas vezes o digito K ocorre em N.
+
+Exemplo de entrada: K=2, N=762021192
 Exemplo de saida: 3
 
-Logica utilizada: 
-A logica que foi utilizada para resolver foi, pega o numero do indice do vetor atual
-e verificar se era o mesmo do numero desejada (caso for ele adiciona 1 na contagem),
-e inicia a recursao aumentando o indice do vetor e subtraindo o tamanho do vetor.
+Logica utilizada:
+- Caso base: quando N == 0 retornamos 0 (tratar N original igual a zero separadamente).
+- Passo recursivo: compara o ultimo digito (N % 10) com K e soma o resultado a contar(N/10, K).
+- Trabalhamos com o valor absoluto de N para simplificar o processamento.
+- Profundidade recursiva proporcional ao numero de digitos de N.
 
 ---
 
 QUESTAO 08:
-Enunciado: A multiplicacao de dois numeros inteiros pode ser feita atraves de
-somas sucessivas. Proponha um algoritmo recursivo Multip_Rec(n1,n2)
-que calcule a multiplicacao de dois inteiros.
+Enunciado: Proponha um algoritmo recursivo Multip_Rec(n1, n2) que realize multiplicacao por somas sucessivas.
 
-Exemplo de entrada: 3 4
-Exemplo de saida: 12
+Exemplo de entrada: 7 4
+Exemplo de saida: 28
 
-Logica utilizada: 
-A logica que eu usei para isso foi a de ir somando os n1 e diminuindo o n2 
-ou seja Multip_Rec(7, 2) -> 7 + Multip_Rec(7, 1) -> 7 + (7 + Multip_Rec(7, 0)) -> 14
+Logica utilizada:
+- Defino o sinal final a partir dos operandos.
+- Caso base: multiplicador == 0 retorna 0.
+- Passo recursivo: resultado = multiplicando + Multip_Rec(multiplicando, multiplicador-1).
+- Complexidade O(|multiplicador|) somas; profundidades altas podem estourar a pilha.
 
 ---
 
 QUESTAO 09:
-Enunciado: Faca uma funcao recursiva que receba um numero inteiro positivo par
-N e imprima todos os numeros pares de 0 ate N em ordem crescente.
-Exemplo de entrada: 12
-Exemplo de saida: 0 2 4 5 6 8 10 12
+Enunciado: Faca uma funcao recursiva que receba um inteiro par N e imprima os pares de 0 a N em ordem crescente.
 
-Logica utilizada: 
-A logica que utilizei para resolver a questao foi usar uma variavel auxiliar para percorrer
-ate o N e verificando se eh par, testando se aux tem sobra se dividir por 2. 
+Exemplo de entrada: 12
+Exemplo de saida: 0 2 4 6 8 10 12
+
+Logica utilizada:
+- A funcao imprime o valor atual e chama a si mesma com atual + 2.
+- Caso base: quando atual ultrapassa o limite, a recursao termina.
+- O inicio padrao e 0 para garantir a sequencia completa.
+- Profundidade recursiva aproximada de N/2 + 1 chamadas.
 
 ---
 
 QUESTAO 10:
-Enunciado: Faca uma funcao recursiva que receba um numero inteiro positivo
-N e imprima todos os numeros naturais de 0 ate N em ordem
-decrescente.
+Enunciado: Faca uma funcao recursiva que receba N e imprima os naturais de N ate 0 em ordem decrescente.
+
 Exemplo de entrada: 10
-Exemplo de saida: 0 1 2 3 4 5 6 7 8 9 10
+Exemplo de saida: 10 9 8 7 6 5 4 3 2 1 0
 
-Logica utilizada: 
-A logica que utilizei para resolver a questao foi usar uma variavel auxiliar para percorrer
-ate o N e printando o valor dele. 
-
+Logica utilizada:
+- Caso base: atual < 0 encerra a recursao.
+- Passo recursivo: imprime o valor atual e chama com atual - 1.
+- A ordem decrescente surge porque imprimimos antes da proxima chamada.
+- Complexidade O(N) e nenhuma estrutura auxiliar e necessaria.
 
 ---
 
 QUESTAO 11:
-Enunciado: Faca uma funcao recursiva que receba um numero inteiro positivo par
-N e imprima todos os numeros pares de 0 ate N em ordem decrescente.
+Enunciado: Escreva uma funcao recursiva que receba um numero inteiro par N e imprima os pares de N ate 0 em ordem decrescente.
+
 Exemplo de entrada: 10
 Exemplo de saida: 10 8 6 4 2 0
 
-Logica utilizada: 
-A logica que utilizei para resolver a questao foi fazer a variavel N deminuir 1 por recursao 
-e verificando se eh par fazendo divisao por 2 e nao resultando sobra. 
+Logica utilizada:
+- Inicia a partir do proprio limite, garantindo que apenas pares sejam impressos.
+- Caso base: atual < 0 interrompe a recursao.
+- Passo recursivo: imprime atual e chama novamente com atual - 2.
+- Complexidade O(N/2) e controle natural de paridade ao decrementar de 2 em 2.
 
 ---
 
 QUESTAO 12:
-Enunciado: A funcao fatorial duplo eh definida como o produto de todos os numeros
-naturais impares de 1 ate algum numero natural impar N. Assim, o fatorial
-duplo de 5 eh 5!! = 1 * 3 * 5 = 15 Faca uma funcao recursiva que receba
-um numero inteiro positivo impar N e retorne o fatorial duplo desse
-numero.
+Enunciado: Implemente uma funcao recursiva que calcule o fatorial duplo de um inteiro impar positivo N.
+
 Exemplo de entrada: 9
 Exemplo de saida: 945
 
-Logica utilizada: 
-Segui a logica presente no enunciado que basta multiplicar o numero atual N pelo fatorial duplo do proximo 
-numero impar menor N-2 ate chegar em 1.
-
-9!! = 9 x 7!! = 9 x (7 x 5!!) = 9 x 7 x (5 x 3!!) = 9 x 7 x 5 x (3 x 1!!) = 945
+Logica utilizada:
+- Caso base: N <= 1 retorna 1.
+- Passo recursivo: N!! = N * (N-2)!!, reduzindo sempre dois em dois.
+- Apenas numeros impares sao aceitos; valores pares sao rejeitados antes da chamada.
+- Profundidade aproximadamente N/2; atencao a overflow quando N cresce.
 
 ---

@@ -1,91 +1,94 @@
 #include <stdio.h>
-#include "../headlers/6.h"
+#include <stdlib.h>
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
+#include "../../../shared/headlers/animacao.h"
 
-int MDC(int x, int y) {
-	if(y == 0) {
-        printf("%2d, %2d |  <--\n", x, y);
-        printf("MDC: %d\n", x);
+// Questao 6: Maximo divisor comum (MDC) com algoritmo de Euclides recursivo
+
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 06 ===");
+    printf("\n");
+}
+
+static int mdcRecursivo(int x, int y) {
+    if (y == 0) {
         return x;
-    } else {
-        printf("%2d, %2d |\n", x, y);
-	    return MDC(y, x%y);
     }
+    return mdcRecursivo(y, x % y);
 }
 
-int mostrarMenuQuestaoRecursividade6(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Recursividade ===\n");
-        printf("=== Executando a Questao 06 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com numeros pre definidos");
-        printMenuItem(2, "Escolher os numeros");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
+static int rastrearMdc(int x, int y, int nivel) {
+    printMensagemColoridaFormatted(YELLOW, "Nivel %d -> mdc(%d, %d)\n", nivel, x, y);
 
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        resetColor();
-        processarOpcaoQuestaoRecursividade6(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
+    if (y == 0) {
+        printMensagemColoridaFormatted(GREEN, "Caso base (y == 0). Retorna %d\n", x);
+        return x;
+    }
+
+    int resto = x % y;
+
+    printf("Calcula resto: %d %% %d = %d\n", x, y, resto);
+    printf("Proxima chamada: mdc(%d, %d)\n\n", y, resto);
+
+    return rastrearMdc(y, resto, nivel + 1);
 }
 
-void processarOpcaoQuestaoRecursividade6(int op)
-{
+void executarQuestaoRecursividade6(void) {
+    executarQuestaoRecursividade6Predefinido();
+}
+
+void executarQuestaoRecursividade6Predefinido(void) {
+    imprimirCabecalho();
+
+    int x = 48;
+    int y = 18;
+
+    printf("Valores: x = %d, y = %d\n", x, y);
+    printComAnimacao("Calculando MDC usando algoritmo de Euclides");
+    printf("\n");
+
+    int resultado = rastrearMdc(x, y, 0);
+
+    printMensagemColoridaFormatted(GREEN, "Resultado final: MDC = %d", resultado);
+
+    pausar();
+}
+
+void executarQuestaoRecursividade6EntradaManual(void) {
+    imprimirCabecalho();
+
     int x, y;
-    switch (op)
-    {
-    case 1:
-        printf("Numero original: 48 e 18\n");
-        MDC(48, 18);
-        pausar();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite o primeiro inteiro positivo: ");
-        scanf("%d", &x);
-        printf("Digite o segundo inteiro positivo: ");
-        scanf("%d", &y);
-        resetColor();
-        printf("Numero original: %2d e %2d\n", x, y);
-        MDC(x, y);
-        pausar();
-        break;
-    case 0:
-        return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
-    }
-}
 
-void executarQuestaoRecursividade6(void)
-{
-    mostrarMenuQuestaoRecursividade6();
-    ungetc('\n', stdin);
+    printf("Digite o primeiro inteiro positivo: ");
+    if (scanf("%d", &x) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+
+    printf("Digite o segundo inteiro positivo: ");
+    if (scanf("%d", &y) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (x <= 0 || y <= 0) {
+        printMensagemColoridaFormatted(RED, "\nInforme valores inteiros positivos.");
+        pausar();
+        return;
+    }
+
+    int resultado = mdcRecursivo(x, y);
+
+    printMensagemColoridaFormatted(CYAN, "\nmdc(%d, %d) = %d\n", x, y, resultado);
+
+    pausar();
 }

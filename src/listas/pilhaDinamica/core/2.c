@@ -1,62 +1,138 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../../shared/headlers/pilhaDinamica.h"
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
-#include "../headlers/2.h"
+#include "../../../shared/headlers/animacao.h"
+#include "pilha_int_utils.h"
 
-int popN(Pilha *pi, int n)
-{
-    if (pi == NULL) { printf("Pilha nao existe.\n"); return 0; }
-    if ((*pi) == NULL) { printf("Pilha esta vazia.\n"); return 0; } 
-    for (int i = 0; i < n; i++)
-    {
-        if ((*pi) == NULL) { printf("Pilha esvaziou antes de remover %d elementos.\n", n); return 0; }
-        else
-        {
-            Elem *no = *pi;
-            *pi = no->prox;
-            free(no);
-            printf("%d Elemento removido da pilha.\n", i+1);
+static int popN(PilhaInt *pilha, int n, int *destino) {
+    if (n <= 0) {
+        return 0;
+    }
+    int removidos = 0;
+    while (removidos < n && pilhaIntPop(pilha, destino ? &destino[removidos] : NULL)) {
+        removidos++;
+    }
+    return removidos;
+}
+
+static void demonstrarPopN(void) {
+    PilhaInt pilha;
+    pilhaIntInicializar(&pilha);
+
+    for (int i = 1; i <= 5; i++) {
+        pilhaIntPush(&pilha, i * 10);
+    }
+
+    printMensagemColoridaInline(CYAN, "Estado da pilha: ");
+    pilhaIntImprimir(&pilha);
+
+    int removidos[4] = {0};
+    printf("\n");
+    printComAnimacao("Aplicando popN(3) - removendo 3 elementos");
+    int qtd = popN(&pilha, 3, removidos);
+    printf("Elementos removidos (%d): ", qtd);
+    for (int i = 0; i < qtd; i++) {
+        printf("%d%s", removidos[i], i + 1 == qtd ? "" : ", ");
+    }
+    printf("\n\nEstado da pilha apos remocao:\n");
+    pilhaIntImprimir(&pilha);
+
+    pilhaIntLiberar(&pilha);
+}
+
+static void fluxoManual(void) {
+    PilhaInt pilha;
+    pilhaIntInicializar(&pilha);
+
+    int quantidade;
+    printf("Quantos valores deseja empilhar inicialmente? ");
+    if (scanf("%d", &quantidade) != 1) {
+        limparBufferTeclado();
+        printMensagemColorida(RED, "Entrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    for (int i = 0; i < quantidade; i++) {
+        int valor;
+        printf("Valor %d: ", i + 1);
+        if (scanf("%d", &valor) != 1) {
+            limparBufferTeclado();
+            valor = 0;
+        } else {
+            limparBufferTeclado();
         }
+        pilhaIntPush(&pilha, valor);
     }
-    return 1;
-}
 
-void pushN(Pilha *pi, struct aluno al[])
-{
-    if (pi == NULL) return;
-    for (int i = 0; i < 4; i++)
-    {
-        Elem *no = malloc(sizeof(Elem));
-        if (no == NULL) return;
-        no->dados = al[i]; no->prox = (*pi);
-        *pi = no;
-    }
-}
+    printf("\nEstado atual da pilha:\n");
+    pilhaIntImprimir(&pilha);
 
-void executarQuestaoPilhaDinamica2(void)
-{
-    struct aluno a[4] = 
-    {
-        {2,"Andre",9.5,7.8,8.5},{4,"Ricardo",7.5,8.7,6.8},{1,"Bianca",9.7,6.7,8.4},{3,"Ana",5.7,6.1,7.4}
-    };
-    Pilha* pi = cria_Pilha();
-    printf("Tamanho atual: %d\n\n",tamanho_Pilha(pi));
-    printf("Adicionando 4 elementos...\n");
-    pushN(pi,a);
-    imprime_Pilha(pi);
-    printf("Tamanho atual: %d\n\n",tamanho_Pilha(pi));
     int n;
-    setColor(YELLOW);
-    printf("Quantos elementos deseja remover? ");
-    scanf("%d", &n);
-    resetColor();
-    printf("Removendo %d elementos...\n", n);
-    popN(pi, n);
-    printf("\n\n");
-    imprime_Pilha(pi);
-    printf("Tamanho atual: %d\n\n",tamanho_Pilha(pi));
-    libera_Pilha(pi);
+    printf("\nQuantos elementos deseja remover com popN? ");
+    if (scanf("%d", &n) != 1) {
+        limparBufferTeclado();
+        n = 0;
+    }
+    limparBufferTeclado();
+
+    if (n <= 0) {
+        printMensagemColoridaFormatted(RED, "Entrada invalida!\n");
+        pilhaIntLiberar(&pilha);
+        pausar();
+        return;
+    }
+
+    int *removidos = (int *)malloc((size_t)n * sizeof(int));
+    if (!removidos) {
+        printMensagemColoridaFormatted(RED, "Erro ao alocar memoria!\n");
+        pilhaIntLiberar(&pilha);
+        pausar();
+        return;
+    }
+
+    printf("\n");
+    printComAnimacao("Removendo elementos da pilha");
+    int qtd = popN(&pilha, n, removidos);
+
+    printMensagemColoridaFormatted(GREEN, "\nRemocao concluida: %d elemento(s) retirado(s).\n", qtd);
+    if (qtd > 0) {
+        printf("Elementos removidos (ordem de remocao): ");
+        for (int i = 0; i < qtd; i++) {
+            printf("%d%s", removidos[i], (i + 1 == qtd) ? "" : ", ");
+        }
+        printf("\n");
+    }
+
+    printf("\nPilha apos popN:\n");
+    pilhaIntImprimir(&pilha);
+
+    free(removidos);
+    pilhaIntLiberar(&pilha);
+}
+
+static void cabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Pilha Dinamica - Questao 02 ===");
+    printf("\n");
+}
+
+void executarQuestaoPilhaDinamica2(void) {
+    executarQuestaoPilhaDinamica2Predefinido();
+}
+
+void executarQuestaoPilhaDinamica2Predefinido(void) {
+    cabecalho();
+    demonstrarPopN();
+    pausar();
+}
+
+void executarQuestaoPilhaDinamica2EntradaManual(void) {
+    cabecalho();
+    fluxoManual();
+    pausar();
 }

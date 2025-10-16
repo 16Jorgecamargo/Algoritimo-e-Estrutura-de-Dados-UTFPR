@@ -1,91 +1,140 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "../../../shared/headlers/pilhaDinamica.h"
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
-#include "../headlers/4.h"
+#include "pilha_int_utils.h"
 
-PilhaQuestao4 *cria_PilhaQuestao4()
-{
-    PilhaQuestao4 *pi = (PilhaQuestao4 *)malloc(sizeof(PilhaQuestao4));
-    if (pi != NULL) *pi = NULL;
-    return pi;
-}
-
-void libera_PilhaQuestao4(PilhaQuestao4 *pi)
-{
-    if (pi != NULL)
-    {
-        ElemQuestao4 *no;
-        while ((*pi) != NULL) { no = *pi; *pi = (*pi)->prox; free(no); }
-        free(pi);
+static int analisarPilha(PilhaInt *pilha, int *menor, int *maior, double *media) {
+    if (pilhaIntVazia(pilha)) {
+        return 0;
     }
-}
 
-int insere_PilhaQuestao4(PilhaQuestao4 *pi, int n)
-{
-    if (pi == NULL) return 0;
-    ElemQuestao4 *no;
-    no = (ElemQuestao4 *)malloc(sizeof(ElemQuestao4));
-    if (no == NULL) return 0;
-    no->n = n;
-    no->prox = (*pi);
-    *pi = no;
+    PilhaInt auxiliar;
+    pilhaIntInicializar(&auxiliar);
+
+    long soma = 0;
+    int qtd = 0;
+    int valor;
+
+    if (!pilhaIntPop(pilha, &valor)) {
+        return 0;
+    }
+    *menor = *maior = valor;
+    soma += valor;
+    qtd++;
+    pilhaIntPush(&auxiliar, valor);
+
+    while (pilhaIntPop(pilha, &valor)) {
+        if (valor < *menor) *menor = valor;
+        if (valor > *maior) *maior = valor;
+        soma += valor;
+        qtd++;
+        pilhaIntPush(&auxiliar, valor);
+    }
+
+    while (pilhaIntPop(&auxiliar, &valor)) {
+        pilhaIntPush(pilha, valor);
+    }
+
+    if (media) {
+        *media = (double)soma / (double)qtd;
+    }
     return 1;
 }
 
-int tamanho_PilhaQuestao4(PilhaQuestao4 *pi)
-{
-    if (pi == NULL) return 0;
-    int cont = 0;
-    ElemQuestao4 *no = *pi;
-    while (no != NULL) { cont++; no = no->prox;}
-    return cont;
+static void demonstrarAnalise(void) {
+    PilhaInt pilha;
+    pilhaIntInicializar(&pilha);
+
+    pilhaIntPush(&pilha, 12);
+    pilhaIntPush(&pilha, 7);
+    pilhaIntPush(&pilha, 23);
+    pilhaIntPush(&pilha, 5);
+    pilhaIntPush(&pilha, 17);
+
+    printMensagemColorida(CYAN, "Pilha analisada:");
+    pilhaIntImprimir(&pilha);
+
+    int menor, maior;
+    double media;
+    if (analisarPilha(&pilha, &menor, &maior, &media)) {
+        printf("\n");
+        printMensagemColoridaFormatted(GREEN, "Menor valor: %d", menor);
+        printMensagemColoridaFormatted(GREEN, "Maior valor: %d", maior);
+        printMensagemColoridaFormatted(GREEN, "Media aritmetica: %.2f", media);
+    }
+
+    printMensagemColorida(GREEN, "\nPilha apos analise (deve permanecer igual):");
+    pilhaIntImprimir(&pilha);
+
+    pilhaIntLiberar(&pilha);
 }
 
-void imprime_PilhaQuestao4(PilhaQuestao4 *pi)
-{
-    if (pi == NULL) return;
-    ElemQuestao4 *no = *pi;
-    printf("-------------------------------\n");
-    while (no != NULL)
-    {
-        printf("Numero: %d\n", no->n);
-        printf("-------------------------------\n");
-        no = no->prox;
+static void fluxoManual(void) {
+    PilhaInt pilha;
+    pilhaIntInicializar(&pilha);
+
+    int quantidade;
+    printMensagemColoridaInline(YELLOW, "Quantos elementos pretende empilhar? ");
+    if (scanf("%d", &quantidade) != 1) {
+        limparBufferTeclado();
+        printMensagemColorida(RED, "Entrada invalida!");
+        pausar();
+        return;
     }
+    limparBufferTeclado();
+
+    for (int i = 0; i < quantidade; i++) {
+        int valor;
+        printf("Valor %d: ", i + 1);
+        if (scanf("%d", &valor) != 1) {
+            limparBufferTeclado();
+            valor = 0;
+        } else {
+            limparBufferTeclado();
+        }
+        pilhaIntPush(&pilha, valor);
+    }
+
+    int menor, maior;
+    double media;
+    if (!analisarPilha(&pilha, &menor, &maior, &media)) {
+        printMensagemColoridaFormatted(RED, "\nNao ha elementos na pilha para analisar.");
+        pilhaIntLiberar(&pilha);
+        pausar();
+        return;
+    }
+
+    printMensagemColorida(GREEN, "\nResultado da analise:");
+    printMensagemColoridaFormatted(GREEN, "Menor valor: %d", menor);
+    printMensagemColoridaFormatted(GREEN, "Maior valor: %d", maior);
+    printMensagemColoridaFormatted(GREEN, "Media: %.2f", media);
+
+    printMensagemColorida(GREEN, "\nPilha apos analise:");
+    pilhaIntImprimir(&pilha);
+
+    pilhaIntLiberar(&pilha);
 }
 
-void verificaMMM_PilhaQuestao4(PilhaQuestao4 *pi)
-{
-    int maior= 0, menor= 0, media= 0;
-    if (pi == NULL) return;
-    ElemQuestao4 *no = *pi;
-    while (no != NULL)
-    {
-        if (no->n > maior) maior = no->n;
-        if (no->n < menor || menor == 0) menor = no->n;
-        media += no->n;
-        no = no->prox;
-    }
-    media /= tamanho_PilhaQuestao4(pi);
-    printMensagemColoridaFormatted(6,"Maior: %d", maior);
-    printMensagemColoridaFormatted(6,"Menor: %d", menor);
-    printMensagemColoridaFormatted(6,"Media: %d", media);
+static void cabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Pilha Dinamica - Questao 04 ===");
+    printf("\n");
 }
 
 void executarQuestaoPilhaDinamica4(void) {
-    srand((unsigned)time(NULL));
-    PilhaQuestao4* pi = cria_PilhaQuestao4();
-    printMensagemColorida(6,"Pilha criada com sucesso!");
-    printMensagemColoridaFormatted(5,"Tamanho atual: %d\n",tamanho_PilhaQuestao4(pi));
-    int n = (rand() % 15) + 1;
-    printMensagemColorida(6,"Adicionando quantidade aleatoria de elementos...");
-    for (int i = 0; i < n; i++) { n = (rand() % 100) + 1; insere_PilhaQuestao4(pi, n); }
-    imprime_PilhaQuestao4(pi);
-    printMensagemColoridaFormatted(5,"Tamanho atual: %d\n",tamanho_PilhaQuestao4(pi));
-    verificaMMM_PilhaQuestao4(pi);
-    libera_PilhaQuestao4(pi);
+    executarQuestaoPilhaDinamica4Predefinido();
+}
+
+void executarQuestaoPilhaDinamica4Predefinido(void) {
+    cabecalho();
+    demonstrarAnalise();
+    pausar();
+}
+
+void executarQuestaoPilhaDinamica4EntradaManual(void) {
+    cabecalho();
+    fluxoManual();
+    pausar();
 }

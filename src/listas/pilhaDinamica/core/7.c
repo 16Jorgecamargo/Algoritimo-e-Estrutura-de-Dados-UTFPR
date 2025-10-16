@@ -1,92 +1,108 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include "../../../shared/headlers/pilhaDinamica.h"
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
-#include "../headlers/7.h"
+#include "pilha_int_utils.h"
 
-PilhaQuestao7 *cria_PilhaQuestao7()
-{
-    PilhaQuestao7 *pi = (PilhaQuestao7 *)malloc(sizeof(PilhaQuestao7));
-    if (pi != NULL) *pi = NULL;
-    return pi;
-}
+static void contarParImpar(PilhaInt *pilha, int *pares, int *impares) {
+    *pares = 0;
+    *impares = 0;
 
-void libera_PilhaQuestao7(PilhaQuestao7 *pi)
-{
-    if (pi != NULL)
-    {
-        ElemQuestao7 *no;
-        while ((*pi) != NULL) { no = *pi; *pi = (*pi)->prox; free(no); }
-        free(pi);
-    }
-}
+    PilhaInt auxiliar;
+    pilhaIntInicializar(&auxiliar);
 
-int insere_PilhaQuestao7(PilhaQuestao7 *pi, int id)
-{
-    if (pi == NULL) return 0;
-    ElemQuestao7 *no;
-    no = (ElemQuestao7 *)malloc(sizeof(ElemQuestao7));
-    if (no == NULL) return 0;
-    no->id = id;
-    no->valor = (rand() % 100) + 1;
-    no->prox = (*pi);
-    *pi = no;
-    return 1;
-}
-
-int tamanho_PilhaQuestao7(PilhaQuestao7 *pi)
-{
-    if (pi == NULL) return 0;
-    int cont = 0;
-    ElemQuestao7 *no = *pi;
-    while (no != NULL) { cont++; no = no->prox;}
-    return cont;
-}
-
-void imprime_PilhaQuestao7(PilhaQuestao7 *pi)
-{
-    if (pi == NULL) return;
-    ElemQuestao7 *no = *pi;
-    while (no != NULL)
-    {
-        printf("elemento da pilha [ID: %d - Valor: %d]\n", no->id, no->valor);
-        no = no->prox;
-    }
-}
-
-void imprime_PilhaQuestao7_Checagem(PilhaQuestao7 *pi)
-{
-    if (pi == NULL) return;
-    ElemQuestao7 *no = *pi;
-    while (no != NULL)
-    {
-        if (no->id % 2 != 0 && no->valor % 2 == 0)
-        {
-            printf("elemento da pilha [ID: %d - Valor: %d]\n", no->id, no->valor);
+    int valor;
+    while (pilhaIntPop(pilha, &valor)) {
+        if (valor % 2 == 0) {
+            (*pares)++;
+        } else {
+            (*impares)++;
         }
-        no = no->prox;
+        pilhaIntPush(&auxiliar, valor);
     }
+
+    while (pilhaIntPop(&auxiliar, &valor)) {
+        pilhaIntPush(pilha, valor);
+    }
+}
+
+static void demonstrarContagem(void) {
+    PilhaInt pilha;
+    pilhaIntInicializar(&pilha);
+
+    int valores[] = {7, 6, 5, 4, 3, 2, 1};
+    for (int i = 0; i < 7; i++) {
+        pilhaIntPush(&pilha, valores[i]);
+    }
+
+    printMensagemColorida(CYAN, "Conteudo da pilha:");
+    pilhaIntImprimir(&pilha);
+
+    int pares, impares;
+    contarParImpar(&pilha, &pares, &impares);
+
+    printf("\n");
+    printMensagemColoridaFormatted(GREEN, "Pares: %d", pares);
+    printMensagemColoridaFormatted(GREEN, "Impares: %d", impares);
+
+    pilhaIntLiberar(&pilha);
+}
+
+static void fluxoManual(void) {
+    PilhaInt pilha;
+    pilhaIntInicializar(&pilha);
+
+    int quantidade;
+    printMensagemColoridaInline(YELLOW, "Quantos valores deseja empilhar? ");
+    if (scanf("%d", &quantidade) != 1) {
+        limparBufferTeclado();
+        printMensagemColorida(RED, "Entrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    for (int i = 0; i < quantidade; i++) {
+        int valor;
+        printf("Valor %d: ", i + 1);
+        if (scanf("%d", &valor) != 1) {
+            limparBufferTeclado();
+            valor = 0;
+        } else {
+            limparBufferTeclado();
+        }
+        pilhaIntPush(&pilha, valor);
+    }
+
+    int pares, impares;
+    contarParImpar(&pilha, &pares, &impares);
+
+    printf("\nTotal de elementos: %d\n", pilhaIntTamanho(&pilha));
+    printMensagemColoridaFormatted(GREEN, "Pares: %d", pares);
+    printMensagemColoridaFormatted(GREEN, "Impares: %d", impares);
+
+    pilhaIntLiberar(&pilha);
+}
+
+static void cabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Pilha Dinamica - Questao 07 ===");
+    printf("\n");
 }
 
 void executarQuestaoPilhaDinamica7(void) {
-    srand((unsigned)time(NULL));
-    PilhaQuestao7* pi = cria_PilhaQuestao7();
-    printMensagemColorida(6,"Pilha criada com sucesso!");
-    printMensagemColoridaFormatted(5,"Tamanho atual: %d\n",tamanho_PilhaQuestao7(pi));
+    executarQuestaoPilhaDinamica7Predefinido();
+}
 
-    int n = 10;
-    printMensagemColoridaFormatted(3, "Criando pilha com %d elementos", n);
-    for (int i = 0; i < n; i++) insere_PilhaQuestao7(pi, i);
-    printMensagemColorida(6,"Pilha total: ");
-    imprime_PilhaQuestao7(pi);
-    printf("\n");
-    printMensagemColorida(6,"Pilha criada com sucesso!");
+void executarQuestaoPilhaDinamica7Predefinido(void) {
+    cabecalho();
+    demonstrarContagem();
+    pausar();
+}
 
-    printMensagemColorida(6,"Pilha com id elemento impar e valor pares:");
-    imprime_PilhaQuestao7_Checagem(pi);
-    libera_PilhaQuestao7(pi);
+void executarQuestaoPilhaDinamica7EntradaManual(void) {
+    cabecalho();
+    fluxoManual();
+    pausar();
 }

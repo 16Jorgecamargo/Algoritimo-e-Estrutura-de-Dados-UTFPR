@@ -17,6 +17,11 @@ ou seja:
 p  => Endereco;
 *p => Conteudo;
 
+- `p++` move o ponteiro para o proximo elemento (endereco diferente, mesmo conteudo).
+- `(*p)++` incrementa o valor armazenado no endereco apontado (endereco igual).
+- `*(p++)` usa o valor atual e so depois avanca o endereco (pos-incremento).
+- `*(p+10)` acessa uma posicao relativa sem alterar o ponteiro; se a posicao nao existir, o acesso e invalido.
+
 ---
 
 QUESTAO 02:
@@ -40,6 +45,12 @@ Logica utilizada:
 A logica eh que tecnicamente y e p sao a mesma coisa pois quando atribuimos o endereco de y a p,
 quando manipulamos o p, estamos manimulando o y.
 
+- `p = &y` faz p apontar para y; `*p` passa a enxergar o mesmo valor de y.
+- `x = *p` copia o valor apontado por p para x (neste ponto x = y).
+- `(*p)++` altera diretamente y porque p aponta para ele.
+- `(*p) += x` soma o valor atual de x no conteudo de y via ponteiro duplo, alterando y novamente.
+- O rastreamento linha a linha evidencia que variaveis ligadas por ponteiros compartilham o mesmo armazenamento.
+
 ---
 
 QUESTAO 03:
@@ -61,6 +72,10 @@ entao so corrigi o que ele estava passado para o %d.
 mas mesmo se ele quisesse mostrar o endereco do q no console nao seria dessa forma. 
 usaria printf("%p",(void *)&q);
 
+- `q` guarda o endereco de `p` (ponteiro para ponteiro); `*q` devolve o endereco de `x`.
+- Para chegar ao valor armazenado em `x` e necessario aplicar duas dereferencias: `**q`.
+- Imprimir `&q` mostra somente o endereco da variavel ponteiro, nao o valor desejado.
+
 ---
 
 QUESTAO 04:
@@ -74,6 +89,10 @@ Exemplo de saida: v[9] = {1,2,3,4,5,6,7,8,9}
 Logica utilizada:
 A logica que eu usei foi so criar um vetor sem tamanho defino inicialmente, 
 e alocar ele com o malloc e com o tamanho passado pelo usuario.
+
+- A chamada `malloc(n * sizeof(int))` deve ocorrer somente depois que `n` e fornecido.
+- Após alocar, o programa preenche o vetor e imprime os valores para confirmar.
+- Ao final, `free()` e obrigatório para liberar a memória dinâmica e evitar vazamentos.
 
 ---
 
@@ -98,6 +117,9 @@ quero que o novo fique {5,4,3,2,1}
 e para pegar o maior so comparei os conteudos do vetor, 
 atribuindo a uma variavel quando era maior.
 
+- A função percorre uma única vez: copia `v1[n-1-i]` para `v2[i]` e atualiza o maior elemento.
+- Retornar o maior evita uma segunda passagem para procurar o valor máximo.
+
 ---
 
 QUESTAO 06:
@@ -112,6 +134,9 @@ Exemplo de saida: "edcba"
 Logica utilizada:
 A logica que usei foi de usar recursao pra imprimir a string de tras pra frente ate chegar no '\0',
 ela volta imprimindo cada caractere como se fosse um pilha.
+
+- O ponteiro avanca ate o terminador `\\0`; cada retorno imprime um caractere, produzindo a string invertida.
+- Não há alocação adicional: a pilha de chamadas fornece a ordem reversa automaticamente.
 
 ---
 
@@ -134,6 +159,10 @@ entao depois bastou alocar ele uma quantidade x vezes para os produtos pre defin
 e para adiconar produtos preferi realocar mais um espaco para o novo item,
 para buscar o item bastou ele acessar o vetor de produtos e comparar se eh igual o codigo.
 
+- Ponteiros permitem armazenar o endereço dos registros (`Produto`) e retornar diretamente o item encontrado.
+- A listagem percorre o vetor dinâmico imprimindo cada struct; a busca retorna o ponteiro para o elemento ou `NULL`.
+- O gerenciamento envolve `malloc` para o vetor inicial e `realloc`/`free` caso se deseje expandir ou liberar a lista.
+
 ---
 
 QUESTAO 08:
@@ -147,15 +176,48 @@ Logica utilizada:
 A logica utilizada foi basicamente pedir ao usuario um numero para definir o tamanho do vetor,
 depois alocar o tamanho dele, assim podendo preencher o vetor depois imprimindo o conteudo do vetor.
 
+- A funcao que recebe o vetor preenchido trabalha sobre o ponteiro retornado por `malloc`.
+- Ao final, `free(vetor)` deve ser chamado para liberar a memória antes de sair do programa.
+
 ---
 
 QUESTAO 09:
-Enunciado: []
+Enunciado: Construa um programa (main) que aloque em tempo de execucao
+(dinamicamente) uma matriz de ordem m x n (linha por coluna), usando 1+m
+chamadas a funcao malloc. Agora, aproveite este programa para construir
+uma funcao que recebendo os parametros m e n aloque uma matriz de ordem
+m x n e retorne um ponteiro para esta matriz alocada. Crie ainda uma funcao
+para liberar a area de memoria alocada pela matriz. Finalmente, crie um novo
+programa (main) que teste/use as duas funcoes criadas acima.
 
-Exemplo de entrada: []
-Exemplo de saida: []
+Exemplo de entrada: m=3, n=4
+Exemplo de saida:
+Matriz 3x4:
+[ 45, 12, 78, 23 ]
+[ 56, 89, 34, 67 ]
+[ 91, 28, 45, 73 ]
 
 Logica utilizada:
-[]
+A logica que usei foi alocar a matriz em duas etapas:
+1. Primeira chamada a malloc: aloca um array de m ponteiros (int**), onde cada
+   ponteiro vai apontar para uma linha da matriz.
+2. M chamadas a malloc: para cada uma das m linhas, aloca um array de n inteiros.
+
+Total: 1 + m chamadas a malloc!
+
+Para liberar a memoria, faz-se o inverso:
+1. M chamadas a free: libera cada uma das m linhas.
+2. Uma chamada a free: libera o array de ponteiros.
+
+Total: m + 1 chamadas a free!
+
+Funcoes criadas:
+- int** alocarMatriz(int m, int n): aloca e retorna a matriz
+- void liberarMatriz(int** mat, int m): libera toda memoria alocada
+- void preencherMatriz(int** mat, int m, int n): preenche com valores aleatorios
+- void imprimirMatriz(int** mat, int m, int n): exibe a matriz formatada
+
+Esta abordagem permite criar matrizes de qualquer tamanho em tempo de execucao,
+acessando os elementos como matriz[i][j], mantendo a notacao tradicional.
 
 ---

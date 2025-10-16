@@ -59,3 +59,39 @@ void setBackgroundColor(Color color) {
         printf("\033[4%dm", color);
     #endif
 }
+
+void setColorAndBackground(Color textColor, Color backgroundColor) {
+    #ifdef _WIN32
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        WORD windowsTextColor;
+        switch(textColor) {
+            case BLACK:   windowsTextColor = 0; break;
+            case RED:     windowsTextColor = FOREGROUND_RED; break;
+            case GREEN:   windowsTextColor = FOREGROUND_GREEN; break;
+            case YELLOW:  windowsTextColor = FOREGROUND_RED | FOREGROUND_GREEN; break;
+            case BLUE:    windowsTextColor = FOREGROUND_BLUE; break;
+            case MAGENTA: windowsTextColor = FOREGROUND_RED | FOREGROUND_BLUE; break;
+            case CYAN:    windowsTextColor = FOREGROUND_GREEN | FOREGROUND_BLUE; break;
+            case WHITE:   windowsTextColor = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE; break;
+            default:      windowsTextColor = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE; break;
+        }
+
+        WORD windowsBackgroundColor;
+        switch(backgroundColor) {
+            case BLACK:   windowsBackgroundColor = 0; break;
+            case RED:     windowsBackgroundColor = BACKGROUND_RED; break;
+            case GREEN:   windowsBackgroundColor = BACKGROUND_GREEN; break;
+            case YELLOW:  windowsBackgroundColor = BACKGROUND_RED | BACKGROUND_GREEN; break;
+            case BLUE:    windowsBackgroundColor = BACKGROUND_BLUE; break;
+            case MAGENTA: windowsBackgroundColor = BACKGROUND_RED | BACKGROUND_BLUE; break;
+            case CYAN:    windowsBackgroundColor = BACKGROUND_GREEN | BACKGROUND_BLUE; break;
+            case WHITE:   windowsBackgroundColor = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE; break;
+            default:      windowsBackgroundColor = 0; break;
+        }
+
+        SetConsoleTextAttribute(hConsole, windowsTextColor | FOREGROUND_INTENSITY | windowsBackgroundColor | BACKGROUND_INTENSITY);
+    #else
+        printf("\033[3%d;4%dm", textColor, backgroundColor);
+    #endif
+}

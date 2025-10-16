@@ -7,10 +7,10 @@ push2() para empilhar 2 elementos a partir do topo da pilha. Nao devem
 ser utilizadas as funcoes de push e pop ja existentes. 
 
 Logica utilizada:
-Em pop eu usei a logica de criar um novo elemento chamado "no" e nele armazenei o valor do topo da pilha,
-depois o topo da pilha armazenei o valor do "no->prox", ou seja o topo vira o outro elemento e assim posso liberar o "no".
-Ja em push criei e aloquei um novo elemento chamado "no" e nele atribui em no->dados o valor de "al[indice]" e em no->prox atribui o valor do topo,
-depois o topo eu atribui o valor de "no". nos dois fiz isso duas vezes. 
+- Pilha implementada com lista ligada de inteiros e ponteiro para o topo.
+- `push2` aloca duas novas celulas e as encadeia diretamente, posicionando o segundo elemento como novo topo.
+- `pop2` remove dois elementos consecutivos, devolvendo os valores retirados e atualizando o topo da pilha.
+- Uma interface interativa permite empilhar e desempilhar pares de valores, facilitando os testes da funcao.
 
 ---
 
@@ -20,8 +20,9 @@ desempilhar n elementos a partir do topo da pilha. Nao devem ser
 utilizadas as funcoes de push e pop ja existentes.
 
 Logica utilizada:
-A logica que usei aqui foi basear-se na questao anterior,
-e ao inves do loop passar somente ate dois agora ele vai ate N.
+- Remove iterativamente ate `n` elementos do topo, guardando os valores em um vetor auxiliar para exibicao.
+- Interrompe a remocao caso a pilha termine antes de atingir `n`, informando quantos elementos foram efetivamente retirados.
+- Um modo interativo permite que o usuario defina a pilha inicial e o valor de `n` para testar diferentes cenarios.
 
 ---
 
@@ -35,10 +36,9 @@ Obs.: Ao final da funcao copia_pilha, a pilha p recebida como parametro
 deve estar no mesmo estado em que ela comecou a funcao
 
 Logica utilizada:
-Aqui o que fiz foi criar duas pilha novas chamada copia e aux;
-depois simplesmente adicionei os elementos da original -p/-> aux -p/-> copia
-isso fez com que a pilha original (pilha p) nao mudasse no final da funcao,
-e a pilha copiada ficasse na mesma ordem na original.
+- Utiliza uma pilha auxiliar para esvaziar a pilha original preservando a ordem dos elementos.
+- Ao devolver cada elemento para a pilha original, ele e simultaneamente empilhado na pilha copia.
+- A abordagem nao exige estrutura extra e garante que a pilha de entrada seja restaurada ao final do procedimento.
 
 ---
 
@@ -47,8 +47,9 @@ Enunciado: Dado uma pilha que armazene numeros, escreva uma funcao que
 forneca o maior, o menor e a media aritmetica dos elementos da pilha. 
 
 Logica utilizada:
-O que foi feito aqui foi recriar as funcoes basicas para funcionar o com um novo tipo de dado unico,
-depois disso foi apenas percorrer os elementos e verficar o maior, menor e a media deles.
+- Percorre a pilha movendo os elementos para uma pilha auxiliar enquanto calcula soma, menor e maior valor.
+- Depois de calcular as estatisticas, devolve todos os elementos da pilha auxiliar para restaurar o estado original.
+- A media aritmetica e obtida dividindo a soma acumulada pela quantidade de elementos visitados.
 
 ---
 
@@ -58,8 +59,9 @@ para a pilha, implemente uma funcao que teste se duas pilhas sao iguais
 ou Nao.
 
 Logica utilizada:
-Aqui bastou fazer uma funcao que primeiramente compara o tamanho da pilha,
-depois vai indo dado por dado de cada elemente e comparando.
+- Remove simultaneamente os elementos das duas pilhas comparando os valores retirados.
+- Cada valor e guardado em pilhas auxiliares, permitindo restaurar as duas pilhas ao final da verificacao.
+- Diferencas de tamanho ou de conteudo interrompem a comparacao e indicam que as pilhas nao sao identicas.
 
 ---
 
@@ -73,9 +75,9 @@ mesma maneira de frente para tras e de tras para frente. Ignore espacos
 e pontos.
 
 Logica utilizada:
-Para essa questao a logica que segui foi de salvar oque foi escrito em um vetor, 
-depois andar cada caractere e salvar ele em um elemento da pilha, 
-assim consigo fazer imprimir o texto invertido e com um auxiliar verificar se eh palindromo.
+- Empilha cada caractere do texto para obter a versao invertida ao desempilhar.
+- Para o teste de palindromo, ignora espacos e pontos e compara o texto sanitizado com a sequencia invertida.
+- Toda a logica de reversao e validacao usa apenas operacoes de pilha para manipular os caracteres.
 
 ---
 
@@ -84,8 +86,9 @@ Enunciado: Faca uma funcao para retornar o numero de elementos da pilha que
 possuem valor par e o numero de elementos com valor impar
 
 Logica utilizada:
-O que foi necessario para resolver essa questao foi basicamente fazer uma uma pilha com id, valor, e proximo elemento
-e uma funcao que percorre todos os elementos e verifica se o id do elemento eh impar e o valor no elemento eh par
+- A pilha e percorrida inteiramente, movendo os elementos para uma pilha auxiliar enquanto os valores pares e impares sao contabilizados.
+- Ao final os elementos retornam para a pilha original, preservando a estrutura inicial.
+- Os contadores gerados sao exibidos junto ao tamanho total da pilha.
 
 ---
 
@@ -98,9 +101,9 @@ o inverso de x. Isto eh, se x = "ABABBA", y deve equivaler a "BABAAB". Em
 cada ponto, voce so podera ler o proximo caractere da cadeia.
 
 Logica utilizada:
-A logica que usei foi dividir a string ate a letra C,
-primeiro eu percorro ate encontrar o c depois disso vou empilhando todos os caracteres validos
-depois do c eu desempilho e comparo com os caracteres empilhados
+- Empilha a porção `x` da cadeia até encontrar o caractere `C`, aceitando apenas letras `A` ou `B`.
+- Após o `C`, cada caractere de `y` é confrontado com o topo da pilha; discrepâncias invalidam a sequência.
+- A pilha deve estar vazia ao final da leitura, garantindo que `y` seja exatamente o inverso de `x`.
 
 ---
 
@@ -120,5 +123,9 @@ void menu()
 }
 
 Logica utilizada:
+- Loop interativo que reaproveita as operacoes padrao da pilha dinamica (empilhar, desempilhar, consultar topo e verificar vazia).
+- A opcao de conversao decimal->binario empilha os restos da divisao por dois e imprime os bits na ordem correta.
+- Todas as opcoes validam se a pilha foi inicializada antes de executar as operacoes.
+- O menu permanece ativo ate o usuario selecionar "Sair".
 
 ---

@@ -1,111 +1,115 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../headlers/8.h"
-#include "../../../shared/headlers/color.h"
+#include <time.h>
+#include "../index.h"
 #include "../../../shared/headlers/colorPrint.h"
+#include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/clean.h"
+#include "../../../shared/headlers/animacao.h"
 
-void preencherVet(int *v, int n, int op){
-    if (n > 0 && op == 0) {
-        printf("Digite %d elemento: ", n);
-        scanf("%d", &v[0]);
-        preencherVet(&v[1], n-1, op);
+// Questao 8: Criar vetor dinamico, preencher via funcao e liberar memoria
+
+static void preencherAleatorio(int *vetor, int n) {
+    srand((unsigned int)time(NULL));
+    printComAnimacao("Preenchendo vetor com valores aleatorios (1-100)");
+    for (int i = 0; i < n; i++) {
+        vetor[i] = (rand() % 100) + 1;
     }
-    else if (n > 0 && op == 1) {
-        v[0] = n * 2;
-        preencherVet(&v[1], n - 1, op);
-    }
+    printMensagemColoridaFormatted(GREEN, "Vetor preenchido automaticamente!\n");
 }
 
-void imprimeVet(int *v, int n){
-    if(n > 0) {
-        if(n > 1) printf("%d, ", v[0]);
-        else printf("%d", v[0]);
-        imprimeVet(v + 1, n - 1);
-    }
-}
-
-int mostrarMenuQuestaoPonteiros8(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Ponteiros ===\n");
-        printf("=== Executando a Questao 8 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com numero pre definido");
-        printMenuItem(2, "Escolher os caracteres do vetor");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
-
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("\n\nPressione Enter para continuar...");
-            getchar();
-            continue;
+static void lerVetor(int *vetor, int n) {
+    printf("\nDigite os %d elementos do vetor:\n", n);
+    for (int i = 0; i < n; i++) {
+        printf("Elemento [%d]: ", i);
+        if (scanf("%d", &vetor[i]) != 1) {
+            limparBufferTeclado();
+            printMensagemColoridaFormatted(RED, "Erro na entrada!\n");
+            vetor[i] = 0;
         }
-        resetColor();
-        processarOpcaoQuestaoPonteiros8(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
+        limparBufferTeclado();
+    }
 }
 
-void processarOpcaoQuestaoPonteiros8(int op)
-{
-    int n;
-    switch (op)
-    {
-    case 1:
-    {
-        int *v = malloc(8 * sizeof(int));
-        preencherVet(v, 8, 1);
-        printf("vetor[8] = {");
-        imprimeVet(v, 8);
-        printf("}\n");
-        free(v);
-        pausar();
-        break;
+static void imprimirVetor(const int *vetor, int n) {
+    printMensagemColoridaFormatted(CYAN, "\nVetor preenchido:");
+    printf("{");
+    for (int i = 0; i < n; i++) {
+        printf("%d", vetor[i]);
+        if (i < n - 1) printf(", ");
     }
-    case 2:
-    {
-        setColor(YELLOW);
-        printf("Digite o tamanho do vetor: ");
-        scanf("%d", &n);
-        resetColor();
-        int *vetor = malloc(n * sizeof(int));
-        preencherVet(vetor, n, 0);
-        printf("\nvetor[%d] = {", n);
-        imprimeVet(vetor, n);
-        printf("}\n");
-        free(vetor);
+    printf("}\n");
+}
+
+static void executarFluxo(int n, int preencherAutomatico) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Ponteiros - Questao 08 ===\n\n");
+
+    int *vetor = (int*)malloc((size_t)n * sizeof(int));
+    if (vetor == NULL) {
+        printMensagemColoridaFormatted(RED, "Erro ao alocar memoria!\n");
         pausar();
-        break;
-    }
-    case 0:
         return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("\n\nPressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
     }
+
+    printf("Tamanho do vetor: %d\n", n);
+    printf("Endereco alocado: %p\n", (void*)vetor);
+    printf("Tamanho total: %zu bytes\n", (size_t)n * sizeof(int));
+
+    if (preencherAutomatico) {
+        preencherAleatorio(vetor, n);
+    } else {
+        lerVetor(vetor, n);
+    }
+
+    imprimirVetor(vetor, n);
+
+    printf("\n");
+    printComAnimacao("Liberando memoria alocada");
+    free(vetor);
+    printMensagemColoridaFormatted(GREEN, "Memoria liberada com sucesso!\n");
+
+    pausar();
 }
 
-void executarQuestaoPonteiros8(void)
-{
-    mostrarMenuQuestaoPonteiros8();
-    ungetc('\n', stdin);
+void executarQuestaoPonteiros8(void) {
+    executarQuestaoPonteiros8Predefinido();
+}
+
+void executarQuestaoPonteiros8Predefinido(void) {
+    executarFluxo(5, 1);
+}
+
+void executarQuestaoPonteiros8EntradaManual(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Ponteiros - Questao 08 ===\n\n");
+
+    int n;
+    printf("Digite o tamanho do vetor: ");
+    if (scanf("%d", &n) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (n <= 0) {
+        printMensagemColoridaFormatted(RED, "\nTamanho invalido!");
+        pausar();
+        return;
+    }
+
+    int escolha;
+    printf("\nPreencher automaticamente (1) ou informar valores (2)? ");
+    if (scanf("%d", &escolha) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    int autoPreencher = (escolha == 1);
+    executarFluxo(n, autoPreencher);
 }

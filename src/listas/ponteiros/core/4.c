@@ -1,93 +1,93 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../headlers/4.h"
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
+#include "../../../shared/headlers/animacao.h"
 
+// Questao 4: Alocacao dinamica de vetor
 
-void criaVetor(int n, int* v) {
-    printf("Vetor[%d] = {", n);
-	for (int i = 0; i < n; i++) {
-		v[i] = i+1;
-        if (i == n - 1) printf("%d}\n", v[i]);
-        else printf("%d, ", v[i]);
-	}
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Ponteiros - Questao 04 ===");
+    printf("\n");
 }
 
-int mostrarMenuQuestaoPonteiros4(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Ponteiros ===\n");
-        printf("=== Executando a Questao 4 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com numero pre definido");
-        printMenuItem(2, "Escolher o tamanho do vetor");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
-
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        resetColor();
-        processarOpcaoQuestaoPonteiros4(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
-}
-
-void processarOpcaoQuestaoPonteiros4(int op)
-{
-    int n = 10, *v;
-    
-    switch (op)
-    {
-    case 1:
-        printf("Tamanho do vetor pre definido: %d\n", n);
-        v = (int*)malloc(n * sizeof(int));
-        criaVetor(n, v);
-        free(v);
-        pausar();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite um tamanho para o vetor (numero inteiro): ");
-        scanf("%d", &n);
-        v = (int*)malloc(n * sizeof(int));
-        criaVetor(n, v);
-        free(v);
-        resetColor();
-        pausar();
-        break;
-    case 0:
-        return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
+static int* criarVetor(int n) {
+    int* v = (int*)malloc((size_t)n * sizeof(int));
+    if (v == NULL) {
+        printMensagemColoridaFormatted(RED, "Erro ao alocar memoria!\n");
+        return NULL;
     }
+
+    for (int i = 0; i < n; i++) {
+        v[i] = i + 1;
+    }
+
+    return v;
 }
 
-void executarQuestaoPonteiros4(void)
-{
-    mostrarMenuQuestaoPonteiros4();
-    ungetc('\n', stdin);
+static void imprimirVetor(const int* v, int n) {
+    printf("v[%d] = {", n);
+    for (int i = 0; i < n; i++) {
+        printf("%d", v[i]);
+        if (i < n - 1) printf(", ");
+    }
+    printf("}\n");
+}
+
+static void executarFluxo(int n) {
+    imprimirCabecalho();
+
+    printMensagemColoridaFormatted(GREEN, "Tamanho do vetor: %d\n", n);
+
+    printComAnimacao("Alocando vetor dinamicamente com malloc");
+    int* vetor = criarVetor(n);
+
+    if (vetor != NULL) {
+        printf("Vetor alocado com sucesso!\n");
+        printf("Endereco do vetor: %p\n", (void*)vetor);
+        printf("Tamanho total: %zu bytes\n\n", (size_t)n * sizeof(int));
+
+        printf("Vetor preenchido:\n");
+        imprimirVetor(vetor, n);
+
+        printf("\n");
+        printComAnimacao("Liberando memoria com free()");
+        free(vetor);
+        printf("Memoria liberada com sucesso!\n");
+    }
+
+    pausar();
+}
+
+void executarQuestaoPonteiros4(void) {
+    executarQuestaoPonteiros4Predefinido();
+}
+
+void executarQuestaoPonteiros4Predefinido(void) {
+    executarFluxo(9);
+}
+
+void executarQuestaoPonteiros4EntradaManual(void) {
+    imprimirCabecalho();
+
+    int n;
+    printf("Digite o tamanho do vetor: ");
+    if (scanf("%d", &n) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (n <= 0) {
+        printMensagemColoridaFormatted(RED, "\nTamanho invalido! Deve ser maior que zero.");
+        pausar();
+        return;
+    }
+
+    executarFluxo(n);
 }

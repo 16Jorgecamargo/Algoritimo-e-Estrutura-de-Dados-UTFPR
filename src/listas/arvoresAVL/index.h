@@ -1,15 +1,15 @@
 #ifndef ARVORES_AVL_INDEX_H
 #define ARVORES_AVL_INDEX_H
 
-// Index header para todas as questões de Árvores AVL
-// Este arquivo agrega todos os headers individuais da lista
+// Declarações de todas as questões de Árvores AVL
 
-// Adicione aqui os includes das questões conforme implementar:
-// #include "headlers/1.h"
-// #include "headlers/2.h"
-// #include "headlers/3.h"
-// #include "headlers/4.h"
-// #include "headlers/5.h"
-// ... até 10.h ou quantas questões houver
+void executarQuestaoArvoresAVL1(void);  // Questão 1
+void executarQuestaoArvoresAVL2(void);  // Questão 2
+void executarQuestaoArvoresAVL3(void);  // Questão 3
+void executarQuestaoArvoresAVL4(void);  // Questão 4
+void executarQuestaoArvoresAVL5(void);  // Questão 5
+void executarQuestaoArvoresAVL6(void);  // Questão 6
+void executarQuestaoArvoresAVL7(void);  // Questão 7
+void executarQuestaoArvoresAVL8(void);  // Questão 8
 
 #endif

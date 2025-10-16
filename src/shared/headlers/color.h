@@ -15,5 +15,6 @@ typedef enum {
 void setColor(Color color);
 void resetColor(void);
 void setBackgroundColor(Color color);
+void setColorAndBackground(Color textColor, Color backgroundColor);
 
 #endif

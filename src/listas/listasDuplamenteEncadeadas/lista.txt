@@ -1,0 +1,57 @@
+=== Lista de Exercicios - Listas Duplamente Encadeadas ===
+
+QUESTAO 01:
+Enunciado: [Adicione aqui o enunciado da questao 01]
+
+Exemplo de entrada: [Exemplo]
+Exemplo de saida: [Exemplo]
+
+Logica utilizada:
+[Adicione aqui a explicacao da logica utilizada para resolver a questao 01]
+
+---
+
+QUESTAO 02:
+Enunciado: [Adicione aqui o enunciado da questao 02]
+
+Exemplo de entrada: [Exemplo]
+Exemplo de saida: [Exemplo]
+
+Logica utilizada:
+[Adicione aqui a explicacao da logica utilizada para resolver a questao 02]
+
+---
+
+QUESTAO 03:
+Enunciado: [Adicione aqui o enunciado da questao 03]
+
+Exemplo de entrada: [Exemplo]
+Exemplo de saida: [Exemplo]
+
+Logica utilizada:
+[Adicione aqui a explicacao da logica utilizada para resolver a questao 03]
+
+---
+
+QUESTAO 04:
+Enunciado: [Adicione aqui o enunciado da questao 04]
+
+Exemplo de entrada: [Exemplo]
+Exemplo de saida: [Exemplo]
+
+Logica utilizada:
+[Adicione aqui a explicacao da logica utilizada para resolver a questao 04]
+
+---
+
+QUESTAO 05:
+Enunciado: [Adicione aqui o enunciado da questao 05]
+
+Exemplo de entrada: [Exemplo]
+Exemplo de saida: [Exemplo]
+
+Logica utilizada:
+[Adicione aqui a explicacao da logica utilizada para resolver a questao 05]
+
+---
+

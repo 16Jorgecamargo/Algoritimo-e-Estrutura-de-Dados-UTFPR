@@ -1,90 +1,100 @@
 #include <stdio.h>
-#include "../headlers/1.h"
+#include <stdlib.h>
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
 
-void inverterNumero(int numero) {
-	if (numero > 0)
-	{
-		printf("%d", numero % 10);
-		inverterNumero(numero / 10);
-	}
+// Questao 1: Inverter numero inteiro utilizando recursao
+
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 01 ===");
+    printf("\n");
 }
 
+static unsigned long long inverterRec(unsigned long long n, unsigned long long acumulado) {
+    if (n == 0) {
+        return acumulado;
+    }
+    return inverterRec(n / 10, acumulado * 10 + (n % 10));
+}
 
-int mostrarMenuQuestaoRecursividade1(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Recursividade ===\n");
-        printf("=== Executando a Questao 01 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com um numero pre definido");
-        printMenuItem(2, "Escolher o numero");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
+static void exibirPassosInversao(unsigned long long n) {
+    printMensagemColoridaFormatted(CYAN, "RASTREAMENTO DAS CHAMADAS RECURSIVAS\n");
 
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
+    unsigned long long restante = n;
+    unsigned long long acumulado = 0;
+    int nivel = 0;
+
+    while (1) {
+        printMensagemColoridaFormatted(YELLOW, "Nivel %d -> inverterRec(%llu, %llu)\n", nivel, restante, acumulado);
+
+        if (restante == 0) {
+            printMensagemColoridaFormatted(GREEN, "Base atingida: retorna %llu\n", acumulado);
+            break;
         }
-        resetColor();
-        processarOpcaoQuestaoRecursividade1(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
-}
 
-void processarOpcaoQuestaoRecursividade1(int op)
-{
-    int numero;
-    switch (op)
-    {
-    case 1:
-        printf("Numero original: 12345\n");
-        printf("Numero invertido: ");
-        inverterNumero(12345);
-        printf("\n");
-        pausar();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite um numero inteiro positivo: ");
-        scanf("%d", &numero);
-        resetColor();
-        printf("Numero original: %d\n", numero);
-        printf("Numero invertido: ");
-        inverterNumero(numero);
-        printf("\n");
-        pausar();
-        break;
-    case 0:
-        return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
+        unsigned long long digito = restante % 10;
+        unsigned long long proximoAcumulado = acumulado * 10 + digito;
+        unsigned long long proximoNumero = restante / 10;
+
+        printf("   Extrai ultimo digito: %llu\n", digito);
+        printf("   Atualiza acumulado : %llu * 10 + %llu = %llu\n", acumulado, digito, proximoAcumulado);
+
+        printMensagemColoridaFormatted(GREEN, "   Proxima chamada -> inverterRec(%llu, %llu)\n\n", proximoNumero, proximoAcumulado);
+
+        acumulado = proximoAcumulado;
+        restante = proximoNumero;
+        nivel++;
     }
 }
-void executarQuestaoRecursividade1(void)
-{
-    mostrarMenuQuestaoRecursividade1();
-    ungetc('\n', stdin);
+
+void executarQuestaoRecursividade1(void) {
+    executarQuestaoRecursividade1Predefinido();
+}
+
+void executarQuestaoRecursividade1Predefinido(void) {
+    imprimirCabecalho();
+
+    unsigned long long numero = 12345ULL;
+    unsigned long long invertido = inverterRec(numero, 0);
+
+    printMensagemColoridaFormatted(CYAN, "Numero escolhido: %llu\n", numero);
+
+    exibirPassosInversao(numero);
+
+    printMensagemColoridaFormatted(GREEN, "Resultado final: %llu", invertido);
+
+    printf("\nDica: voce pode tentar novamente com qualquer outro numero no menu!\n");
+
+    pausar();
+}
+
+void executarQuestaoRecursividade1EntradaManual(void) {
+    imprimirCabecalho();
+
+    long long entrada;
+    printMensagemColoridaInline(YELLOW, "Digite um numero inteiro (positivo ou negativo): ");
+    if (scanf("%lld", &entrada) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    unsigned long long valorAbsoluto = (entrada < 0) ? (unsigned long long)(-entrada) : (unsigned long long)entrada;
+    unsigned long long invertido = inverterRec(valorAbsoluto, 0);
+
+    printMensagemColoridaFormatted(CYAN, "\nNumero original : %lld\n", entrada);
+    printMensagemColoridaInline(CYAN, "Numero invertido: ");
+    if (entrada < 0 && invertido != 0) {
+        printf("-");
+    }
+    printf("%llu\n", invertido);
+
+    printMensagemColoridaFormatted(GREEN, "\nProcesso concluido com sucesso!\n");
+
+    pausar();
 }

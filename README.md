@@ -23,18 +23,33 @@ Este sistema foi desenvolvido seguindo os principios de **arquitetura limpa** e 
 
 ### Compilacao e Execucao
 
-
 #### Compilar o projeto
 ```bash
-build.bat
+make
 ```
-#### Compilar e executar imediatamente
+
+#### Compilar e executar
 ```bash
-build.bat run
+make run
 ```
+
+#### Limpar arquivos de build
+```bash
+make clean
+```
+
+#### Recompilar do zero
+```bash
+make rebuild
+```
+
 #### Executar manualmente
 ```bash
+# Windows
 bin/APP.exe
+
+# Linux/macOS
+bin/APP
 ```
 
 ## Estrutura do Projeto
@@ -42,14 +57,14 @@ bin/APP.exe
 ```
 Algoritimo-e-Estrutura-de-Dados-UTFPR/
 ├── README.md
-├── build.bat              # Sistema de build automatizado
+├── Makefile               # Sistema de build cross-platform
 ├── src/
 │   ├── interface/
 │   │   ├── main.c         # Ponto de entrada do programa
 │   │   ├── core/          # Logica dos menus
 │   │   └── headlers/      # Headers da interface
 │   ├── shared/
-│   │   ├── core/          # Utilitarios (cores, limpeza, etc.)
+│   │   ├── core/          # Utilitarios (cores, limpeza, animacao, etc.)
 │   │   └── headlers/      # Headers compartilhados
 │   └── listas/            # Exercicios organizados por topico
 │       ├── recursividade/               (12 questoes)
@@ -70,17 +85,18 @@ Algoritimo-e-Estrutura-de-Dados-UTFPR/
 
 ```
 [nome_da_lista]/
-├── headlers/
-│   ├── 1.h               # Header da questao 1
-│   ├── 2.h               # Header da questao 2
-│   └── ...
 ├── core/
 │   ├── 1.c               # Implementacao da questao 1
 │   ├── 2.c               # Implementacao da questao 2
 │   └── ...
-├── index.h               # Agrega todos os headers
-└── lista.txt             # Enunciados e solucoes
+├── index.h               # Declaracoes de todas as questoes da lista
+└── lista.txt             # Enunciados e solucoes das questoes
 ```
+
+**Nota:** Cada questao implementa tres funcoes:
+- `executarQuestao[Categoria][N]()` - Entrada principal (geralmente chama Predefinido)
+- `executarQuestao[Categoria][N]Predefinido()` - Executa com valores pre-definidos
+- `executarQuestao[Categoria][N]EntradaManual()` - Solicita entrada do usuario
 
 ## Interface do Sistema
 
@@ -97,9 +113,6 @@ Algoritimo-e-Estrutura-de-Dados-UTFPR/
  8. Arvores Binarias - Exercicios sobre arvores binarias
  9. Arvores AVL - Exercicios sobre arvores AVL balanceadas
 10. Grafos - Exercicios sobre teoria dos grafos e algoritmos
-
-Digite o numero da lista que deseja ou 0 para sair
-> 
 ```
 
 ### Menu de Lista (Exemplo: Recursividade)
@@ -118,9 +131,6 @@ Exercicios disponiveis (12 questoes):
 10. Questao 10
 11. Questao 11
 12. Questao 12
-
-Digite o numero do exercicio que deseja ou 0 para voltar
-> 
 ```
 
 ### Menu de Questao
@@ -144,43 +154,98 @@ Escolha uma opcao a seguir:
 
 ### Adicionando Novos Exercicios
 
-1. **Crie os arquivos da questao:**
+1. **Crie o arquivo da questao:**
    ```bash
-   # Na pasta da lista apropriada (ex: recursividade)
-   touch src/listas/recursividade/headlers/13.h
+   # Exemplo: Adicionar questao 13 em recursividade
    touch src/listas/recursividade/core/13.c
    ```
 
-2. **Implemente o header (.h):**
+2. **Declare as funcoes em `index.h`:**
    ```c
-   #ifndef RECURSIVIDADE_13_H
-   #define RECURSIVIDADE_13_H
-   
+   // src/listas/recursividade/index.h
    void executarQuestaoRecursividade13(void);
-   
-   #endif
+   void executarQuestaoRecursividade13Predefinido(void);
+   void executarQuestaoRecursividade13EntradaManual(void);
    ```
 
-3. **Implemente a solucao (.c):**
+3. **Implemente as tres funcoes no arquivo `.c`:**
    ```c
    #include <stdio.h>
-   #include "../headlers/13.h"
+   #include "../index.h"
    #include "../../../shared/headlers/color.h"
-   
+   #include "../../../shared/headlers/colorPrint.h"
+   #include "../../../shared/headlers/clean.h"
+
+   // Funcao auxiliar com a logica principal
+   static void logicaQuestao13(int valor) {
+       printf("Processando valor: %d\n", valor);
+       // ... implementacao da logica ...
+   }
+
+   // Entrada principal - chama a versao predefinida
    void executarQuestaoRecursividade13(void) {
-       printf("=== Questao 13 - Recursividade ===\n");
-       // Sua implementacao aqui
+       executarQuestaoRecursividade13Predefinido();
+   }
+
+   // Executa com valores pre-definidos para demonstracao
+   void executarQuestaoRecursividade13Predefinido(void) {
+       limparTela();
+       printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 13 ===\n\n");
+       resetColor();
+
+       logicaQuestao13(123);  // Valor de exemplo
+       pausar();
+   }
+
+   // Solicita entrada do usuario
+   void executarQuestaoRecursividade13EntradaManual(void) {
+       limparTela();
+       printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 13 ===\n\n");
+       resetColor();
+
+       int valor;
+       printf("Digite um valor: ");
+       if (scanf("%d", &valor) != 1) {
+           limparBufferTeclado();
+           printMensagemColoridaFormatted(RED, "Entrada invalida!\n");
+           pausar();
+           return;
+       }
+       limparBufferTeclado();
+
+       logicaQuestao13(valor);
+       pausar();
    }
    ```
 
-4. **Atualize o switch case em `menuQuestao.c`:**
-   ```c
-   case 13:
-       executarQuestaoRecursividade13();
-       break;
+4. **Registre as funcoes em `menuQuestao.c`:**
+   - Localize o array correspondente a sua categoria (ex: `todasFuncoes[1]` para Recursividade)
+   - Adicione `executarQuestaoRecursividade13` na posicao [12] do array `todasFuncoes[1]`
+   - Adicione `executarQuestaoRecursividade13EntradaManual` na mesma posicao do array `funcoesEntrada[1]`
+
+5. **Atualize `lista.txt` com a documentacao:**
+   ```
+   QUESTAO 13:
+   Enunciado: [Descricao completa do problema]
+
+   Exemplo de entrada: [Exemplo de entrada]
+   Exemplo de saida: [Exemplo de saida esperada]
+
+   Logica utilizada:
+   [Explicacao detalhada da sua solucao]
+   - Algoritmo utilizado
+   - Estruturas de dados
+   - Detalhes de implementacao importantes
+
+   ---
    ```
 
-5. **Compile:** O sistema detectara automaticamente o novo arquivo!
+6. **Compile e teste:**
+   ```bash
+   make
+   make run
+   ```
+   O sistema detectara automaticamente o novo arquivo!
 
 ### Convencoes de Nomenclatura
 
@@ -204,13 +269,6 @@ O projeto inclui um sistema de cores cross-platform que funciona tanto no Window
 - **RED**: Mensagens de erro
 - **WHITE**: Texto padrao
 
-## Estatisticas do Projeto
-
-- **Total de Exercicios**: 93 questoes implementadas
-- **Listas Suportadas**: 10 categorias diferentes
-- **Arquivos de Codigo**: ~200 arquivos (.c + .h)
-- **Linhas de Codigo**: ~3000+ linhas
-- **Compatibilidade**: Windows + Linux
 
 ## Contribuicao
 

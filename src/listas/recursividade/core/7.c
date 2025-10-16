@@ -1,110 +1,118 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include "../headlers/7.h"
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
 
-void criarVetorQuestao7(int v[], int n) {
-    for (int i = 0; i < n; i++) v[i] = (rand() % 5) + 1;
+// Questao 7: Contar ocorrencias de um digito K em um numero N (recursivo)
 
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 07 ===");
+    printf("\n");
 }
 
-int ocorrencia(int n, const int *v, int tamanho) {
-    if (tamanho == 0) return 0;
-    return (v[0] == n) + ocorrencia(n, v + 1, tamanho - 1);
-}
-
-int mostrarMenuQuestaoRecursividade7(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Recursividade ===\n");
-        printf("=== Executando a Questao 07 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com numeros pre definidos");
-        printMenuItem(2, "Escolher os numeros");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
-
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        resetColor();
-        processarOpcaoQuestaoRecursividade7(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
-}
-
-void processarOpcaoQuestaoRecursividade7(int op)
-{
-    int ocorrenciaNumero = (rand() % 5) + 1;
-    int tamanho = 10;
-    int *vetorOcorrencia = malloc(tamanho * sizeof(int));
-
-    switch (op)
-    {
-    case 1:
-        srand((unsigned)time(NULL));
-        criarVetorQuestao7(vetorOcorrencia, tamanho);
-        printf("Vetor original: [ ");
-	    for (int i = 0; i < tamanho ; i++) printf("%d ", vetorOcorrencia[i]);
-	    printf("]\nNumero procurado: %d\n", ocorrenciaNumero);
-	    printf("Total encontrado: %d\n", ocorrencia(ocorrenciaNumero, vetorOcorrencia, tamanho));
-        free(vetorOcorrencia);
-        pausar();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite o tamanho do vetor: ");
-        scanf("%d", &tamanho);
-        printf("Digite os elementos do vetor:\n");
-        for (int i = 0; i < tamanho; i++)
-        {
-            printf("Elemento %d: ", i + 1);
-            scanf("%d", &vetorOcorrencia[i]);
-        }
-        printf("Digite o numero que deseja procurar: ");
-        scanf("%d", &ocorrenciaNumero);
-        resetColor();
-        printf("\nVetor original: [ ");
-        for (int i = 0; i < tamanho; i++) printf("%d ", vetorOcorrencia[i]);
-        printf("]\nNumero procurado: %d\n", ocorrenciaNumero);
-        printf("Total encontrado: %d\n", ocorrencia(ocorrenciaNumero, vetorOcorrencia, tamanho));
-        free(vetorOcorrencia);
-        pausar();
-        break;
-    case 0:
-        return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
+static int contarOcorrencias(unsigned long long n, int digito) {
+    if (n == 0) {
+        return 0;
     }
+
+    int ultimo = (int)(n % 10ULL);
+    int corresponde = (ultimo == digito) ? 1 : 0;
+    return corresponde + contarOcorrencias(n / 10ULL, digito);
 }
 
-void executarQuestaoRecursividade7(void)
-{
-    mostrarMenuQuestaoRecursividade7();
-    ungetc('\n', stdin);
+static int rastrearOcorrencias(unsigned long long n, int digito, int nivel) {
+    printMensagemColoridaFormatted(YELLOW, "Nivel %d -> contar(%llu)", nivel, n);
+
+    if (n == 0) {
+        printMensagemColoridaFormatted(GREEN, "Caso base: retorna 0\n");
+        return 0;
+    }
+
+    int ultimo = (int)(n % 10ULL);
+    int corresponde = (ultimo == digito) ? 1 : 0;
+
+    printf("Ultimo digito: %d (%s %d)\n", ultimo, corresponde ? "==" : "!=", digito);
+    printf("Chamada recursiva para %llu\n\n", n / 10ULL);
+
+    int parcial = rastrearOcorrencias(n / 10ULL, digito, nivel + 1);
+    int resultado = corresponde + parcial;
+
+    printMensagemColoridaFormatted(GREEN, "Retorno ao nivel %d: %d + %d = %d\n", nivel, corresponde, parcial, resultado);
+
+    return resultado;
 }
 
+void executarQuestaoRecursividade7(void) {
+    executarQuestaoRecursividade7Predefinido();
+}
+
+void executarQuestaoRecursividade7Predefinido(void) {
+    imprimirCabecalho();
+
+    unsigned long long numero = 762021192ULL;
+    int digito = 2;
+
+    printf("Numero: %llu\n", numero);
+    printf("Digito: %d\n\n", digito);
+
+    int resultado;
+    if (numero == 0ULL) {
+        resultado = (digito == 0) ? 1 : 0;
+        printMensagemColoridaFormatted(GREEN, "Numero eh zero. Resultado direto: %d", resultado);
+    } else {
+        resultado = rastrearOcorrencias(numero, digito, 0);
+    }
+
+    printMensagemColoridaFormatted(GREEN, "Total de ocorrencias: %d", resultado);
+
+    pausar();
+}
+
+void executarQuestaoRecursividade7EntradaManual(void) {
+    imprimirCabecalho();
+
+    long long entradaNumero;
+    int digito;
+
+    printf("Digite o numero N (inteiro): ");
+    if (scanf("%lld", &entradaNumero) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+
+    printf("Digite o digito K (0 a 9): ");
+    if (scanf("%d", &digito) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (digito < 0 || digito > 9) {
+        printMensagemColoridaFormatted(RED, "\nO digito deve estar entre 0 e 9.");
+        pausar();
+        return;
+    }
+
+    unsigned long long numero = (entradaNumero < 0) ? (unsigned long long)(-entradaNumero) : (unsigned long long)entradaNumero;
+
+    int resultado;
+    if (numero == 0ULL) {
+        resultado = (digito == 0) ? 1 : 0;
+    } else {
+        resultado = contarOcorrencias(numero, digito);
+    }
+
+    printf("\nNumero analisado: %lld\n", entradaNumero);
+    printf("Digito procurado: %d\n", digito);
+
+    printMensagemColoridaFormatted(GREEN, "Total de ocorrencias: %d", resultado);
+
+    pausar();
+}

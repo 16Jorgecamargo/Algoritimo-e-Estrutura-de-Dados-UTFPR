@@ -1,89 +1,84 @@
 #include <stdio.h>
-#include "../headlers/11.h"
+#include <stdlib.h>
+#include "../index.h"
 #include "../../../shared/headlers/color.h"
 #include "../../../shared/headlers/colorPrint.h"
 #include "../../../shared/headlers/clean.h"
 
+// Questao 11: Imprimir numeros pares de N ate 0 em ordem decrescente
 
-void ocorrenciaParDecrescente(int n) {
-    if (n < 0) return;
-	if (n%2 == 0) printf("%d ", n);
-    ocorrenciaParDecrescente(n - 1);
+static void imprimirCabecalho(void) {
+    limparTela();
+    printMensagemColoridaFormatted(YELLOW, "=== Recursividade - Questao 11 ===");
+    printf("\n");
 }
 
-int mostrarMenuQuestaoRecursividade11(void)
-{
-    int op;
-    do
-    {
-        limparTela();
-        setColor(YELLOW);
-        printf("=== Recursividade ===\n");
-        printf("=== Executando a Questao 11 ===\n\n");
-        resetColor();
-        printf("Escolha uma opcao:\n");
-        printMenuItem(1, "Executar com numero pre definido");
-        printMenuItem(2, "Escolher o numero");
-        printMenuItem(0, "Voltar");
-        setColor(YELLOW);
-        printf("> ");
-
-        if (scanf("%d", &op) != 1)
-        {
-            setColor(RED);
-            printf("Entrada invalida! Digite apenas numeros.\n");
-            resetColor();
-            while (getchar() != '\n')
-                ;
-            printf("Pressione Enter para continuar...");
-            getchar();
-            continue;
-        }
-        resetColor();
-        processarOpcaoQuestaoRecursividade11(op);
-    } while (op != 0);
-    return (op == 0) ? 0 : 1;
-}
-
-void processarOpcaoQuestaoRecursividade11(int op)
-{
-    int n;
-    switch (op)
-    {
-    case 1:
-        printf("Numeros escolhido: 10\n");
-        printf("Numeros pares em ordem decrescente: ");
-        ocorrenciaParDecrescente(10);
-        pausar();
-        break;
-    case 2:
-        setColor(YELLOW);
-        printf("Digite um numero inteiro: ");
-        scanf("%d", &n);
-        resetColor();
-        if (n < 0 || n % 2 != 0) printf("\nO numero deve ser um inteiro par positivo!");
-        else {
-            printf("Numeros pares em ordem decrescente: ");
-            ocorrenciaParDecrescente(n);
-        }
-        pausar();
-        break;
-    case 0:
+static void imprimirParesDecrescente(int atual) {
+    if (atual < 0) {
         return;
-    default:
-        setColor(RED);
-        printf("Opcao invalida! Digite um numero entre 0 e 2.\n");
-        resetColor();
-        printf("Pressione Enter para continuar...");
-        while (getchar() != '\n');
-        getchar();
-        limparTela();
-        break;
     }
+
+    printf("%d ", atual);
+    imprimirParesDecrescente(atual - 2);
 }
 
-void executarQuestaoRecursividade11(void)
-{
-    mostrarMenuQuestaoRecursividade11();
-    ungetc('\n', stdin);
+static void rastrearPares(int atual, int nivel) {
+    printMensagemColoridaFormatted(YELLOW, "Nivel %d -> paresDec(%d)", nivel, atual);
+
+    if (atual < 0) {
+        printMensagemColoridaFormatted(GREEN, "Caso base: atual < 0. Retorna.\n");
+        return;
+    }
+
+    printMensagemColoridaFormatted(CYAN, "Imprime %d e chama paresDec(%d)\n", atual, atual - 2);
+
+    rastrearPares(atual - 2, nivel + 1);
+}
+
+void executarQuestaoRecursividade11(void) {
+    executarQuestaoRecursividade11Predefinido();
+}
+
+void executarQuestaoRecursividade11Predefinido(void) {
+    imprimirCabecalho();
+
+    int limite = 10;
+
+    printMensagemColoridaFormatted(CYAN, "Limite escolhido: %d\n", limite);
+
+    rastrearPares(limite, 0);
+
+    printf("Sequencia resultante: ");
+    imprimirParesDecrescente(limite);
+    printf("\n");
+
+    pausar();
+}
+
+void executarQuestaoRecursividade11EntradaManual(void) {
+    imprimirCabecalho();
+
+    int limite;
+
+    printf("Digite um numero inteiro par e nao negativo: ");
+    if (scanf("%d", &limite) != 1) {
+        limparBufferTeclado();
+        printMensagemColoridaFormatted(RED, "\nEntrada invalida!");
+        pausar();
+        return;
+    }
+    limparBufferTeclado();
+
+    if (limite < 0 || limite % 2 != 0) {
+        printMensagemColoridaFormatted(RED, "\nInforme um valor par e nao negativo.");
+        pausar();
+        return;
+    }
+
+    printMensagemColoridaFormatted(CYAN, "\nPares de %d ate 0:", limite);
+
+    imprimirParesDecrescente(limite);
+    printf("\n");
+
+    pausar();
 }
